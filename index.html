@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veilige Wachtwoord Generator | Bescherm Je Online Identiteit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🔒 SemSecurity</div>
+            <ul>
+                <li><a href="index.html" class="active">Wachtwoord Generator</a></li>
+                <li><a href="username-generator.html">Gebruikersnaam Generator</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="#statistieken">Statistieken</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>Bescherm Je Online Identiteit</h1>
+            <p>In een wereld vol cyberdreigingen is een sterk wachtwoord je eerste verdedigingslinie.</p>
+            <div class="cta-button">
+                <a href="#generator">Genereer Veilig Wachtwoord</a>
+            </div>
+        </section>
+
+        <section id="generator" class="generator-section">
+            <h2>Wachtwoord Generator</h2>
+            <div class="generator-container">
+                <div class="password-display">
+                    <input type="text" id="password-output" readonly>
+                    <button id="copy-button"><i class="fas fa-copy"></i></button>
+                </div>
+                <div class="strength-indicator">
+                    <div class="strength-text">Wachtwoordsterkte: <span id="strength-label">Sterk</span></div>
+                    <div class="strength-bar">
+                        <div class="strength-bar-fill"></div>
+                    </div>
+                </div>
+                <div class="options">
+                    <div class="option-group">
+                        <label>Wachtwoord Lengte:</label>
+                        <input type="range" id="length-slider" min="8" max="32" value="16">
+                        <span id="length-value">16</span>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="uppercase" checked>
+                            Hoofdletters (A-Z)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="lowercase" checked>
+                            Kleine letters (a-z)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="numbers" checked>
+                            Cijfers (0-9)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="symbols" checked>
+                            Speciale tekens (!@#$%^&*)
+                        </label>
+                    </div>
+                </div>
+                <button id="generate-button" class="generate-btn">Genereer Wachtwoord</button>
+            </div>
+        </section>
+
+        <section id="tips" class="tips-section">
+            <h2>Wachtwoord Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Gebruik Lange Wachtwoorden</h3>
+                    <p>Hoe langer het wachtwoord, hoe moeilijker te kraken. Gebruik minimaal 12 tekens.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-random"></i>
+                    <h3>Vermijd Patronen</h3>
+                    <p>Gebruik geen voorspelbare patronen of persoonlijke informatie.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-key"></i>
+                    <h3>Unieke Wachtwoorden</h3>
+                    <p>Gebruik voor elk account een uniek wachtwoord.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>2FA Activeren</h3>
+                    <p>Activeer waar mogelijk tweefactorauthenticatie voor extra beveiliging.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="statistieken" class="stats-section">
+            <h2>Cyberveiligheid in Cijfers</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Data Inbreuken</h3>
+                    <p class="stat-number">+500M</p>
+                    <p>per jaar wereldwijd</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Zwakke Wachtwoorden</h3>
+                    <p class="stat-number">81%</p>
+                    <p>van alle datalekken</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Kraaktijd</h3>
+                    <p class="stat-number">2 min</p>
+                    <p>voor een zwak wachtwoord</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SemSecurity</h3>
+                <p>Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="index.html">Wachtwoord Generator</a></li>
+                    <li><a href="username-generator.html">Gebruikersnaam Generator</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="#statistieken">Statistieken</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

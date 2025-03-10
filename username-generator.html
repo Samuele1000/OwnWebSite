@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruikersnaam Generator | SemSecurity</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🔒 SemSecurity</div>
+            <ul>
+                <li><a href="index.html">Wachtwoord Generator</a></li>
+                <li><a href="username-generator.html" class="active">Gebruikersnaam Generator</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="#statistieken">Statistieken</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>Genereer Unieke Gebruikersnamen</h1>
+            <p>Maak professionele en unieke gebruikersnamen voor al je online accounts.</p>
+            <div class="cta-button">
+                <a href="#generator">Genereer Gebruikersnaam</a>
+            </div>
+        </section>
+
+        <section id="generator" class="generator-section">
+            <h2>Gebruikersnaam Generator</h2>
+            <div class="generator-container">
+                <div class="username-display">
+                    <input type="text" id="username-output" readonly>
+                    <button id="copy-button"><i class="fas fa-copy"></i></button>
+                </div>
+                <div class="options">
+                    <div class="option-group">
+                        <label>Gebruikersnaam Lengte:</label>
+                        <input type="range" id="length-slider" min="6" max="20" value="12">
+                        <span id="length-value">12</span>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="numbers" checked>
+                            Cijfers (0-9)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="underscore" checked>
+                            Onderstreping (_)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="uppercase" checked>
+                            Hoofdletters (A-Z)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="lowercase" checked>
+                            Kleine letters (a-z)
+                        </label>
+                    </div>
+                </div>
+                <button id="generate-button" class="generate-btn">Genereer Gebruikersnaam</button>
+            </div>
+        </section>
+
+        <section id="tips" class="tips-section">
+            <h2>Kenmerken van een Sterke Gebruikersnaam</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <i class="fas fa-random"></i>
+                    <h3>Willekeurig</h3>
+                    <p>Neem geen persoonlijke gegevens op die aan u kunnen worden gekoppeld, zoals uw naam of burgerservicenummer. Vermijd het gebruik van uw adres, geboortedatum en andere gemakkelijk te raden nummers.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Eenvoudig maar Complex</h3>
+                    <p>Kies een gebruikersnaam die u gemakkelijk kunt onthouden, maar die lastig te raden is voor anderen. Vermijd voorspelbare patronen zoals FirstNameLastName.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Uniek per Account</h3>
+                    <p>Hoe vaker u uw gebruikersnaam hergebruikt, hoe makkelijker het voor hackers wordt om deze op meerdere accounts te misbruiken. Een sterke gebruikersnaam moet uniek zijn voor elk account.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Extra Beveiliging</h3>
+                    <p>Combineer uw unieke gebruikersnaam met een sterk wachtwoord en activeer waar mogelijk tweefactorauthenticatie voor maximale beveiliging.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="statistieken" class="stats-section">
+            <h2>Online Identiteit in Cijfers</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Online Accounts</h3>
+                    <p class="stat-number">150+</p>
+                    <p>per persoon gemiddeld</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Identiteitsdiefstal</h3>
+                    <p class="stat-number">33%</p>
+                    <p>van alle cybercriminaliteit</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Privacy Risico's</h3>
+                    <p class="stat-number">85%</p>
+                    <p>van gebruikersnamen bevat persoonlijke info</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SemSecurity</h3>
+                <p>Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="index.html">Wachtwoord Generator</a></li>
+                    <li><a href="username-generator.html">Gebruikersnaam Generator</a></li>
+                    <li><a href="tips.html">Tips</a></li>
+                    <li><a href="#statistieken">Statistieken</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <script src="username-generator.js"></script>
+</body>
+</html> 
