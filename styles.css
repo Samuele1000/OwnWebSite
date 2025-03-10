@@ -1033,14 +1033,4 @@ section h2::after {
     }
 }
 
-/* Google VPN blokkerende overlay */
-#vpn-block-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    z-index: 999;
-    backdrop-filter: blur(5px);
-} 
+/* Verwijder de Google VPN blokkerende overlay stijlen */

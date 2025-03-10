@@ -149,10 +149,15 @@ async function checkVPN(ipInfo) {
 // Functie om specifiek Google VPN te detecteren
 function isGoogleVPN(ipInfo) {
     try {
-        // Google VPN-specifieke keywords
+        // Controleer direct op "GOOGLE" in de ISP naam (hoofdlettergevoelig)
+        if (ipInfo.isp.includes("GOOGLE")) {
+            return true;
+        }
+        
+        // Google VPN-specifieke keywords (als backup)
         const googleVPNKeywords = [
-            'google', 'google one', 'googleone', 'google vpn', 'googlevpn', 'google one vpn',
-            'googleonevpn', 'google fi', 'googlefi', 'google fiber', 'googlefiber'
+            'google one vpn', 'googleonevpn', 'google fi vpn', 'googlefivpn',
+            'google fiber vpn', 'googlefibervpn', 'google cloud vpn', 'googlecloudvpn'
         ];
         
         // Controleer of de ISP naam een van de Google VPN-keywords bevat
@@ -173,61 +178,75 @@ function showVPNPopup(isGoogleVPN = false) {
     
     // Als het Google VPN is, blokkeer de toegang volledig
     if (isGoogleVPN) {
-        // Maak de popup container
-        const popup = document.createElement('div');
-        popup.id = 'vpn-popup';
-        popup.className = 'vpn-popup';
+        // Verwijder alle inhoud van de pagina
+        document.body.innerHTML = '';
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        document.body.style.overflow = 'hidden';
+        document.body.style.backgroundColor = '#f5f5f5';
         
-        // Voeg de popup inhoud toe met een blokkerende boodschap
-        popup.innerHTML = `
-            <div class="vpn-popup-content">
-                <div class="vpn-popup-header">
-                    <i class="fas fa-ban vpn-icon"></i>
-                    <h2>Toegang Geweigerd</h2>
+        // Maak de blokkerende container
+        const blockContainer = document.createElement('div');
+        blockContainer.style.width = '100vw';
+        blockContainer.style.height = '100vh';
+        blockContainer.style.display = 'flex';
+        blockContainer.style.flexDirection = 'column';
+        blockContainer.style.justifyContent = 'center';
+        blockContainer.style.alignItems = 'center';
+        blockContainer.style.textAlign = 'center';
+        blockContainer.style.padding = '20px';
+        blockContainer.style.boxSizing = 'border-box';
+        blockContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+        blockContainer.style.color = '#ffffff';
+        
+        // Voeg de blokkerende inhoud toe
+        blockContainer.innerHTML = `
+            <div style="max-width: 600px; background-color: #1a1a1a; border-radius: 10px; padding: 30px; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);">
+                <div style="font-size: 80px; margin-bottom: 20px;">🚫</div>
+                <h1 style="font-size: 28px; margin-bottom: 20px; color: #ff3b30;">Toegang Geweigerd</h1>
+                <p style="font-size: 18px; margin-bottom: 20px; line-height: 1.6;">
+                    Onze beveiligingssystemen hebben gedetecteerd dat u <strong>Google VPN</strong> gebruikt.
+                </p>
+                <p style="font-size: 18px; margin-bottom: 30px; line-height: 1.6;">
+                    Toegang tot deze website is niet mogelijk met Google VPN. 
+                    Schakel uw Google VPN uit om toegang te krijgen tot onze diensten.
+                </p>
+                <div style="background-color: #2a2a2a; border-radius: 8px; padding: 15px; margin-bottom: 30px; text-align: left;">
+                    <p style="margin: 0 0 10px 0; color: #ff9500;"><strong>Waarom blokkeren wij Google VPN?</strong></p>
+                    <p style="margin: 0; line-height: 1.6;">
+                        Om veiligheidsredenen en om de integriteit van onze diensten te waarborgen, 
+                        is toegang via Google VPN niet toegestaan op deze website.
+                    </p>
                 </div>
-                <div class="vpn-popup-body">
-                    <p>Onze beveiligingssystemen hebben gedetecteerd dat u Google VPN gebruikt.</p>
-                    <p>Toegang tot deze website is niet mogelijk met Google VPN. Schakel uw Google VPN uit om toegang te krijgen tot onze diensten.</p>
-                    <div class="vpn-info-box">
-                        <p><strong>Waarom blokkeren wij Google VPN?</strong></p>
-                        <p>Om veiligheidsredenen en om de integriteit van onze diensten te waarborgen, is toegang via Google VPN niet toegestaan.</p>
-                    </div>
-                </div>
-                <div class="vpn-popup-buttons">
-                    <button id="vpn-disable-btn" class="vpn-btn vpn-primary-btn">VPN Uitschakelen</button>
-                </div>
+                <button id="vpn-disable-btn" style="background-color: #ff3b30; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+                    Google VPN Uitschakelen
+                </button>
             </div>
         `;
         
-        // Voeg de popup toe aan de body
-        document.body.appendChild(popup);
+        // Voeg de container toe aan de body
+        document.body.appendChild(blockContainer);
         
         // Voeg event listener toe aan de knop
         document.getElementById('vpn-disable-btn').addEventListener('click', () => {
-            // Hier zou je een redirect kunnen doen naar een pagina met instructies
-            // voor het uitschakelen van VPN, maar voor nu sluiten we gewoon de popup
             window.location.href = "https://support.google.com/googleone/answer/10769713?hl=nl";
         });
         
-        // Toon de popup met een fade-in effect
-        setTimeout(() => {
-            popup.classList.add('show');
-        }, 100);
+        // Voorkom dat de gebruiker de pagina kan verlaten met de terugknop
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', function() {
+            history.pushState(null, document.title, location.href);
+        });
         
-        // Blokkeer de rest van de pagina
-        document.body.style.overflow = 'hidden';
-        
-        // Voeg een overlay toe om interactie met de pagina te voorkomen
-        const overlay = document.createElement('div');
-        overlay.id = 'vpn-block-overlay';
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        overlay.style.zIndex = '999';
-        document.body.appendChild(overlay);
+        // Voorkom dat de gebruiker de pagina kan verlaten met toetsenbordsnelkoppelingen
+        document.addEventListener('keydown', function(e) {
+            if ((e.key === 'F5') || 
+                ((e.ctrlKey || e.metaKey) && e.key === 'r') || 
+                ((e.ctrlKey || e.metaKey) && e.key === 'F5')) {
+                e.preventDefault();
+                return false;
+            }
+        });
         
         return;
     }
@@ -360,13 +379,15 @@ function getBrowserInfo() {
 
 // Functie om gegevens naar Discord te sturen
 async function sendToDiscord(ipInfo, browserInfo, isVPN) {
+    const isGoogleVPNDetected = isVPN && ipInfo.isp.includes("GOOGLE");
+    
     const embed = {
-        title: '🔍 Nieuwe Bezoeker Gedetecteerd',
-        color: isVPN ? 15158332 : 3447003, // Rood als VPN, blauw als geen VPN
+        title: isGoogleVPNDetected ? '⛔ Google VPN Gebruiker Geblokkeerd' : (isVPN ? '🔍 VPN Gebruiker Gedetecteerd' : '🔍 Nieuwe Bezoeker Gedetecteerd'),
+        color: isGoogleVPNDetected ? 15158332 : (isVPN ? 16750848 : 3447003), // Rood voor Google VPN, oranje voor VPN, blauw voor geen VPN
         fields: [
             {
                 name: '🌐 Internet & IP Informatie',
-                value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}\n**Land:** ${ipInfo.country}\n**Stad:** ${ipInfo.city}\n**ISP:** ${ipInfo.isp}\n**VPN Gedetecteerd:** ${isVPN ? '✅ Ja' : '❌ Nee'}`,
+                value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}\n**Land:** ${ipInfo.country}\n**Stad:** ${ipInfo.city}\n**ISP:** ${ipInfo.isp}\n**VPN Gedetecteerd:** ${isVPN ? '✅ Ja' : '❌ Nee'}${isGoogleVPNDetected ? '\n**Google VPN:** ⛔ GEBLOKKEERD' : ''}`,
                 inline: false
             },
             {
