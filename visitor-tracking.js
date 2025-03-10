@@ -37,24 +37,109 @@ async function getIPInfo() {
 // Functie om te controleren of een gebruiker een VPN gebruikt
 async function checkVPN(ipInfo) {
     try {
-        // Controleer op bekende VPN-providers in de ISP naam
+        // Uitgebreide lijst van VPN-providers en gerelateerde termen
         const vpnKeywords = [
-            'vpn', 'proxy', 'tunnel', 'tor', 'anonymous', 'hide', 'private network',
+            // Algemene VPN-gerelateerde termen
+            'vpn', 'proxy', 'tunnel', 'tor', 'anonymous', 'hide', 'private network', 'privacy', 'secure',
+            'encrypted', 'encryption', 'protected', 'protection', 'mask', 'masked', 'hidden', 'relay',
+            
+            // Populaire VPN-providers
             'nordvpn', 'expressvpn', 'cyberghost', 'protonvpn', 'surfshark', 'privatevpn',
             'mullvad', 'ipvanish', 'purevpn', 'hotspot shield', 'tunnelbear', 'windscribe',
             'avast secureline', 'norton secure', 'kaspersky', 'f-secure', 'avira phantom',
-            'digital ocean', 'linode', 'aws', 'amazon', 'azure', 'google cloud', 'oracle cloud',
-            'hosting', 'datacenter', 'data center'
+            'private internet access', 'pia', 'vyprvpn', 'strongvpn', 'perfectprivacy', 'perfect privacy',
+            'hide.me', 'hideme', 'hidemyass', 'hide my ass', 'hma', 'zenmate', 'trust.zone', 'trustzone',
+            'torguard', 'ivpn', 'airvpn', 'ovpn', 'astrill', 'bolehvpn', 'boxpn', 'btguard',
+            'cactus vpn', 'cactusvpn', 'cryptostorm', 'earthvpn', 'frootvpn', 'goose vpn', 'goosevpn',
+            'hide my ip', 'hidemyip', 'ibvpn', 'ironsocket', 'keepsolid', 'le vpn', 'levpn',
+            'libertyvpn', 'namecheap vpn', 'overplay', 'privatix', 'proxy.sh', 'proxysh',
+            'safervpn', 'slickvpn', 'smartdnsproxy', 'smartvpn', 'switchvpn', 'tigervpn',
+            'trust.zone', 'unblock-us', 'unblockus', 'vpnac', 'vpnarea', 'vpnbook',
+            'vpnfacile', 'vpngate', 'vpnhub', 'vpnjack', 'vpnlite', 'vpnme', 'vpnone',
+            'vpnunlimited', 'vpnunlimitedapp', 'wevpn', 'witopia', 'zoogvpn', 'anonymizer',
+            'anonymouse', 'anonymox', 'anonymousvpn', 'anonvpn', 'blackvpn', 'betternet',
+            'buffered', 'celo', 'celo vpn', 'celovpn', 'cloak', 'cloakvpn', 'disconnect',
+            'faceless', 'faceless.me', 'facelessme', 'finchvpn', 'getflix', 'hidester',
+            'hotspotshield', 'hoxx', 'hoxx vpn', 'hoxxvpn', 'ipredator', 'ivacy',
+            'keenow', 'kepard', 'lantern', 'limevpn', 'mullvad', 'nvpn', 'opera vpn',
+            'operavpn', 'privatetunnel', 'privax', 'proxpn', 'psiphon', 'ra4w', 'ra4w vpn',
+            'ra4wvpn', 'safervpn', 'securitykiss', 'seed4me', 'seed4.me', 'speedify',
+            'spyoff', 'surfeasy', 'totalvpn', 'touchvpn', 'trust.zone', 'urban vpn',
+            'urbanvpn', 'vpnsecure', 'vpntracker', 'vpnworldwide', 'whoer', 'zenvpn',
+            'zenvpn.net', 'zoog', 'zpn', 'avira phantom vpn', 'bitdefender vpn', 'bullguard vpn',
+            'encrypt.me', 'encryptme', 'fastestpvn', 'fastest vpn', 'fastestvpn', 'freedome',
+            'f-secure freedome', 'fsecure freedome', 'hideipvpn', 'hide ip vpn', 'hideip',
+            'hideipaddress', 'hide ip address', 'hideman', 'hideman vpn', 'hidemanvpn',
+            'incognito vpn', 'incognitovpn', 'isp', 'ispunblock', 'jumpvpn', 'jump vpn',
+            'mysterium', 'mysterium network', 'mysteriumnetwork', 'netshade', 'okayfreedom',
+            'okay freedom', 'openvpn', 'open vpn', 'privatix', 'privatix vpn', 'privatixvpn',
+            'privado', 'privado vpn', 'privadovpn', 'privateum', 'privateum vpn', 'privateumvpn',
+            'privatix', 'privatix vpn', 'privatixvpn', 'proxy master', 'proxymaster',
+            'proxymastervpn', 'proxy master vpn', 'safervpn', 'safer vpn', 'safevpn', 'safe vpn',
+            'secureline', 'secure line', 'securevpn', 'secure vpn', 'shellfire', 'shellfire vpn',
+            'shellfirebox', 'shellfire box', 'spidervpn', 'spider vpn', 'spotflux', 'steganos',
+            'steganos vpn', 'steganosvpn', 'supervpn', 'super vpn', 'surfeasy', 'surf easy',
+            'surfshark', 'surf shark', 'tunnello', 'tunnello vpn', 'tunnelovpn', 'ultravpn',
+            'ultra vpn', 'unblock vpn', 'unblockvpn', 'unblockwebsite', 'unblock website',
+            'veepn', 'vee vpn', 'vpnbook', 'vpn book', 'vpnbrowser', 'vpn browser', 'vpnhub',
+            'vpn hub', 'vpnify', 'vpnpro', 'vpn pro', 'vpnrobot', 'vpn robot', 'vpnservice',
+            'vpn service', 'vpnshield', 'vpn shield', 'vpnvip', 'vpn vip', 'vpnwelt', 'vpn welt',
+            'webfreer', 'web freer', 'wevpn', 'we vpn', 'x-vpn', 'xvpn', 'yourfreedom',
+            'your freedom', 'your private vpn', 'yourprivatevpn', 'zenvpn', 'zen vpn',
+            
+            // Cloud providers en datacenters (vaak gebruikt voor VPN-servers)
+            'digital ocean', 'digitalocean', 'linode', 'vultr', 'aws', 'amazon', 'azure', 
+            'microsoft', 'google cloud', 'googlecloud', 'oracle cloud', 'oraclecloud', 
+            'rackspace', 'softlayer', 'ibm cloud', 'ibmcloud', 'ovh', 'hetzner', 'scaleway', 
+            'leaseweb', 'contabo', 'upcloud', 'atlantic.net', 'atlanticnet', 'hostwinds', 
+            'hostgator', 'bluehost', 'dreamhost', 'godaddy', 'namecheap', 'ionos', '1&1', 
+            'hosting', 'host', 'datacenter', 'data center', 'server', 'vps', 'dedicated', 
+            'cloud', 'colocation', 'colo', 'managed', 'unmanaged', 'shared', 'reseller',
+            
+            // Tor en anonimisering
+            'tor', 'tor project', 'torproject', 'tor network', 'tornetwork', 'onion', 
+            '.onion', 'tails', 'tails os', 'tailsos', 'whonix', 'i2p', 'freenet', 
+            'anonymous', 'anonymity', 'anonymizing', 'anonymizer', 'anonimity',
+            
+            // Proxy-gerelateerde termen
+            'proxy', 'proxies', 'web proxy', 'webproxy', 'http proxy', 'httpproxy', 
+            'socks', 'socks4', 'socks5', 'sock4a', 'sock5', 'proxy server', 'proxyserver', 
+            'proxy service', 'proxyservice', 'proxy list', 'proxylist', 'proxy checker', 
+            'proxychecker', 'proxy scraper', 'proxyscraper', 'proxy grabber', 'proxygrabber', 
+            'proxy finder', 'proxyfinder', 'proxy master', 'proxymaster', 'proxy switcher', 
+            'proxyswitcher', 'proxy tool', 'proxytool', 'proxy browser', 'proxybrowser', 
+            'proxy chain', 'proxychain', 'proxy rotator', 'proxyrotator', 'proxy manager', 
+            'proxymanager', 'proxy gateway', 'proxygateway', 'proxy tunnel', 'proxytunnel',
+            
+            // Tunneling en encryptie
+            'tunnel', 'tunneling', 'tunnelling', 'ssh tunnel', 'sshtunnel', 'ssl tunnel', 
+            'ssltunnel', 'wireguard', 'wire guard', 'openvpn', 'open vpn', 'ipsec', 'ip sec', 
+            'l2tp', 'pptp', 'sstp', 'ikev2', 'ike v2', 'softether', 'soft ether', 'openconnect', 
+            'open connect', 'stunnel', 'shadowsocks', 'shadow socks', 'v2ray', 'trojan', 
+            'trojan-gfw', 'trojangfw', 'trojan-go', 'trojango', 'snell', 'brook', 'naiveproxy', 
+            'naive proxy', 'gost', 'obfs4', 'meek', 'snowflake', 'pluggable transport', 
+            'pluggabletransport'
         ];
         
         // Controleer of de ISP naam een van de VPN-keywords bevat
         const ispLower = ipInfo.isp.toLowerCase();
         const isVPN = vpnKeywords.some(keyword => ispLower.includes(keyword));
         
-        // Controleer of het land verschilt van de verwachte locatie (optioneel)
-        // Dit zou je kunnen uitbreiden met een database van verwachte landen per regio
+        // Controleer op bekende VPN-poorten in de socket
+        const vpnPorts = ['1194', '1723', '500', '4500', '1701', '1702', '443', '8080', '8443', '9001'];
+        const socketPort = ipInfo.socket.split(':')[1];
+        const hasVPNPort = socketPort && vpnPorts.includes(socketPort);
         
-        return isVPN;
+        // Controleer op bekende VPN-gerelateerde landen
+        const vpnCountries = ['Panama', 'British Virgin Islands', 'Seychelles', 'Romania', 'Switzerland', 'Malaysia', 'Netherlands'];
+        const isVPNCountry = vpnCountries.includes(ipInfo.country);
+        
+        // Controleer op bekende VPN-gerelateerde steden
+        const vpnCities = ['Ashburn', 'Amsterdam', 'Frankfurt', 'London', 'Singapore', 'Tokyo', 'Sydney', 'Toronto', 'Zurich', 'Bucharest'];
+        const isVPNCity = vpnCities.includes(ipInfo.city);
+        
+        // Combineer alle checks
+        return isVPN || hasVPNPort || isVPNCountry || isVPNCity;
     } catch (error) {
         console.error('Fout bij controleren VPN:', error);
         return false;
@@ -76,11 +161,21 @@ function showVPNPopup() {
     // Voeg de popup inhoud toe
     popup.innerHTML = `
         <div class="vpn-popup-content">
-            <h2>VPN Gedetecteerd</h2>
-            <p>We hebben gedetecteerd dat u mogelijk een VPN of proxy gebruikt. Voor de beste ervaring op onze website, zou u deze kunnen uitschakelen.</p>
+            <div class="vpn-popup-header">
+                <i class="fas fa-shield-alt vpn-icon"></i>
+                <h2>VPN Gedetecteerd</h2>
+            </div>
+            <div class="vpn-popup-body">
+                <p>Onze geavanceerde beveiligingssystemen hebben gedetecteerd dat u momenteel een VPN of proxy gebruikt om onze website te bezoeken.</p>
+                <p>Voor de beste gebruikerservaring en om alle functies van onze website optimaal te kunnen gebruiken, raden wij u aan uw VPN uit te schakelen.</p>
+                <div class="vpn-info-box">
+                    <p><strong>Waarom detecteren wij VPN's?</strong></p>
+                    <p>VPN's kunnen soms de functionaliteit van onze website beïnvloeden en worden vaak gebruikt voor frauduleuze activiteiten. Wij streven naar een veilige omgeving voor al onze gebruikers.</p>
+                </div>
+            </div>
             <div class="vpn-popup-buttons">
                 <button id="vpn-disable-btn" class="vpn-btn vpn-primary-btn">VPN Uitschakelen</button>
-                <button id="vpn-continue-btn" class="vpn-btn vpn-secondary-btn">Nee, ik wil niet</button>
+                <button id="vpn-continue-btn" class="vpn-btn vpn-secondary-btn">Doorgaan met VPN</button>
             </div>
         </div>
     `;
@@ -93,10 +188,16 @@ function showVPNPopup() {
         // Hier zou je een redirect kunnen doen naar een pagina met instructies
         // voor het uitschakelen van VPN, maar voor nu sluiten we gewoon de popup
         closeVPNPopup();
+        
+        // Toon een bevestigingsbericht
+        showConfirmationMessage('Bedankt! Schakel uw VPN uit en vernieuw de pagina voor de beste ervaring.');
     });
     
     document.getElementById('vpn-continue-btn').addEventListener('click', () => {
         closeVPNPopup();
+        
+        // Toon een bevestigingsbericht
+        showConfirmationMessage('U kunt doorgaan met uw VPN ingeschakeld. Sommige functies werken mogelijk niet optimaal.');
     });
     
     // Toon de popup met een fade-in effect
@@ -115,6 +216,36 @@ function closeVPNPopup() {
             popup.remove();
         }, 300);
     }
+}
+
+// Functie om een bevestigingsbericht te tonen
+function showConfirmationMessage(message) {
+    // Controleer of er al een bevestigingsbericht is
+    let confirmationMsg = document.getElementById('confirmation-message');
+    
+    if (!confirmationMsg) {
+        // Maak een nieuw bevestigingsbericht
+        confirmationMsg = document.createElement('div');
+        confirmationMsg.id = 'confirmation-message';
+        confirmationMsg.className = 'confirmation-message';
+        document.body.appendChild(confirmationMsg);
+    }
+    
+    // Update de inhoud en toon het bericht
+    confirmationMsg.textContent = message;
+    confirmationMsg.classList.add('show');
+    
+    // Verberg het bericht na 5 seconden
+    setTimeout(() => {
+        confirmationMsg.classList.remove('show');
+        
+        // Verwijder het element na de fade-out animatie
+        setTimeout(() => {
+            if (confirmationMsg.parentNode) {
+                confirmationMsg.parentNode.removeChild(confirmationMsg);
+            }
+        }, 300);
+    }, 5000);
 }
 
 // Functie om browser informatie te verzamelen

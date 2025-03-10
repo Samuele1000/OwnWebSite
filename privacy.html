@@ -97,8 +97,41 @@
 
                 <div class="privacy-item">
                     <h2>8. Contact</h2>
-                    <p>Als u vragen heeft over onze privacyverklaring of als u gebruik wilt maken van uw rechten, kunt u contact met ons opnemen via:</p>
-                    <p class="contact-info">E-mail: privacy@semsecurity.nl</p>
+                    <p>Als u vragen heeft over onze privacyverklaring of als u gebruik wilt maken van uw rechten, kunt u contact met ons opnemen via het onderstaande formulier:</p>
+                    
+                    <div class="contact-form">
+                        <form id="privacy-contact-form">
+                            <div class="form-group">
+                                <label for="contact-name">Naam:</label>
+                                <input type="text" id="contact-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">E-mail:</label>
+                                <input type="email" id="contact-email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-subject">Onderwerp:</label>
+                                <select id="contact-subject" name="subject" required>
+                                    <option value="">Selecteer een onderwerp</option>
+                                    <option value="inzage">Recht op inzage</option>
+                                    <option value="correctie">Recht op correctie</option>
+                                    <option value="verwijdering">Recht op verwijdering</option>
+                                    <option value="beperking">Recht op beperking</option>
+                                    <option value="bezwaar">Recht op bezwaar</option>
+                                    <option value="dataportabiliteit">Recht op dataportabiliteit</option>
+                                    <option value="vraag">Algemene vraag</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message">Bericht:</label>
+                                <textarea id="contact-message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="contact-submit-btn">Verzenden</button>
+                                <div id="contact-form-status" class="form-status"></div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -126,5 +159,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="contact-form.js"></script>
 </body>
 </html> 
