@@ -1,0 +1,72 @@
+{
+    "title": "Veilige Wachtwoord Generator | Bescherm Je Online Identiteit",
+    "nav": {
+        "passwordGenerator": "Wachtwoord Generator",
+        "usernameGenerator": "Gebruikersnaam Generator",
+        "tips": "Tips",
+        "statistics": "Statistieken"
+    },
+    "hero": {
+        "title": "Bescherm Je Online Identiteit",
+        "subtitle": "In een wereld vol cyberdreigingen is een sterk wachtwoord je eerste verdedigingslinie",
+        "cta": "Genereer Veilig Wachtwoord"
+    },
+    "generator": {
+        "title": "Wachtwoord Generator",
+        "strengthText": "Wachtwoordsterkte:",
+        "copyButton": "Kopiëren",
+        "options": {
+            "length": "Wachtwoord Lengte:",
+            "uppercase": "Hoofdletters (A-Z)",
+            "lowercase": "Kleine letters (a-z)",
+            "numbers": "Cijfers (0-9)",
+            "symbols": "Speciale tekens (!@#$%^&*)"
+        },
+        "generateButton": "Genereer Wachtwoord"
+    },
+    "tips": {
+        "title": "Wachtwoord Tips",
+        "cards": {
+            "length": {
+                "title": "Gebruik Lange Wachtwoorden",
+                "text": "Hoe langer het wachtwoord, hoe moeilijker te kraken. Gebruik minimaal 12 tekens."
+            },
+            "patterns": {
+                "title": "Vermijd Patronen",
+                "text": "Gebruik geen voorspelbare patronen of persoonlijke informatie."
+            },
+            "unique": {
+                "title": "Unieke Wachtwoorden",
+                "text": "Gebruik voor elk account een uniek wachtwoord."
+            },
+            "2fa": {
+                "title": "2FA Activeren",
+                "text": "Activeer waar mogelijk tweefactorauthenticatie voor extra beveiliging."
+            }
+        }
+    },
+    "statistics": {
+        "title": "Cyberveiligheid in Cijfers",
+        "cards": {
+            "breaches": {
+                "title": "Data Inbreuken",
+                "number": "+500M",
+                "text": "per jaar wereldwijd"
+            },
+            "weakPasswords": {
+                "title": "Zwakke Wachtwoorden",
+                "number": "81%",
+                "text": "van alle datalekken"
+            },
+            "crackTime": {
+                "title": "Kraaktijd",
+                "number": "2 min",
+                "text": "voor een zwak wachtwoord"
+            }
+        }
+    },
+    "footer": {
+        "description": "Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.",
+        "copyright": "© 2025 SemSecurity. Alle rechten voorbehouden."
+    }
+} 

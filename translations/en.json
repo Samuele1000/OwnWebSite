@@ -1,0 +1,72 @@
+{
+    "title": "Secure Password Generator | Protect Your Online Identity",
+    "nav": {
+        "passwordGenerator": "Password Generator",
+        "usernameGenerator": "Username Generator",
+        "tips": "Tips",
+        "statistics": "Statistics"
+    },
+    "hero": {
+        "title": "Protect Your Online Identity",
+        "subtitle": "In a world full of cyber threats, a strong password is your first line of defense",
+        "cta": "Generate Secure Password"
+    },
+    "generator": {
+        "title": "Password Generator",
+        "strengthText": "Password Strength:",
+        "copyButton": "Copy",
+        "options": {
+            "length": "Password Length:",
+            "uppercase": "Uppercase Letters (A-Z)",
+            "lowercase": "Lowercase Letters (a-z)",
+            "numbers": "Numbers (0-9)",
+            "symbols": "Special Characters (!@#$%^&*)"
+        },
+        "generateButton": "Generate Password"
+    },
+    "tips": {
+        "title": "Password Tips",
+        "cards": {
+            "length": {
+                "title": "Use Long Passwords",
+                "text": "The longer the password, the harder to crack. Use at least 12 characters."
+            },
+            "patterns": {
+                "title": "Avoid Patterns",
+                "text": "Don't use predictable patterns or personal information."
+            },
+            "unique": {
+                "title": "Unique Passwords",
+                "text": "Use a unique password for each account."
+            },
+            "2fa": {
+                "title": "Enable 2FA",
+                "text": "Enable two-factor authentication wherever possible for extra security."
+            }
+        }
+    },
+    "statistics": {
+        "title": "Cybersecurity in Numbers",
+        "cards": {
+            "breaches": {
+                "title": "Data Breaches",
+                "number": "+500M",
+                "text": "per year worldwide"
+            },
+            "weakPasswords": {
+                "title": "Weak Passwords",
+                "number": "81%",
+                "text": "of all data breaches"
+            },
+            "crackTime": {
+                "title": "Crack Time",
+                "number": "2 min",
+                "text": "for a weak password"
+            }
+        }
+    },
+    "footer": {
+        "description": "Protect your online identity with strong passwords and unique usernames.",
+        "copyright": "© 2025 SemSecurity. All rights reserved."
+    }
+} 

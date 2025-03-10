@@ -1,0 +1,72 @@
+{
+    "title": "Generatore di Password Sicure | Proteggi la Tua Identità Online",
+    "nav": {
+        "passwordGenerator": "Generatore Password",
+        "usernameGenerator": "Generatore Username",
+        "tips": "Consigli",
+        "statistics": "Statistiche"
+    },
+    "hero": {
+        "title": "Proteggi la Tua Identità Online",
+        "subtitle": "In un mondo pieno di minacce informatiche, una password forte è la tua prima linea di difesa",
+        "cta": "Genera Password Sicura"
+    },
+    "generator": {
+        "title": "Generatore di Password",
+        "strengthText": "Forza della Password:",
+        "copyButton": "Copia",
+        "options": {
+            "length": "Lunghezza Password:",
+            "uppercase": "Lettere Maiuscole (A-Z)",
+            "lowercase": "Lettere Minuscole (a-z)",
+            "numbers": "Numeri (0-9)",
+            "symbols": "Caratteri Speciali (!@#$%^&*)"
+        },
+        "generateButton": "Genera Password"
+    },
+    "tips": {
+        "title": "Consigli per la Password",
+        "cards": {
+            "length": {
+                "title": "Usa Password Lunghe",
+                "text": "Più lunga è la password, più difficile è da violare. Usa almeno 12 caratteri."
+            },
+            "patterns": {
+                "title": "Evita gli Schemi",
+                "text": "Non usare schemi prevedibili o informazioni personali."
+            },
+            "unique": {
+                "title": "Password Uniche",
+                "text": "Usa una password diversa per ogni account."
+            },
+            "2fa": {
+                "title": "Attiva 2FA",
+                "text": "Attiva l'autenticazione a due fattori dove possibile per maggiore sicurezza."
+            }
+        }
+    },
+    "statistics": {
+        "title": "Cybersicurezza in Numeri",
+        "cards": {
+            "breaches": {
+                "title": "Violazioni Dati",
+                "number": "+500M",
+                "text": "all'anno nel mondo"
+            },
+            "weakPasswords": {
+                "title": "Password Deboli",
+                "number": "81%",
+                "text": "di tutte le violazioni"
+            },
+            "crackTime": {
+                "title": "Tempo di Violazione",
+                "number": "2 min",
+                "text": "per una password debole"
+            }
+        }
+    },
+    "footer": {
+        "description": "Proteggi la tua identità online con password forti e nomi utente unici.",
+        "copyright": "© 2025 SemSecurity. Tutti i diritti riservati."
+    }
+} 

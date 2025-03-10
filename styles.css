@@ -564,4 +564,53 @@ section h2::after {
 .generator-section, .tips-section, .stats-section {
     padding: 5rem 2rem;
     margin: 0 auto;
+}
+
+/* Taal selector styling */
+.language-selector {
+    margin-left: 20px;
+}
+
+.language-selector select {
+    padding: 5px 10px;
+    border: 2px solid #2ecc71;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-selector select:hover {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.language-selector select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.3);
+}
+
+.language-selector select option {
+    background-color: white;
+    color: #333;
+}
+
+/* Dark mode aanpassingen voor de taal selector */
+@media (prefers-color-scheme: dark) {
+    .language-selector select {
+        color: #fff;
+        border-color: #2ecc71;
+        background-color: transparent;
+    }
+    
+    .language-selector select:hover {
+        background-color: #2ecc71;
+    }
+    
+    .language-selector select option {
+        background-color: #2c3e50;
+        color: #fff;
+    }
 } 

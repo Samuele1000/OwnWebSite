@@ -1,3 +1,66 @@
+// Taal gerelateerde variabelen
+let currentLanguage = 'nl';
+let translations = {};
+
+// Laad vertalingen
+async function loadTranslations(lang) {
+    try {
+        const response = await fetch(`translations/${lang}.json`);
+        translations = await response.json();
+        return translations;
+    } catch (error) {
+        console.error('Error loading translations:', error);
+        return null;
+    }
+}
+
+// Update alle tekst elementen met vertalingen
+function updatePageText() {
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const keys = element.getAttribute('data-i18n').split('.');
+        let value = translations;
+        for (const key of keys) {
+            value = value[key];
+        }
+        if (value) {
+            if (element.tagName === 'INPUT' && element.type === 'text') {
+                element.placeholder = value;
+            } else {
+                element.textContent = value;
+            }
+        }
+    });
+
+    // Update de title van de pagina
+    document.title = translations.title;
+
+    // Update specifieke elementen die geen data-i18n attribuut hebben
+    if (strengthLabel) {
+        const currentStrength = strengthLabel.textContent.toLowerCase();
+        if (currentStrength === 'sterk' || currentStrength === 'strong' || currentStrength === 'forte') {
+            strengthLabel.textContent = translations.generator.strength.strong;
+        } else if (currentStrength === 'gemiddeld' || currentStrength === 'medium' || currentStrength === 'medio') {
+            strengthLabel.textContent = translations.generator.strength.medium;
+        } else {
+            strengthLabel.textContent = translations.generator.strength.weak;
+        }
+    }
+}
+
+// Taal wissel event handler
+document.getElementById('language-select').addEventListener('change', async (e) => {
+    const newLang = e.target.value;
+    document.documentElement.lang = newLang;
+    await loadTranslations(newLang);
+    updatePageText();
+    currentLanguage = newLang;
+});
+
+// Laad initiële vertalingen
+loadTranslations(currentLanguage).then(() => {
+    updatePageText();
+});
+
 // DOM Elements
 const passwordOutput = document.getElementById('password-output');
 const lengthSlider = document.getElementById('length-slider');
