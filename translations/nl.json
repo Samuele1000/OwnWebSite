@@ -4,7 +4,8 @@
         "passwordGenerator": "Wachtwoord Generator",
         "usernameGenerator": "Gebruikersnaam Generator",
         "tips": "Tips",
-        "statistics": "Statistieken"
+        "statistics": "Statistieken",
+        "privacy": "Privacy"
     },
     "hero": {
         "title": "Bescherm Je Online Identiteit",
@@ -83,6 +84,9 @@
                 "text": "voor een zwak wachtwoord"
             }
         }
+    },
+    "privacy": {
+        "title": "Privacyverklaring | SemSecurity"
     },
     "footer": {
         "description": "Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.",

@@ -4,7 +4,8 @@
         "passwordGenerator": "Password Generator",
         "usernameGenerator": "Username Generator",
         "tips": "Tips",
-        "statistics": "Statistics"
+        "statistics": "Statistics",
+        "privacy": "Privacy"
     },
     "hero": {
         "title": "Protect Your Online Identity",
@@ -83,6 +84,9 @@
                 "text": "for a weak password"
             }
         }
+    },
+    "privacy": {
+        "title": "Privacy Policy | SemSecurity"
     },
     "footer": {
         "description": "Protect your online identity with strong passwords and unique usernames.",

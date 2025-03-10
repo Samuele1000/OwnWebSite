@@ -4,7 +4,8 @@
         "passwordGenerator": "Generatore Password",
         "usernameGenerator": "Generatore Username",
         "tips": "Consigli",
-        "statistics": "Statistiche"
+        "statistics": "Statistiche",
+        "privacy": "Privacy"
     },
     "hero": {
         "title": "Proteggi la Tua Identità Online",
@@ -83,6 +84,9 @@
                 "text": "per una password debole"
             }
         }
+    },
+    "privacy": {
+        "title": "Informativa sulla Privacy | SemSecurity"
     },
     "footer": {
         "description": "Proteggi la tua identità online con password forti e nomi utente unici.",
