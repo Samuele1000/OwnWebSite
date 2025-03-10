@@ -50,7 +50,3 @@ Deze wachtwoordgenerator:
 ## Bijdragen
 
 Bijdragen zijn welkom! Voor grote wijzigingen, open eerst een issue om te bespreken wat je wilt veranderen.
-
-## Licentie
-
-Dit project is gelicentieerd onder de MIT License - zie het [LICENSE](LICENSE) bestand voor details. 

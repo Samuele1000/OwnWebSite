@@ -6,6 +6,9 @@ let translations = {};
 async function loadTranslations(lang) {
     try {
         const response = await fetch(`translations/${lang}.json`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         translations = await response.json();
         return translations;
     } catch (error) {
@@ -19,30 +22,42 @@ function updatePageText() {
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const keys = element.getAttribute('data-i18n').split('.');
         let value = translations;
+        
         for (const key of keys) {
-            value = value[key];
+            if (value && key in value) {
+                value = value[key];
+            } else {
+                console.error(`Translation missing for key: ${keys.join('.')}`);
+                return;
+            }
         }
+
         if (value) {
             if (element.tagName === 'INPUT' && element.type === 'text') {
                 element.placeholder = value;
+            } else if (element === document.querySelector('title')) {
+                document.title = value;
+            } else if (element.tagName === 'BUTTON' && element.id === 'copy-button') {
+                // Behoud de icon voor de kopieerknop
+                element.innerHTML = `<i class="fas fa-copy"></i>`;
             } else {
                 element.textContent = value;
             }
         }
     });
 
-    // Update de title van de pagina
-    document.title = translations.title;
-
     // Update specifieke elementen die geen data-i18n attribuut hebben
+    const strengthLabel = document.getElementById('strength-label');
     if (strengthLabel) {
         const currentStrength = strengthLabel.textContent.toLowerCase();
-        if (currentStrength === 'sterk' || currentStrength === 'strong' || currentStrength === 'forte') {
-            strengthLabel.textContent = translations.generator.strength.strong;
-        } else if (currentStrength === 'gemiddeld' || currentStrength === 'medium' || currentStrength === 'medio') {
-            strengthLabel.textContent = translations.generator.strength.medium;
-        } else {
-            strengthLabel.textContent = translations.generator.strength.weak;
+        if (translations.generator && translations.generator.strength) {
+            if (currentStrength === 'sterk' || currentStrength === 'strong' || currentStrength === 'forte') {
+                strengthLabel.textContent = translations.generator.strength.strong;
+            } else if (currentStrength === 'gemiddeld' || currentStrength === 'medium' || currentStrength === 'medio') {
+                strengthLabel.textContent = translations.generator.strength.medium;
+            } else {
+                strengthLabel.textContent = translations.generator.strength.weak;
+            }
         }
     }
 }
@@ -50,16 +65,51 @@ function updatePageText() {
 // Taal wissel event handler
 document.getElementById('language-select').addEventListener('change', async (e) => {
     const newLang = e.target.value;
-    document.documentElement.lang = newLang;
-    await loadTranslations(newLang);
-    updatePageText();
-    currentLanguage = newLang;
+    const translations = await loadTranslations(newLang);
+    
+    if (translations) {
+        document.documentElement.lang = newLang;
+        currentLanguage = newLang;
+        updatePageText();
+        
+        // Sla de taalvoorkeur op in localStorage
+        localStorage.setItem('preferredLanguage', newLang);
+    }
 });
 
-// Laad initiële vertalingen
-loadTranslations(currentLanguage).then(() => {
-    updatePageText();
+// Laad de opgeslagen taalvoorkeur bij het laden van de pagina
+document.addEventListener('DOMContentLoaded', async () => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage) {
+        currentLanguage = savedLanguage;
+        document.getElementById('language-select').value = savedLanguage;
+    }
+    
+    const translations = await loadTranslations(currentLanguage);
+    if (translations) {
+        document.documentElement.lang = currentLanguage;
+        updatePageText();
+    }
 });
+
+// Voeg vertalingen toe voor wachtwoordsterkte
+const strengthTranslations = {
+    nl: {
+        weak: "Zwak",
+        medium: "Gemiddeld",
+        strong: "Sterk"
+    },
+    en: {
+        weak: "Weak",
+        medium: "Medium",
+        strong: "Strong"
+    },
+    it: {
+        weak: "Debole",
+        medium: "Medio",
+        strong: "Forte"
+    }
+};
 
 // DOM Elements
 const passwordOutput = document.getElementById('password-output');

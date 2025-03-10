@@ -14,6 +14,11 @@
     "generator": {
         "title": "Password Generator",
         "strengthText": "Password Strength:",
+        "strength": {
+            "weak": "Weak",
+            "medium": "Medium",
+            "strong": "Strong"
+        },
         "copyButton": "Copy",
         "options": {
             "length": "Password Length:",

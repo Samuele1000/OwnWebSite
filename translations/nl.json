@@ -14,6 +14,11 @@
     "generator": {
         "title": "Wachtwoord Generator",
         "strengthText": "Wachtwoordsterkte:",
+        "strength": {
+            "weak": "Zwak",
+            "medium": "Gemiddeld",
+            "strong": "Sterk"
+        },
         "copyButton": "Kopiëren",
         "options": {
             "length": "Wachtwoord Lengte:",
