@@ -3,71 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gebruikersnaam Generator | SemSecurity</title>
+    <title data-i18n="title">Veilige Wachtwoord Generator | Bescherm Je Online Identiteit</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="visitor-tracking.js" defer></script>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">🔒 SemSecurity</div>
             <ul>
-                <li><a href="index.html">Wachtwoord Generator</a></li>
-                <li><a href="username-generator.html" class="active">Gebruikersnaam Generator</a></li>
-                <li><a href="tips.html">Tips</a></li>
-                <li><a href="#statistieken">Statistieken</a></li>
+                <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
+                <li><a href="username-generator.html" class="active" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
+                <li><a href="tips.html" data-i18n="nav.tips">Tips</a></li>
+                <li class="language-selector">
+                    <select id="language-select">
+                        <option value="nl">Nederlands</option>
+                        <option value="en">English</option>
+                        <option value="it">Italiano</option>
+                    </select>
+                </li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <h1>Genereer Unieke Gebruikersnamen</h1>
-            <p>Maak professionele en unieke gebruikersnamen voor al je online accounts.</p>
+            <h1 data-i18n="usernameGenerator.hero.title">Creëer Unieke Gebruikersnamen</h1>
+            <p data-i18n="usernameGenerator.hero.subtitle">Genereer veilige en originele gebruikersnamen voor al je online accounts</p>
             <div class="cta-button">
-                <a href="#generator">Genereer Gebruikersnaam</a>
+                <a href="#generator" data-i18n="usernameGenerator.hero.cta">Genereer Gebruikersnaam</a>
             </div>
         </section>
 
         <section id="generator" class="generator-section">
-            <h2>Gebruikersnaam Generator</h2>
+            <h2 data-i18n="usernameGenerator.title">Gebruikersnaam Generator</h2>
             <div class="generator-container">
                 <div class="username-display">
                     <input type="text" id="username-output" readonly>
-                    <button id="copy-button"><i class="fas fa-copy"></i></button>
+                    <button id="copy-button" data-i18n="generator.copyButton"><i class="fas fa-copy"></i></button>
                 </div>
                 <div class="options">
                     <div class="option-group">
-                        <label>Gebruikersnaam Lengte:</label>
-                        <input type="range" id="length-slider" min="6" max="20" value="12">
-                        <span id="length-value">12</span>
+                        <label data-i18n="usernameGenerator.options.length">Gebruikersnaam Lengte:</label>
+                        <input type="range" id="length-slider" min="4" max="16" value="8">
+                        <span id="length-value">8</span>
                     </div>
                     <div class="option-group">
                         <label>
-                            <input type="checkbox" id="numbers" checked>
-                            Cijfers (0-9)
+                            <input type="checkbox" id="include-numbers" checked>
+                            <span data-i18n="usernameGenerator.options.numbers">Voeg Cijfers Toe</span>
                         </label>
                     </div>
                     <div class="option-group">
                         <label>
-                            <input type="checkbox" id="underscore" checked>
-                            Onderstreping (_)
-                        </label>
-                    </div>
-                    <div class="option-group">
-                        <label>
-                            <input type="checkbox" id="uppercase" checked>
-                            Hoofdletters (A-Z)
-                        </label>
-                    </div>
-                    <div class="option-group">
-                        <label>
-                            <input type="checkbox" id="lowercase" checked>
-                            Kleine letters (a-z)
+                            <input type="checkbox" id="include-special" checked>
+                            <span data-i18n="usernameGenerator.options.special">Voeg Speciale Tekens Toe</span>
                         </label>
                     </div>
                 </div>
-                <button id="generate-button" class="generate-btn">Genereer Gebruikersnaam</button>
+                <button id="generate-button" class="generate-btn" data-i18n="usernameGenerator.generateButton">Genereer Gebruikersnaam</button>
             </div>
         </section>
 
@@ -123,23 +118,23 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>SemSecurity</h3>
-                <p>Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
+                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
             </div>
             <div class="footer-section">
                 <h3>Links</h3>
                 <ul>
-                    <li><a href="index.html">Wachtwoord Generator</a></li>
-                    <li><a href="username-generator.html">Gebruikersnaam Generator</a></li>
-                    <li><a href="tips.html">Tips</a></li>
-                    <li><a href="#statistieken">Statistieken</a></li>
+                    <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
+                    <li><a href="username-generator.html" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
+                    <li><a href="tips.html" data-i18n="nav.tips">Tips</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
+            <p data-i18n="footer.copyright">&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
         </div>
     </footer>
 
+    <script src="script.js"></script>
     <script src="username-generator.js"></script>
 </body>
 </html> 

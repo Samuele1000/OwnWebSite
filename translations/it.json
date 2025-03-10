@@ -29,6 +29,20 @@
         },
         "generateButton": "Genera Password"
     },
+    "usernameGenerator": {
+        "hero": {
+            "title": "Crea Username Unici",
+            "subtitle": "Genera username sicuri e originali per tutti i tuoi account online",
+            "cta": "Genera Username"
+        },
+        "title": "Generatore di Username",
+        "options": {
+            "length": "Lunghezza Username:",
+            "numbers": "Aggiungi Numeri",
+            "special": "Aggiungi Caratteri Speciali"
+        },
+        "generateButton": "Genera Username"
+    },
     "tips": {
         "title": "Consigli per la Password",
         "cards": {

@@ -29,6 +29,20 @@
         },
         "generateButton": "Genereer Wachtwoord"
     },
+    "usernameGenerator": {
+        "hero": {
+            "title": "Creëer Unieke Gebruikersnamen",
+            "subtitle": "Genereer veilige en originele gebruikersnamen voor al je online accounts",
+            "cta": "Genereer Gebruikersnaam"
+        },
+        "title": "Gebruikersnaam Generator",
+        "options": {
+            "length": "Gebruikersnaam Lengte:",
+            "numbers": "Voeg Cijfers Toe",
+            "special": "Voeg Speciale Tekens Toe"
+        },
+        "generateButton": "Genereer Gebruikersnaam"
+    },
     "tips": {
         "title": "Wachtwoord Tips",
         "cards": {

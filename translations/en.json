@@ -29,6 +29,20 @@
         },
         "generateButton": "Generate Password"
     },
+    "usernameGenerator": {
+        "hero": {
+            "title": "Create Unique Usernames",
+            "subtitle": "Generate secure and original usernames for all your online accounts",
+            "cta": "Generate Username"
+        },
+        "title": "Username Generator",
+        "options": {
+            "length": "Username Length:",
+            "numbers": "Add Numbers",
+            "special": "Add Special Characters"
+        },
+        "generateButton": "Generate Username"
+    },
     "tips": {
         "title": "Password Tips",
         "cards": {

@@ -2,18 +2,15 @@
 const usernameOutput = document.getElementById('username-output');
 const lengthSlider = document.getElementById('length-slider');
 const lengthValue = document.getElementById('length-value');
-const uppercaseCheckbox = document.getElementById('uppercase');
-const lowercaseCheckbox = document.getElementById('lowercase');
-const numbersCheckbox = document.getElementById('numbers');
-const underscoreCheckbox = document.getElementById('underscore');
+const includeNumbers = document.getElementById('include-numbers');
+const includeSpecial = document.getElementById('include-special');
 const generateButton = document.getElementById('generate-button');
 const copyButton = document.getElementById('copy-button');
 
-// Karaktersets voor gebruikersnaam generatie
-const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
-const numberChars = '0123456789';
-const underscoreChar = '_';
+// Karaktersets
+const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const numbers = '0123456789';
+const special = '_-';
 
 // Update length value display
 lengthSlider.addEventListener('input', () => {
@@ -22,34 +19,32 @@ lengthSlider.addEventListener('input', () => {
 
 // Gebruikersnaam generatie functie
 function generateUsername() {
-    let chars = '';
+    let chars = letters;
     let username = '';
     
-    // Voeg geselecteerde karaktersets toe
-    if (uppercaseCheckbox.checked) chars += uppercaseChars;
-    if (lowercaseCheckbox.checked) chars += lowercaseChars;
-    if (numbersCheckbox.checked) chars += numberChars;
-    if (underscoreCheckbox.checked) chars += underscoreChar;
+    if (includeNumbers.checked) chars += numbers;
+    if (includeSpecial.checked) chars += special;
     
-    // Als geen opties zijn geselecteerd, gebruik alle karakters
-    if (!chars) {
-        chars = uppercaseChars + lowercaseChars + numberChars + underscoreChar;
-    }
-    
-    // Genereer gebruikersnaam
+    // Genereer basis gebruikersnaam
     for (let i = 0; i < lengthSlider.value; i++) {
         const randomIndex = Math.floor(Math.random() * chars.length);
         username += chars[randomIndex];
     }
     
-    // Zorg ervoor dat de gebruikersnaam niet begint of eindigt met een underscore
-    if (username.startsWith('_')) {
-        username = username.substring(1);
-        username = chars[Math.floor(Math.random() * chars.length)] + username;
+    // Zorg ervoor dat er minimaal één nummer is als die optie is aangevinkt
+    if (includeNumbers.checked && !/[0-9]/.test(username)) {
+        const pos = Math.floor(Math.random() * username.length);
+        username = username.substring(0, pos) + 
+                  numbers[Math.floor(Math.random() * numbers.length)] +
+                  username.substring(pos + 1);
     }
-    if (username.endsWith('_')) {
-        username = username.substring(0, username.length - 1);
-        username = username + chars[Math.floor(Math.random() * chars.length)];
+    
+    // Zorg ervoor dat er minimaal één speciaal teken is als die optie is aangevinkt
+    if (includeSpecial.checked && !/[_-]/.test(username)) {
+        const pos = Math.floor(Math.random() * username.length);
+        username = username.substring(0, pos) + 
+                  special[Math.floor(Math.random() * special.length)] +
+                  username.substring(pos + 1);
     }
     
     return username;
@@ -57,7 +52,15 @@ function generateUsername() {
 
 // Genereer gebruikersnaam bij klik op knop
 generateButton.addEventListener('click', () => {
-    usernameOutput.value = generateUsername();
+    const username = generateUsername();
+    usernameOutput.value = username;
+    
+    // Voeg een subtiele animatie toe aan de generator container
+    const container = document.querySelector('.generator-container');
+    container.style.transform = 'scale(1.01)';
+    setTimeout(() => {
+        container.style.transform = 'scale(1)';
+    }, 200);
 });
 
 // Kopieer gebruikersnaam naar klembord
@@ -75,12 +78,5 @@ copyButton.addEventListener('click', () => {
     }
 });
 
-// Genereer initieel gebruikersnaam
-generateButton.click();
-
-// Voorkom dat het gebruikersnaamveld leeg kan worden gelaten
-usernameOutput.addEventListener('input', () => {
-    if (!usernameOutput.value) {
-        generateButton.click();
-    }
-}); 
+// Genereer initiële gebruikersnaam
+generateButton.click(); 
