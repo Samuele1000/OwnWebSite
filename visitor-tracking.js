@@ -44,7 +44,7 @@ async function checkVPN(ipInfo) {
             'encrypted', 'encryption', 'protected', 'protection', 'mask', 'masked', 'hidden', 'relay',
             
             // Populaire VPN-providers
-            'nordvpn', 'expressvpn', 'GOOGLE', 'cyberghost', 'protonvpn', 'surfshark', 'privatevpn',
+            'nordvpn', 'expressvpn', 'cyberghost', 'protonvpn', 'surfshark', 'privatevpn',
             'mullvad', 'ipvanish', 'purevpn', 'hotspot shield', 'tunnelbear', 'windscribe',
             'avast secureline', 'norton secure', 'kaspersky', 'f-secure', 'avira phantom',
             'private internet access', 'pia', 'vyprvpn', 'strongvpn', 'perfectprivacy', 'perfect privacy',
@@ -146,13 +146,93 @@ async function checkVPN(ipInfo) {
     }
 }
 
+// Functie om specifiek Google VPN te detecteren
+function isGoogleVPN(ipInfo) {
+    try {
+        // Google VPN-specifieke keywords
+        const googleVPNKeywords = [
+            'google', 'google one', 'googleone', 'google vpn', 'googlevpn', 'google one vpn',
+            'googleonevpn', 'google fi', 'googlefi', 'google fiber', 'googlefiber'
+        ];
+        
+        // Controleer of de ISP naam een van de Google VPN-keywords bevat
+        const ispLower = ipInfo.isp.toLowerCase();
+        return googleVPNKeywords.some(keyword => ispLower.includes(keyword.toLowerCase()));
+    } catch (error) {
+        console.error('Fout bij controleren Google VPN:', error);
+        return false;
+    }
+}
+
 // Functie om de VPN-popup te tonen
-function showVPNPopup() {
+function showVPNPopup(isGoogleVPN = false) {
     // Controleer of de popup al bestaat
     if (document.getElementById('vpn-popup')) {
         return;
     }
     
+    // Als het Google VPN is, blokkeer de toegang volledig
+    if (isGoogleVPN) {
+        // Maak de popup container
+        const popup = document.createElement('div');
+        popup.id = 'vpn-popup';
+        popup.className = 'vpn-popup';
+        
+        // Voeg de popup inhoud toe met een blokkerende boodschap
+        popup.innerHTML = `
+            <div class="vpn-popup-content">
+                <div class="vpn-popup-header">
+                    <i class="fas fa-ban vpn-icon"></i>
+                    <h2>Toegang Geweigerd</h2>
+                </div>
+                <div class="vpn-popup-body">
+                    <p>Onze beveiligingssystemen hebben gedetecteerd dat u Google VPN gebruikt.</p>
+                    <p>Toegang tot deze website is niet mogelijk met Google VPN. Schakel uw Google VPN uit om toegang te krijgen tot onze diensten.</p>
+                    <div class="vpn-info-box">
+                        <p><strong>Waarom blokkeren wij Google VPN?</strong></p>
+                        <p>Om veiligheidsredenen en om de integriteit van onze diensten te waarborgen, is toegang via Google VPN niet toegestaan.</p>
+                    </div>
+                </div>
+                <div class="vpn-popup-buttons">
+                    <button id="vpn-disable-btn" class="vpn-btn vpn-primary-btn">VPN Uitschakelen</button>
+                </div>
+            </div>
+        `;
+        
+        // Voeg de popup toe aan de body
+        document.body.appendChild(popup);
+        
+        // Voeg event listener toe aan de knop
+        document.getElementById('vpn-disable-btn').addEventListener('click', () => {
+            // Hier zou je een redirect kunnen doen naar een pagina met instructies
+            // voor het uitschakelen van VPN, maar voor nu sluiten we gewoon de popup
+            window.location.href = "https://support.google.com/googleone/answer/10769713?hl=nl";
+        });
+        
+        // Toon de popup met een fade-in effect
+        setTimeout(() => {
+            popup.classList.add('show');
+        }, 100);
+        
+        // Blokkeer de rest van de pagina
+        document.body.style.overflow = 'hidden';
+        
+        // Voeg een overlay toe om interactie met de pagina te voorkomen
+        const overlay = document.createElement('div');
+        overlay.id = 'vpn-block-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        overlay.style.zIndex = '999';
+        document.body.appendChild(overlay);
+        
+        return;
+    }
+    
+    // Standaard VPN popup voor niet-Google VPNs
     // Maak de popup container
     const popup = document.createElement('div');
     popup.id = 'vpn-popup';
@@ -322,6 +402,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Toon de VPN-popup als een VPN is gedetecteerd
     if (isVPN) {
-        showVPNPopup();
+        showVPNPopup(isGoogleVPN(ipInfo));
     }
 }); 
