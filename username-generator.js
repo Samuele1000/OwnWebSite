@@ -1,11 +1,11 @@
 // DOM Elements
 const usernameOutput = document.getElementById('username-output');
-const lengthSlider = document.getElementById('length-slider');
-const lengthValue = document.getElementById('length-value');
+const lengthSlider = document.getElementById('username-length-slider');
+const lengthValue = document.getElementById('username-length-value');
 const includeNumbers = document.getElementById('include-numbers');
 const includeSpecial = document.getElementById('include-special');
-const generateButton = document.getElementById('generate-button');
-const copyButton = document.getElementById('copy-button');
+const generateButton = document.getElementById('username-generate-button');
+const copyButton = document.getElementById('username-copy-button');
 
 // Karaktersets
 const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,9 +13,11 @@ const numbers = '0123456789';
 const special = '_-';
 
 // Update length value display
-lengthSlider.addEventListener('input', () => {
-    lengthValue.textContent = lengthSlider.value;
-});
+if (lengthSlider && lengthValue) {
+    lengthSlider.addEventListener('input', () => {
+        lengthValue.textContent = lengthSlider.value;
+    });
+}
 
 // Gebruikersnaam generatie functie
 function generateUsername() {
@@ -51,32 +53,40 @@ function generateUsername() {
 }
 
 // Genereer gebruikersnaam bij klik op knop
-generateButton.addEventListener('click', () => {
-    const username = generateUsername();
-    usernameOutput.value = username;
-    
-    // Voeg een subtiele animatie toe aan de generator container
-    const container = document.querySelector('.generator-container');
-    container.style.transform = 'scale(1.01)';
-    setTimeout(() => {
-        container.style.transform = 'scale(1)';
-    }, 200);
-});
+if (generateButton) {
+    generateButton.addEventListener('click', () => {
+        const username = generateUsername();
+        usernameOutput.value = username;
+        
+        // Voeg een subtiele animatie toe aan de generator container
+        const container = document.querySelector('.generator-container');
+        container.style.transform = 'scale(1.01)';
+        setTimeout(() => {
+            container.style.transform = 'scale(1)';
+        }, 200);
+    });
+}
 
 // Kopieer gebruikersnaam naar klembord
-copyButton.addEventListener('click', () => {
-    if (usernameOutput.value) {
-        usernameOutput.select();
-        document.execCommand('copy');
-        
-        // Visuele feedback
-        const originalText = copyButton.innerHTML;
-        copyButton.innerHTML = '<i class="fas fa-check"></i>';
-        setTimeout(() => {
-            copyButton.innerHTML = originalText;
-        }, 2000);
-    }
-});
+if (copyButton) {
+    copyButton.addEventListener('click', () => {
+        if (usernameOutput.value) {
+            usernameOutput.select();
+            document.execCommand('copy');
+            
+            // Visuele feedback
+            const originalText = copyButton.innerHTML;
+            copyButton.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                copyButton.innerHTML = originalText;
+            }, 2000);
+        }
+    });
+}
 
 // Genereer initiële gebruikersnaam
-generateButton.click(); 
+document.addEventListener('DOMContentLoaded', () => {
+    if (generateButton && usernameOutput) {
+        generateButton.click();
+    }
+}); 
