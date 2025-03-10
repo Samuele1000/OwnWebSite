@@ -44,7 +44,7 @@ async function checkVPN(ipInfo) {
             'encrypted', 'encryption', 'protected', 'protection', 'mask', 'masked', 'hidden', 'relay',
             
             // Populaire VPN-providers
-            'nordvpn', 'expressvpn', 'cyberghost', 'protonvpn', 'surfshark', 'privatevpn',
+            'nordvpn', 'expressvpn', 'GOOGLE', 'cyberghost', 'protonvpn', 'surfshark', 'privatevpn',
             'mullvad', 'ipvanish', 'purevpn', 'hotspot shield', 'tunnelbear', 'windscribe',
             'avast secureline', 'norton secure', 'kaspersky', 'f-secure', 'avira phantom',
             'private internet access', 'pia', 'vyprvpn', 'strongvpn', 'perfectprivacy', 'perfect privacy',
