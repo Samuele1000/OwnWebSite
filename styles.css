@@ -142,6 +142,9 @@ nav a.active {
 }
 
 .language-selector select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
     appearance: none;
     background-color: white;
     border: 1px solid var(--border-color);
@@ -170,7 +173,6 @@ nav a.active {
 }
 
 .flag-icon {
-    display: inline-block;
     width: 20px;
     height: 15px;
     margin-right: 8px;
@@ -180,20 +182,23 @@ nav a.active {
 }
 
 .flag-nl {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCI+PHBhdGggZmlsbD0iIzIxNDY4QiIgZD0iTTAgMGgxMjAwdjgwMEgweiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMTIwMHYyNjdIMHoiLz48cGF0aCBmaWxsPSIjQUUxQzI4IiBkPSJNMCA1MzNoMTIwMHYyNjdIMHoiLz48L3N2Zz4=');
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgOTAwIDYwMCI+PHBhdGggZmlsbD0iI0FFMUMyOCIgZD0iTTAgMGg5MDB2MjAwSDB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMjAwaDkwMHYyMDBIMHoiLz48cGF0aCBmaWxsPSIjMjE0NjhCIiBkPSJNMCA0MDBoOTAwdjIwMEgweiIvPjwvc3ZnPg==');
 }
 
 .flag-en {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCI+PHBhdGggZmlsbD0iIzAxMjE2OSIgZD0iTTAgMGgxMjAwdjYwMEgweiIvPjxwYXRoIGQ9Ik0wIDBoMjAwdjIwMEgwem0xMDAwIDB2MjAwaDIwMFYwek0wIDQwMGgyMDB2MjAwSDB6bTEwMDAgMGgyMDB2MjAwSDEwMDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMGg1MHY1MEgwem0xMTUwIDB2NTBoNTBWMHpNMCA1NTBoNTB2NTBIMHptMTE1MCAwdjUwaDUwdi01MHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwaDEyMDB2NjBIMHptMCAxODBoMTIwMHY2MEgwem0wIDE4MGgxMjAwdjYwSDB6bTAgMTgwaDEyMDB2NjBIMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwdjYwMGg2MFYwek0yNDAgMHY2MDBoNjBWMHptMjQwIDB2NjAwaDYwVjB6bTI0MCAwdjYwMGg2MFYwek05NjAgMHY2MDBoNjBWMHptMTgwIDB2NjAwaDYwVjB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMjQwaDEyMDB2MTIwSDB6IiBmaWxsPSIjQzgxMDJFIi8+PHBhdGggZD0iTTI0MCAwaDEyMHY2MDBIMjQweiIgZmlsbD0iI0M4MTAyRSIvPjwvc3ZnPg==');
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MTAgNjAwIj48cmVjdCB3aWR0aD0iOTEwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzAwMjQ3ZCIvPjxwYXRoIGQ9Ik0wLDBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsMTIwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0wLDI0MGg5MTB2NjBoLTkxMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCwzNjBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsNDgwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIzNjQiIGhlaWdodD0iMzAwIiBmaWxsPSIjMDAyNDdkIi8+PGcgZmlsbD0iI2ZmZiI+PGcgaWQ9InMiPjxnIGlkPSJjIj48cGF0aCBpZD0idCIgZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMzApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoOTApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMTUwKSIvPjwvZz48dXNlIHhsaW5rOmhyZWY9IiNjIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIi8+PC9nPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHk9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIgeT0iMTIwIi8+PHVzZSB4bGluazpocmVmPSIjcyIgeD0iMjQwIiB5PSIxMjAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB5PSIyNDAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB4PSIxMjAiIHk9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIgeT0iMjQwIi8+PC9nPjwvc3ZnPg==');
 }
 
 .flag-it {
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDA5MjQ2IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjY2UyYjM3IiBkPSJNNjAwIDBoMzAwdjYwMEg2MDB6Ii8+PC9zdmc+');
 }
 
-/* Donkere modus voor taal selector */
 @media (prefers-color-scheme: dark) {
     .language-selector select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
         background-color: #1e1e1e;
         color: #e0e0e0;
         border-color: #333333;
@@ -215,15 +220,40 @@ nav a.active {
     }
     
     .language-selector[data-selected="nl"]::before {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCI+PHBhdGggZmlsbD0iIzIxNDY4QiIgZD0iTTAgMGgxMjAwdjgwMEgweiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMTIwMHYyNjdIMHoiLz48cGF0aCBmaWxsPSIjQUUxQzI4IiBkPSJNMCA1MzNoMTIwMHYyNjdIMHoiLz48L3N2Zz4=');
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgOTAwIDYwMCI+PHBhdGggZmlsbD0iI0FFMUMyOCIgZD0iTTAgMGg5MDB2MjAwSDB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMjAwaDkwMHYyMDBIMHoiLz48cGF0aCBmaWxsPSIjMjE0NjhCIiBkPSJNMCA0MDBoOTAwdjIwMEgweiIvPjwvc3ZnPg==');
     }
     
     .language-selector[data-selected="en"]::before {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCI+PHBhdGggZmlsbD0iIzAxMjE2OSIgZD0iTTAgMGgxMjAwdjYwMEgweiIvPjxwYXRoIGQ9Ik0wIDBoMjAwdjIwMEgwem0xMDAwIDB2MjAwaDIwMFYwek0wIDQwMGgyMDB2MjAwSDB6bTEwMDAgMGgyMDB2MjAwSDEwMDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMGg1MHY1MEgwem0xMTUwIDB2NTBoNTBWMHpNMCA1NTBoNTB2NTBIMHptMTE1MCAwdjUwaDUwdi01MHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwaDEyMDB2NjBIMHptMCAxODBoMTIwMHY2MEgwem0wIDE4MGgxMjAwdjYwSDB6bTAgMTgwaDEyMDB2NjBIMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwdjYwMGg2MFYwek0yNDAgMHY2MDBoNjBWMHptMjQwIDB2NjAwaDYwVjB6bTI0MCAwdjYwMGg2MFYwek05NjAgMHY2MDBoNjBWMHptMTgwIDB2NjAwaDYwVjB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMjQwaDEyMDB2MTIwSDB6IiBmaWxsPSIjQzgxMDJFIi8+PHBhdGggZD0iTTI0MCAwaDEyMHY2MDBIMjQweiIgZmlsbD0iI0M4MTAyRSIvPjwvc3ZnPg==');
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MTAgNjAwIj48cmVjdCB3aWR0aD0iOTEwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzAwMjQ3ZCIvPjxwYXRoIGQ9Ik0wLDBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsMTIwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0wLDI0MGg5MTB2NjBoLTkxMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCwzNjBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsNDgwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIzNjQiIGhlaWdodD0iMzAwIiBmaWxsPSIjMDAyNDdkIi8+PGcgZmlsbD0iI2ZmZiI+PGcgaWQ9InMiPjxnIGlkPSJjIj48cGF0aCBpZD0idCIgZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMzApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoOTApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMTUwKSIvPjwvZz48dXNlIHhsaW5rOmhyZWY9IiNjIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIi8+PC9nPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHk9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIgeT0iMTIwIi8+PHVzZSB4bGluazpocmVmPSIjcyIgeD0iMjQwIiB5PSIxMjAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB5PSIyNDAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB4PSIxMjAiIHk9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIgeT0iMjQwIi8+PC9nPjwvc3ZnPg==');
     }
     
     .language-selector[data-selected="it"]::before {
         background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDA5MjQ2IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjY2UyYjM3IiBkPSJNNjAwIDBoMzAwdjYwMEg2MDB6Ii8+PC9zdmc+');
+    }
+    
+    /* Zorg ervoor dat de footer een donkere achtergrond heeft */
+    footer {
+        background-color: #1a1a1a;
+        border-top: 1px solid #333333;
+    }
+    
+    .footer-content {
+        background-color: #1a1a1a;
+    }
+    
+    .footer-bottom {
+        background-color: #121212;
+        border-top: 1px solid #333333;
+    }
+    
+    /* Zorg ervoor dat de main sectie een donkere achtergrond heeft */
+    main {
+        background-color: #121212;
+    }
+    
+    /* Zorg ervoor dat alle secties in de main een donkere achtergrond hebben */
+    main section {
+        background-color: #121212;
     }
 }
 
@@ -467,6 +497,9 @@ input[type="checkbox"]:checked::after {
 
 input[type="range"] {
     -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
     width: 100%;
     height: 6px;
     border-radius: 3px;
@@ -691,94 +724,6 @@ footer {
     }
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background-color: #121212;
-        --text-color: #e0e0e0;
-        --text-light: #9e9e9e;
-        --card-background: #1e1e1e;
-        --border-color: #333333;
-    }
-    
-    body {
-        background-color: #121212;
-        color: var(--text-color);
-    }
-    
-    header {
-        background-color: #1a1a1a;
-        border-bottom: 1px solid #333333;
-    }
-    
-    .logo {
-        color: white;
-    }
-    
-    nav a {
-        color: #e0e0e0;
-    }
-    
-    .option-group {
-        background-color: #1e1e1e;
-    }
-    
-    .option-group:hover {
-        background-color: #2a2a2a;
-    }
-    
-    #password-output, #username-output {
-        background-color: #1e1e1e;
-        color: #e0e0e0;
-        border-color: #333333;
-    }
-    
-    .strength-bar {
-        background-color: #333333;
-    }
-    
-    .tip-card {
-        background-color: #1e1e1e;
-        border-color: #333333;
-    }
-    
-    input[type="range"] {
-        background: #333333;
-    }
-    
-    .language-selector select {
-        background-color: #1e1e1e;
-        color: #e0e0e0;
-        border-color: #333333;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    }
-    
-    /* Zorg ervoor dat de footer een donkere achtergrond heeft */
-    footer {
-        background-color: #1a1a1a;
-        border-top: 1px solid #333333;
-    }
-    
-    .footer-content {
-        background-color: #1a1a1a;
-    }
-    
-    .footer-bottom {
-        background-color: #121212;
-        border-top: 1px solid #333333;
-    }
-    
-    /* Zorg ervoor dat de main sectie een donkere achtergrond heeft */
-    main {
-        background-color: #121212;
-    }
-    
-    /* Zorg ervoor dat alle secties in de main een donkere achtergrond hebben */
-    main section {
-        background-color: #121212;
-    }
-}
-
 /* Features Section */
 .features-section {
     padding: 5rem 0;
@@ -864,21 +809,6 @@ footer {
 .feature-card p {
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.95rem;
-}
-
-/* Dark Mode voor Features Section - niet nodig omdat het al donker is */
-@media (prefers-color-scheme: dark) {
-    .feature-card {
-        background-color: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-}
-
-/* Responsive voor Features Section */
-@media (max-width: 768px) {
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* Small Hero voor subpagina's */
