@@ -2,17 +2,42 @@
 let currentLanguage = 'nl';
 let translations = {};
 
-// Laad vertalingen
+// Cache voor vertalingen
+const translationsCache = new Map();
+
+// Laad vertalingen met caching
 async function loadTranslations(lang) {
     try {
+        // Check cache first
+        if (translationsCache.has(lang)) {
+            translations = translationsCache.get(lang);
+            return translations;
+        }
+
         const response = await fetch(`translations/${lang}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         translations = await response.json();
+        
+        // Cache the translations
+        translationsCache.set(lang, translations);
+        
+        // Limit cache size to 3 languages
+        if (translationsCache.size > 3) {
+            const firstKey = translationsCache.keys().next().value;
+            translationsCache.delete(firstKey);
+        }
+        
         return translations;
     } catch (error) {
-        console.error('Error loading translations:', error);
+        console.error(`Error loading translations for ${lang}:`, error);
+        // Fallback to cached version if available
+        if (translationsCache.has(lang)) {
+            console.log('Using cached translation as fallback');
+            translations = translationsCache.get(lang);
+            return translations;
+        }
         return null;
     }
 }
@@ -356,4 +381,4 @@ function setupMobileExperience() {
 document.addEventListener('DOMContentLoaded', setupMobileExperience);
 
 // Voer ook uit bij wijziging van de schermgrootte
-window.addEventListener('resize', setupMobileExperience); 
+window.addEventListener('resize', setupMobileExperience);

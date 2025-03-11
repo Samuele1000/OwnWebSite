@@ -1,11 +1,35 @@
-// Discord webhook URL
+// Discord webhook URL - Rate limiting configuration
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1348762922960027730/KiCxIrTuv5bihTxm6-1PmuWmWdpTZWG5r2Q2IKvYkIG9f-DWv_Uq8pNhcBOYPkjnscVt';
+const RATE_LIMIT_MINUTES = 5;
+const RATE_LIMIT_KEY = 'lastTracking';
 
-// Functie om IP informatie op te halen
+// Check rate limiting
+function checkRateLimit() {
+    const lastTracking = localStorage.getItem(RATE_LIMIT_KEY);
+    const now = Date.now();
+    if (lastTracking) {
+        const timeDiff = now - parseInt(lastTracking);
+        if (timeDiff < RATE_LIMIT_MINUTES * 60 * 1000) {
+            return false;
+        }
+    }
+    localStorage.setItem(RATE_LIMIT_KEY, now.toString());
+    return true;
+}
+
+// Functie om IP informatie op te halen met retry mechanisme
 async function getIPInfo() {
     try {
-        // Gebruik een externe API om IP-informatie op te halen
+        // Check rate limiting before making the request
+        if (!checkRateLimit()) {
+            console.log('Rate limit reached, skipping tracking');
+            return null;
+        }
+
         const response = await fetch('https://ipapi.co/json/');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         
         // Verzamel beschikbare informatie uit de navigator en window objecten
@@ -235,4 +259,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Fout bij bezoeker tracking:', error);
     }
-}); 
+});
