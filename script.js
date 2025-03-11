@@ -185,17 +185,20 @@ function calculatePasswordStrength(password) {
 function updateStrengthIndicator(password) {
     const score = calculatePasswordStrength(password);
     
+    // Verwijder alle bestaande klassen
+    strengthLabel.classList.remove('weak', 'medium', 'strong');
+    
     if (score >= 6) {
-        strengthLabel.textContent = 'Sterk';
-        strengthLabel.style.color = '#2ecc71';
+        strengthLabel.textContent = translations.generator?.strength?.strong || 'Sterk';
+        strengthLabel.classList.add('strong');
         strengthBarFill.className = 'strength-bar-fill strong';
     } else if (score >= 4) {
-        strengthLabel.textContent = 'Gemiddeld';
-        strengthLabel.style.color = '#f1c40f';
+        strengthLabel.textContent = translations.generator?.strength?.medium || 'Gemiddeld';
+        strengthLabel.classList.add('medium');
         strengthBarFill.className = 'strength-bar-fill medium';
     } else {
-        strengthLabel.textContent = 'Zwak';
-        strengthLabel.style.color = '#e74c3c';
+        strengthLabel.textContent = translations.generator?.strength?.weak || 'Zwak';
+        strengthLabel.classList.add('weak');
         strengthBarFill.className = 'strength-bar-fill weak';
     }
 }
@@ -273,17 +276,42 @@ generateButton.addEventListener('click', () => {
 // Kopieer wachtwoord naar klembord
 copyButton.addEventListener('click', () => {
     if (passwordOutput.value) {
-        passwordOutput.select();
-        document.execCommand('copy');
-        
-        // Visuele feedback
-        const originalText = copyButton.innerHTML;
-        copyButton.innerHTML = '<i class="fas fa-check"></i>';
-        setTimeout(() => {
-            copyButton.innerHTML = originalText;
-        }, 2000);
+        // Moderne manier om naar klembord te kopiëren
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(passwordOutput.value)
+                .then(() => {
+                    // Visuele feedback
+                    const originalText = copyButton.innerHTML;
+                    copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        copyButton.innerHTML = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Kon niet kopiëren: ', err);
+                    // Fallback naar de oude methode
+                    fallbackCopy();
+                });
+        } else {
+            // Fallback voor browsers die navigator.clipboard niet ondersteunen
+            fallbackCopy();
+        }
     }
 });
+
+// Fallback kopieer methode
+function fallbackCopy() {
+    passwordOutput.select();
+    passwordOutput.setSelectionRange(0, 99999); // Voor mobiele apparaten
+    document.execCommand('copy');
+    
+    // Visuele feedback
+    const originalText = copyButton.innerHTML;
+    copyButton.innerHTML = '<i class="fas fa-check"></i>';
+    setTimeout(() => {
+        copyButton.innerHTML = originalText;
+    }, 2000);
+}
 
 // Genereer initieel wachtwoord
 generateButton.click();
@@ -302,4 +330,30 @@ passwordOutput.addEventListener('input', () => {
             updateStrengthIndicator(passwordOutput.value);
         }
     });
-}); 
+});
+
+// Verbeter de mobiele ervaring
+function setupMobileExperience() {
+    // Detecteer of het een mobiel apparaat is
+    const isMobile = window.matchMedia("(max-width: 576px)").matches;
+    
+    if (isMobile) {
+        // Zorg ervoor dat de focus wordt verwijderd na het genereren van een wachtwoord
+        generateButton.addEventListener('click', () => {
+            generateButton.blur();
+        });
+        
+        // Zorg ervoor dat de focus wordt verwijderd na het kopiëren
+        copyButton.addEventListener('click', () => {
+            copyButton.blur();
+            // Verwijder selectie op mobiel
+            window.getSelection().removeAllRanges();
+        });
+    }
+}
+
+// Voer de mobiele verbeteringen uit wanneer de pagina is geladen
+document.addEventListener('DOMContentLoaded', setupMobileExperience);
+
+// Voer ook uit bij wijziging van de schermgrootte
+window.addEventListener('resize', setupMobileExperience); 

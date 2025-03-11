@@ -71,22 +71,71 @@ if (generateButton) {
 if (copyButton) {
     copyButton.addEventListener('click', () => {
         if (usernameOutput.value) {
-            usernameOutput.select();
-            document.execCommand('copy');
-            
-            // Visuele feedback
-            const originalText = copyButton.innerHTML;
-            copyButton.innerHTML = '<i class="fas fa-check"></i>';
-            setTimeout(() => {
-                copyButton.innerHTML = originalText;
-            }, 2000);
+            // Moderne manier om naar klembord te kopiëren
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(usernameOutput.value)
+                    .then(() => {
+                        // Visuele feedback
+                        const originalText = copyButton.innerHTML;
+                        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            copyButton.innerHTML = originalText;
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Kon niet kopiëren: ', err);
+                        // Fallback naar de oude methode
+                        fallbackCopy();
+                    });
+            } else {
+                // Fallback voor browsers die navigator.clipboard niet ondersteunen
+                fallbackCopy();
+            }
         }
     });
+}
+
+// Fallback kopieer methode
+function fallbackCopy() {
+    usernameOutput.select();
+    usernameOutput.setSelectionRange(0, 99999); // Voor mobiele apparaten
+    document.execCommand('copy');
+    
+    // Visuele feedback
+    const originalText = copyButton.innerHTML;
+    copyButton.innerHTML = '<i class="fas fa-check"></i>';
+    setTimeout(() => {
+        copyButton.innerHTML = originalText;
+    }, 2000);
 }
 
 // Genereer initiële gebruikersnaam
 document.addEventListener('DOMContentLoaded', () => {
     if (generateButton && usernameOutput) {
         generateButton.click();
+        setupMobileExperience();
     }
-}); 
+});
+
+// Verbeter de mobiele ervaring
+function setupMobileExperience() {
+    // Detecteer of het een mobiel apparaat is
+    const isMobile = window.matchMedia("(max-width: 576px)").matches;
+    
+    if (isMobile && generateButton && copyButton) {
+        // Zorg ervoor dat de focus wordt verwijderd na het genereren van een gebruikersnaam
+        generateButton.addEventListener('click', () => {
+            generateButton.blur();
+        });
+        
+        // Zorg ervoor dat de focus wordt verwijderd na het kopiëren
+        copyButton.addEventListener('click', () => {
+            copyButton.blur();
+            // Verwijder selectie op mobiel
+            window.getSelection().removeAllRanges();
+        });
+    }
+}
+
+// Voer ook uit bij wijziging van de schermgrootte
+window.addEventListener('resize', setupMobileExperience); 
