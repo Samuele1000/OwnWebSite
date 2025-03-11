@@ -19,7 +19,6 @@ Een moderne, responsieve website voor het genereren van veilige wachtwoorden en 
 - Beveiligingstips: Advies voor online veiligheid
 - Privacybeleid: Transparante informatie over gegevensverzameling
 - Meertalige ondersteuning (Nederlands, Engels, Italiaans)
-- VPN-detectie voor verbeterde veiligheid
 
 ## Technologieën
 - HTML5

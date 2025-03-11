@@ -994,4 +994,24 @@ footer {
     }
 }
 
+/* Verwijder alle visitor-info-popup stijlen */
+.visitor-info-popup {
+    display: none;
+}
+
+.visitor-info-content,
+.visitor-info-section,
+.visitor-info-section h3,
+.visitor-info-section p,
+.close-visitor-info,
+.close-visitor-info:hover {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .visitor-info-popup {
+        display: none;
+    }
+}
+
 
