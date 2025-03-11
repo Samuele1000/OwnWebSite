@@ -72,6 +72,9 @@ document.getElementById('language-select').addEventListener('change', async (e) 
         currentLanguage = newLang;
         updatePageText();
         
+        // Update het data-selected attribuut voor de vlag
+        document.querySelector('.language-selector').setAttribute('data-selected', newLang);
+        
         // Sla de taalvoorkeur op in localStorage
         localStorage.setItem('preferredLanguage', newLang);
     }
@@ -83,6 +86,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (savedLanguage) {
         currentLanguage = savedLanguage;
         document.getElementById('language-select').value = savedLanguage;
+        
+        // Update het data-selected attribuut voor de vlag
+        document.querySelector('.language-selector').setAttribute('data-selected', savedLanguage);
     }
     
     const translations = await loadTranslations(currentLanguage);

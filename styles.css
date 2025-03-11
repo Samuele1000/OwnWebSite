@@ -135,30 +135,96 @@ nav a.active {
     font-weight: 600;
 }
 
+/* Taal selector met vlaggen */
 .language-selector {
+    margin-left: 1rem;
     position: relative;
 }
 
 .language-selector select {
     appearance: none;
-    background-color: transparent;
+    background-color: white;
     border: 1px solid var(--border-color);
-    padding: 0.5rem 2rem 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+    border-radius: 4px;
+    padding: 0.5rem 2rem 0.5rem 2.5rem; /* Extra ruimte links voor de vlag */
     font-size: 0.9rem;
+    color: var(--text-color);
     cursor: pointer;
-    transition: var(--transition);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
-    background-size: 1rem;
+    transition: var(--transition);
 }
 
 .language-selector select:hover,
 .language-selector select:focus {
-    border-color: var(--secondary-color);
+    border-color: var(--primary-color);
     outline: none;
+}
+
+/* Vlag iconen voor talen */
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.flag-icon {
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.flag-nl {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCI+PHBhdGggZmlsbD0iIzIxNDY4QiIgZD0iTTAgMGgxMjAwdjgwMEgweiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMTIwMHYyNjdIMHoiLz48cGF0aCBmaWxsPSIjQUUxQzI4IiBkPSJNMCA1MzNoMTIwMHYyNjdIMHoiLz48L3N2Zz4=');
+}
+
+.flag-en {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCI+PHBhdGggZmlsbD0iIzAxMjE2OSIgZD0iTTAgMGgxMjAwdjYwMEgweiIvPjxwYXRoIGQ9Ik0wIDBoMjAwdjIwMEgwem0xMDAwIDB2MjAwaDIwMFYwek0wIDQwMGgyMDB2MjAwSDB6bTEwMDAgMGgyMDB2MjAwSDEwMDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMGg1MHY1MEgwem0xMTUwIDB2NTBoNTBWMHpNMCA1NTBoNTB2NTBIMHptMTE1MCAwdjUwaDUwdi01MHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwaDEyMDB2NjBIMHptMCAxODBoMTIwMHY2MEgwem0wIDE4MGgxMjAwdjYwSDB6bTAgMTgwaDEyMDB2NjBIMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwdjYwMGg2MFYwek0yNDAgMHY2MDBoNjBWMHptMjQwIDB2NjAwaDYwVjB6bTI0MCAwdjYwMGg2MFYwek05NjAgMHY2MDBoNjBWMHptMTgwIDB2NjAwaDYwVjB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMjQwaDEyMDB2MTIwSDB6IiBmaWxsPSIjQzgxMDJFIi8+PHBhdGggZD0iTTI0MCAwaDEyMHY2MDBIMjQweiIgZmlsbD0iI0M4MTAyRSIvPjwvc3ZnPg==');
+}
+
+.flag-it {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDA5MjQ2IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjY2UyYjM3IiBkPSJNNjAwIDBoMzAwdjYwMEg2MDB6Ii8+PC9zdmc+');
+}
+
+/* Donkere modus voor taal selector */
+@media (prefers-color-scheme: dark) {
+    .language-selector select {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+        border-color: #333333;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+    
+    .language-selector::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 15px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        pointer-events: none;
+    }
+    
+    .language-selector[data-selected="nl"]::before {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCI+PHBhdGggZmlsbD0iIzIxNDY4QiIgZD0iTTAgMGgxMjAwdjgwMEgweiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMTIwMHYyNjdIMHoiLz48cGF0aCBmaWxsPSIjQUUxQzI4IiBkPSJNMCA1MzNoMTIwMHYyNjdIMHoiLz48L3N2Zz4=');
+    }
+    
+    .language-selector[data-selected="en"]::before {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCI+PHBhdGggZmlsbD0iIzAxMjE2OSIgZD0iTTAgMGgxMjAwdjYwMEgweiIvPjxwYXRoIGQ9Ik0wIDBoMjAwdjIwMEgwem0xMDAwIDB2MjAwaDIwMFYwek0wIDQwMGgyMDB2MjAwSDB6bTEwMDAgMGgyMDB2MjAwSDEwMDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMGg1MHY1MEgwem0xMTUwIDB2NTBoNTBWMHpNMCA1NTBoNTB2NTBIMHptMTE1MCAwdjUwaDUwdi01MHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwaDEyMDB2NjBIMHptMCAxODBoMTIwMHY2MEgwem0wIDE4MGgxMjAwdjYwSDB6bTAgMTgwaDEyMDB2NjBIMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwdjYwMGg2MFYwek0yNDAgMHY2MDBoNjBWMHptMjQwIDB2NjAwaDYwVjB6bTI0MCAwdjYwMGg2MFYwek05NjAgMHY2MDBoNjBWMHptMTgwIDB2NjAwaDYwVjB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMjQwaDEyMDB2MTIwSDB6IiBmaWxsPSIjQzgxMDJFIi8+PHBhdGggZD0iTTI0MCAwaDEyMHY2MDBIMjQweiIgZmlsbD0iI0M4MTAyRSIvPjwvc3ZnPg==');
+    }
+    
+    .language-selector[data-selected="it"]::before {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDA5MjQ2IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjY2UyYjM3IiBkPSJNNjAwIDBoMzAwdjYwMEg2MDB6Ii8+PC9zdmc+');
+    }
 }
 
 /* Hero Section */
@@ -635,6 +701,11 @@ footer {
         --border-color: #333333;
     }
     
+    body {
+        background-color: #121212;
+        color: var(--text-color);
+    }
+    
     header {
         background-color: #1a1a1a;
         border-bottom: 1px solid #333333;
@@ -680,6 +751,31 @@ footer {
         color: #e0e0e0;
         border-color: #333333;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+    
+    /* Zorg ervoor dat de footer een donkere achtergrond heeft */
+    footer {
+        background-color: #1a1a1a;
+        border-top: 1px solid #333333;
+    }
+    
+    .footer-content {
+        background-color: #1a1a1a;
+    }
+    
+    .footer-bottom {
+        background-color: #121212;
+        border-top: 1px solid #333333;
+    }
+    
+    /* Zorg ervoor dat de main sectie een donkere achtergrond heeft */
+    main {
+        background-color: #121212;
+    }
+    
+    /* Zorg ervoor dat alle secties in de main een donkere achtergrond hebben */
+    main section {
+        background-color: #121212;
     }
 }
 
@@ -959,6 +1055,10 @@ footer {
 
 /* Dark Mode voor Privacy Pagina */
 @media (prefers-color-scheme: dark) {
+    .privacy-section {
+        background-color: #121212;
+    }
+    
     .privacy-content {
         background-color: #1e1e1e;
         border-color: #333333;
@@ -991,6 +1091,40 @@ footer {
         background-color: #4c1d1b;
         color: #f8d7da;
         border-color: #742c2a;
+    }
+    
+    /* Zorg ervoor dat alle secties een donkere achtergrond hebben */
+    .hero, .small-hero, .generator-section, .features-section, .tips-section, .alt-bg {
+        background-color: #121212;
+    }
+    
+    /* Zorg ervoor dat alle containers een donkere achtergrond hebben */
+    .container, .generator-container, .features-grid, .tips-grid {
+        background-color: transparent;
+    }
+    
+    /* Zorg ervoor dat alle kaarten een donkere achtergrond hebben */
+    .feature-card, .tip-card {
+        background-color: #1e1e1e;
+        border-color: #333333;
+    }
+    
+    /* Zorg ervoor dat alle formulieren een donkere achtergrond hebben */
+    form, .form-group, .contact-form {
+        background-color: #1a1a1a;
+    }
+    
+    /* Zorg ervoor dat alle knoppen een donkere achtergrond hebben */
+    button, .btn, .cta-button a, .generate-btn, .contact-submit-btn {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    /* Zorg ervoor dat alle invoervelden een donkere achtergrond hebben */
+    input, select, textarea {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+        border-color: #333333;
     }
 }
 
