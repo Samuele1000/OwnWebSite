@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">Veilige Wachtwoord Generator | Bescherm Je Online Identiteit</title>
+    <title data-i18n="title">Veilige Gebruikersnaam Generator | Bescherm Je Online Identiteit</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <script src="visitor-tracking.js" defer></script>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">🔒 <span style="color: #c0c0c0;">Sem</span><span style="color: white;">Security</span></div>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Sem<span style="font-weight: 400; color: var(--secondary-color);">Security</span></span>
+            </div>
             <ul>
                 <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
                 <li><a href="username-generator.html" class="active" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
@@ -30,86 +36,94 @@
 
     <main>
         <section id="home" class="hero">
-            <h1 data-i18n="usernameGenerator.hero.title">Creëer Unieke Gebruikersnamen</h1>
-            <p data-i18n="usernameGenerator.hero.subtitle">Genereer veilige en originele gebruikersnamen voor al je online accounts</p>
-            <div class="cta-button">
-                <a href="#generator" data-i18n="usernameGenerator.hero.cta">Genereer Gebruikersnaam</a>
+            <div class="hero-content">
+                <h1 data-i18n="usernameGenerator.hero.title">Creëer Unieke Gebruikersnamen</h1>
+                <p data-i18n="usernameGenerator.hero.subtitle">Genereer veilige en originele gebruikersnamen voor al je online accounts. Bescherm je identiteit met unieke gebruikersnamen die moeilijk te raden zijn.</p>
+                <div class="cta-button">
+                    <a href="#generator" data-i18n="usernameGenerator.hero.cta">Genereer Gebruikersnaam</a>
+                </div>
             </div>
         </section>
 
         <section id="generator" class="generator-section">
-            <h2 data-i18n="usernameGenerator.title">Gebruikersnaam Generator</h2>
-            <div class="generator-container">
-                <div class="username-display">
-                    <input type="text" id="username-output" readonly>
-                    <button id="username-copy-button" data-i18n="generator.copyButton"><i class="fas fa-copy"></i></button>
+            <div class="container">
+                <h2 data-i18n="usernameGenerator.title">Gebruikersnaam Generator</h2>
+                <div class="generator-container">
+                    <div class="username-display">
+                        <input type="text" id="username-output" readonly>
+                        <button id="username-copy-button" title="Kopiëren naar klembord"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="options">
+                        <div class="option-group">
+                            <label for="username-length-slider" data-i18n="usernameGenerator.options.length">Gebruikersnaam Lengte:</label>
+                            <input type="range" id="username-length-slider" min="4" max="16" value="8">
+                            <span id="username-length-value">8</span>
+                        </div>
+                        <div class="option-group">
+                            <label>
+                                <input type="checkbox" id="include-numbers" checked>
+                                <span data-i18n="usernameGenerator.options.numbers">Voeg Cijfers Toe</span>
+                            </label>
+                        </div>
+                        <div class="option-group">
+                            <label>
+                                <input type="checkbox" id="include-special" checked>
+                                <span data-i18n="usernameGenerator.options.special">Voeg Speciale Tekens Toe</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button id="username-generate-button" class="generate-btn" data-i18n="usernameGenerator.generateButton">Genereer Gebruikersnaam</button>
                 </div>
-                <div class="options">
-                    <div class="option-group">
-                        <label data-i18n="usernameGenerator.options.length">Gebruikersnaam Lengte:</label>
-                        <input type="range" id="username-length-slider" min="4" max="16" value="8">
-                        <span id="username-length-value">8</span>
-                    </div>
-                    <div class="option-group">
-                        <label>
-                            <input type="checkbox" id="include-numbers" checked>
-                            <span data-i18n="usernameGenerator.options.numbers">Voeg Cijfers Toe</span>
-                        </label>
-                    </div>
-                    <div class="option-group">
-                        <label>
-                            <input type="checkbox" id="include-special" checked>
-                            <span data-i18n="usernameGenerator.options.special">Voeg Speciale Tekens Toe</span>
-                        </label>
-                    </div>
-                </div>
-                <button id="username-generate-button" class="generate-btn" data-i18n="usernameGenerator.generateButton">Genereer Gebruikersnaam</button>
             </div>
         </section>
 
         <section id="tips" class="tips-section">
-            <h2>Kenmerken van een Sterke Gebruikersnaam</h2>
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <i class="fas fa-random"></i>
-                    <h3>Willekeurig</h3>
-                    <p>Neem geen persoonlijke gegevens op die aan u kunnen worden gekoppeld, zoals uw naam of burgerservicenummer. Vermijd het gebruik van uw adres, geboortedatum en andere gemakkelijk te raden nummers.</p>
-                </div>
-                <div class="tip-card">
-                    <i class="fas fa-brain"></i>
-                    <h3>Eenvoudig maar Complex</h3>
-                    <p>Kies een gebruikersnaam die u gemakkelijk kunt onthouden, maar die lastig te raden is voor anderen. Vermijd voorspelbare patronen zoals FirstNameLastName.</p>
-                </div>
-                <div class="tip-card">
-                    <i class="fas fa-fingerprint"></i>
-                    <h3>Uniek per Account</h3>
-                    <p>Hoe vaker u uw gebruikersnaam hergebruikt, hoe makkelijker het voor hackers wordt om deze op meerdere accounts te misbruiken. Een sterke gebruikersnaam moet uniek zijn voor elk account.</p>
-                </div>
-                <div class="tip-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Extra Beveiliging</h3>
-                    <p>Combineer uw unieke gebruikersnaam met een sterk wachtwoord en activeer waar mogelijk tweefactorauthenticatie voor maximale beveiliging.</p>
+            <div class="container">
+                <h2>Kenmerken van een Sterke Gebruikersnaam</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-random"></i>
+                        <h3>Willekeurig</h3>
+                        <p>Vermijd persoonlijke gegevens zoals je naam of geboortedatum die gemakkelijk aan jou kunnen worden gekoppeld.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Eenvoudig maar Complex</h3>
+                        <p>Kies een gebruikersnaam die je gemakkelijk kunt onthouden, maar die lastig te raden is voor anderen.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-fingerprint"></i>
+                        <h3>Uniek per Account</h3>
+                        <p>Gebruik voor elk account een andere gebruikersnaam om te voorkomen dat hackers meerdere accounts kunnen vinden.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Extra Beveiliging</h3>
+                        <p>Combineer je unieke gebruikersnaam met een sterk wachtwoord en tweefactorauthenticatie voor maximale beveiliging.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="statistieken" class="stats-section">
-            <h2>Online Identiteit in Cijfers</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Online Accounts</h3>
-                    <p class="stat-number">150+</p>
-                    <p>per persoon gemiddeld</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Identiteitsdiefstal</h3>
-                    <p class="stat-number">33%</p>
-                    <p>van alle cybercriminaliteit</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Privacy Risico's</h3>
-                    <p class="stat-number">85%</p>
-                    <p>van gebruikersnamen bevat persoonlijke info</p>
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2>Voordelen van Onze Generator</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-user-secret"></i>
+                        <h3>Privacy Bescherming</h3>
+                        <p>Onze gebruikersnamen bevatten geen persoonlijke informatie die je identiteit kan onthullen.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-globe"></i>
+                        <h3>Universeel Bruikbaar</h3>
+                        <p>Genereer gebruikersnamen die op vrijwel alle platforms en diensten kunnen worden gebruikt.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-random"></i>
+                        <h3>Volledig Willekeurig</h3>
+                        <p>Onze algoritmes zorgen voor willekeurige en unieke gebruikersnamen die niet te voorspellen zijn.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -119,20 +133,25 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>SemSecurity</h3>
-                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
+                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen. Wij bieden tools om je digitale veiligheid te verbeteren.</p>
             </div>
             <div class="footer-section">
-                <h3>Links</h3>
+                <h3>Tools</h3>
                 <ul>
                     <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
                     <li><a href="username-generator.html" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Informatie</h3>
+                <ul>
                     <li><a href="tips.html" data-i18n="nav.tips">Tips</a></li>
                     <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p data-i18n="footer.copyright">&copy; 2025 <span style="color: #c0c0c0;">Sem</span><span style="color: white;">Security</span>. Alle rechten voorbehouden.</p>
+            <p data-i18n="footer.copyright">&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
         </div>
     </footer>
 

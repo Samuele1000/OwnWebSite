@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">Veilige Wachtwoord Generator | Bescherm Je Online Identiteit</title>
+    <title data-i18n="title">Beveiligingstips | SemSecurity</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <script src="visitor-tracking.js" defer></script>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">🔒 <span style="color: #c0c0c0;">Sem</span><span style="color: white;">Security</span></div>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Sem<span style="font-weight: 400; color: var(--secondary-color);">Security</span></span>
+            </div>
             <ul>
                 <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
                 <li><a href="username-generator.html" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
@@ -29,28 +35,65 @@
     </header>
 
     <main>
+        <section class="hero small-hero">
+            <div class="hero-content">
+                <h1 data-i18n="tips.pageTitle">Beveiligingstips</h1>
+                <p>Ontdek hoe je je online identiteit kunt beschermen met deze essentiële beveiligingstips</p>
+            </div>
+        </section>
+
         <section class="tips-section full-page">
-            <h1 data-i18n="tips.title">Wachtwoord Tips</h1>
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3 data-i18n="tips.cards.length.title">Gebruik Lange Wachtwoorden</h3>
-                    <p data-i18n="tips.cards.length.text">Hoe langer het wachtwoord, hoe moeilijker te kraken. Gebruik minimaal 12 tekens.</p>
+            <div class="container">
+                <h2 data-i18n="tips.title">Wachtwoord Tips</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3 data-i18n="tips.cards.length.title">Gebruik Lange Wachtwoorden</h3>
+                        <p data-i18n="tips.cards.length.text">Hoe langer het wachtwoord, hoe moeilijker te kraken. Gebruik minimaal 12 tekens voor optimale beveiliging.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-random"></i>
+                        <h3 data-i18n="tips.cards.patterns.title">Vermijd Patronen</h3>
+                        <p data-i18n="tips.cards.patterns.text">Gebruik geen voorspelbare patronen of persoonlijke informatie in je wachtwoorden.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-key"></i>
+                        <h3 data-i18n="tips.cards.unique.title">Unieke Wachtwoorden</h3>
+                        <p data-i18n="tips.cards.unique.text">Gebruik voor elk account een uniek wachtwoord om je online accounts te beschermen.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h3 data-i18n="tips.cards.2fa.title">2FA Activeren</h3>
+                        <p data-i18n="tips.cards.2fa.text">Activeer waar mogelijk tweefactorauthenticatie voor een extra beveiligingslaag.</p>
+                    </div>
                 </div>
-                <div class="tip-card">
-                    <i class="fas fa-random"></i>
-                    <h3 data-i18n="tips.cards.patterns.title">Vermijd Patronen</h3>
-                    <p data-i18n="tips.cards.patterns.text">Gebruik geen voorspelbare patronen of persoonlijke informatie.</p>
-                </div>
-                <div class="tip-card">
-                    <i class="fas fa-key"></i>
-                    <h3 data-i18n="tips.cards.unique.title">Unieke Wachtwoorden</h3>
-                    <p data-i18n="tips.cards.unique.text">Gebruik voor elk account een uniek wachtwoord.</p>
-                </div>
-                <div class="tip-card">
-                    <i class="fas fa-user-shield"></i>
-                    <h3 data-i18n="tips.cards.2fa.title">2FA Activeren</h3>
-                    <p data-i18n="tips.cards.2fa.text">Activeer waar mogelijk tweefactorauthenticatie voor extra beveiliging.</p>
+            </div>
+        </section>
+
+        <section class="tips-section alt-bg">
+            <div class="container">
+                <h2>Algemene Beveiligingstips</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-laptop"></i>
+                        <h3>Houd Software Up-to-Date</h3>
+                        <p>Zorg dat je besturingssysteem, browsers en apps altijd zijn bijgewerkt met de nieuwste beveiligingsupdates.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-wifi"></i>
+                        <h3>Wees Voorzichtig met Openbare WiFi</h3>
+                        <p>Gebruik een VPN wanneer je verbinding maakt met openbare WiFi-netwerken om je gegevens te beschermen.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Herken Phishing</h3>
+                        <p>Wees alert op verdachte e-mails en berichten die proberen je persoonlijke gegevens te ontfutselen.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>Gebruik Wachtwoordmanagers</h3>
+                        <p>Overweeg het gebruik van een wachtwoordmanager om al je unieke wachtwoorden veilig op te slaan.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -60,20 +103,25 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>SemSecurity</h3>
-                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
+                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen. Wij bieden tools om je digitale veiligheid te verbeteren.</p>
             </div>
             <div class="footer-section">
-                <h3>Links</h3>
+                <h3>Tools</h3>
                 <ul>
                     <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
                     <li><a href="username-generator.html" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Informatie</h3>
+                <ul>
                     <li><a href="tips.html" data-i18n="nav.tips">Tips</a></li>
                     <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p data-i18n="footer.copyright">&copy; 2025 <span style="color: #c0c0c0;">Sem</span><span style="color: white;">Security</span>. Alle rechten voorbehouden.</p>
+            <p data-i18n="footer.copyright">&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
         </div>
     </footer>
 

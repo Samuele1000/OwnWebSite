@@ -1,52 +1,46 @@
-# SemSecurity - Veilige Wachtwoord Generator
+# SemSecurity Website
 
-Een moderne, gebruiksvriendelijke website voor het genereren van sterke wachtwoorden met focus op cybersecurity.
+Een moderne, responsieve website voor het genereren van veilige wachtwoorden en gebruikersnamen, plus beveiligingstips.
 
-## Features
+## Recente Updates
 
-- 🛡️ Genereer veilige, willekeurige wachtwoorden
-- ⚙️ Aanpasbare wachtwoordlengte (8-32 tekens)
-- 🔤 Opties voor verschillende karaktersets:
-  - Hoofdletters (A-Z)
-  - Kleine letters (a-z)
-  - Cijfers (0-9)
-  - Speciale tekens (!@#$%^&*)
-- 📋 Eén-klik kopiëren naar klembord
-- 📱 Volledig responsief design
-- 💡 Handige wachtwoord tips
-- 📊 Cybersecurity statistieken
+### Ontwerp Vernieuwing (2025)
+- Volledig vernieuwd ontwerp met een moderne, zakelijke uitstraling
+- Verbeterde gebruikersinterface met intuïtieve navigatie
+- Nieuwe typografie met het Inter lettertype voor betere leesbaarheid
+- Geoptimaliseerd kleurenschema met primaire, secundaire en accent kleuren
+- Responsief ontwerp dat werkt op alle apparaten
+- Donkere modus ondersteuning
+- Verbeterde toegankelijkheid
+
+### Functionaliteiten
+- Wachtwoord Generator: Creëer sterke, veilige wachtwoorden
+- Gebruikersnaam Generator: Genereer unieke gebruikersnamen
+- Beveiligingstips: Advies voor online veiligheid
+- Privacybeleid: Transparante informatie over gegevensverzameling
+- Meertalige ondersteuning (Nederlands, Engels, Italiaans)
+- VPN-detectie voor verbeterde veiligheid
 
 ## Technologieën
-
 - HTML5
-- CSS3 (met CSS Variables)
-- JavaScript (Vanilla)
-- Font Awesome voor iconen
+- CSS3 (met variabelen en flexbox/grid layouts)
+- JavaScript (ES6+)
+- Responsive Design
+- Dark Mode ondersteuning
+- Font Awesome iconen
+
+## Pagina's
+- **Home/Wachtwoord Generator**: Hoofdpagina met wachtwoord generator tool
+- **Gebruikersnaam Generator**: Tool voor het genereren van unieke gebruikersnamen
+- **Tips**: Beveiligingstips voor online veiligheid
+- **Privacy**: Privacybeleid en contactformulier
 
 ## Installatie
-
-1. Clone deze repository:
-```bash
-git clone https://github.com/jouw-username/SemSecurity.git
-```
-
-2. Open `index.html` in je webbrowser
+1. Clone de repository
+2. Open index.html in een webbrowser
 
 ## Gebruik
+De website kan direct worden gebruikt zonder installatie van extra software. Alle functionaliteiten werken client-side zonder afhankelijkheid van externe API's.
 
-1. Pas de wachtwoordlengte aan met de slider
-2. Selecteer de gewenste karaktersets
-3. Klik op "Genereer Wachtwoord"
-4. Gebruik de kopieerknop om het wachtwoord te kopiëren
-
-## Veiligheid
-
-Deze wachtwoordgenerator:
-- Gebruikt cryptografisch veilige willekeurige getallen
-- Genereert wachtwoorden lokaal in je browser
-- Slaat geen wachtwoorden op
-- Is volledig client-side (geen server nodig)
-
-## Bijdragen
-
-Bijdragen zijn welkom! Voor grote wijzigingen, open eerst een issue om te bespreken wat je wilt veranderen.
+## Licentie
+Alle rechten voorbehouden © 2025 SemSecurity

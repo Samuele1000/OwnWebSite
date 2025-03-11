@@ -6,12 +6,18 @@
     <title data-i18n="privacy.title">Privacyverklaring | SemSecurity</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <script src="visitor-tracking.js" defer></script>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">🔒 <span style="color: #c0c0c0;">Sem</span><span style="color: white;">Security</span></div>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Sem<span style="font-weight: 400; color: var(--secondary-color);">Security</span></span>
+            </div>
             <ul>
                 <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
                 <li><a href="username-generator.html" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
@@ -29,121 +35,129 @@
     </header>
 
     <main>
+        <section class="hero small-hero">
+            <div class="hero-content">
+                <h1 data-i18n="privacy.pageTitle">Privacyverklaring</h1>
+                <p>Wij hechten waarde aan de bescherming van uw privacy en persoonlijke gegevens</p>
+            </div>
+        </section>
+
         <section class="privacy-section">
-            <h1>Privacyverklaring</h1>
-            <div class="privacy-content">
-                <div class="privacy-intro">
-                    <p>Bij SemSecurity hechten we veel waarde aan de bescherming van uw privacy. In deze privacyverklaring leggen we uit welke gegevens we verzamelen, waarom we deze verzamelen en hoe we deze gebruiken.</p>
-                    <p>Laatste update: <span class="update-date">10-03-2025</span></p>
-                </div>
+            <div class="container">
+                <div class="privacy-content">
+                    <div class="privacy-intro">
+                        <p>Bij SemSecurity hechten we veel waarde aan de bescherming van uw privacy. In deze privacyverklaring leggen we uit welke gegevens we verzamelen, waarom we deze verzamelen en hoe we deze gebruiken.</p>
+                        <p>Laatste update: <span class="update-date">10-03-2025</span></p>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>1. Verzamelde gegevens</h2>
-                    <p>Wanneer u onze website bezoekt, verzamelen we de volgende informatie:</p>
-                    <ul>
-                        <li>IP-adres</li>
-                        <li>Browsertype en -versie</li>
-                        <li>Besturingssysteem</li>
-                        <li>Datum en tijd van uw bezoek</li>
-                        <li>Pagina's die u bezoekt</li>
-                        <li>VPN-gebruik (indien gedetecteerd)</li>
-                    </ul>
-                </div>
+                    <div class="privacy-item">
+                        <h2>1. Verzamelde gegevens</h2>
+                        <p>Wanneer u onze website bezoekt, verzamelen we de volgende informatie:</p>
+                        <ul>
+                            <li>IP-adres</li>
+                            <li>Browsertype en -versie</li>
+                            <li>Besturingssysteem</li>
+                            <li>Datum en tijd van uw bezoek</li>
+                            <li>Pagina's die u bezoekt</li>
+                            <li>VPN-gebruik (indien gedetecteerd)</li>
+                        </ul>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>2. Doel van gegevensverzameling</h2>
-                    <p>We verzamelen deze gegevens voor de volgende doeleinden:</p>
-                    <ul>
-                        <li>Het verbeteren van onze website en diensten</li>
-                        <li>Het analyseren van gebruikersgedrag om onze website te optimaliseren</li>
-                        <li>Het beveiligen van onze website tegen misbruik en fraude</li>
-                        <li>Het detecteren van VPN-gebruik om de veiligheid van onze diensten te waarborgen</li>
-                    </ul>
-                </div>
+                    <div class="privacy-item">
+                        <h2>2. Doel van gegevensverzameling</h2>
+                        <p>We verzamelen deze gegevens voor de volgende doeleinden:</p>
+                        <ul>
+                            <li>Het verbeteren van onze website en diensten</li>
+                            <li>Het analyseren van gebruikersgedrag om onze website te optimaliseren</li>
+                            <li>Het beveiligen van onze website tegen misbruik en fraude</li>
+                            <li>Het detecteren van VPN-gebruik om de veiligheid van onze diensten te waarborgen</li>
+                        </ul>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>3. VPN-detectie</h2>
-                    <p>Onze website detecteert of u gebruik maakt van een VPN (Virtual Private Network). Dit doen we om de veiligheid van onze diensten te waarborgen en mogelijke frauduleuze activiteiten te voorkomen.</p>
-                    <p>Als we detecteren dat u een VPN gebruikt, zullen we u hiervan op de hoogte stellen via een popup. U heeft de mogelijkheid om uw VPN uit te schakelen of door te gaan met het gebruik van onze website met uw VPN ingeschakeld.</p>
-                    <p><strong>Belangrijk: Google VPN wordt niet ondersteund op onze website.</strong> Als we detecteren dat u Google VPN gebruikt, wordt de toegang tot onze website geblokkeerd. Dit is een beveiligingsmaatregel om de integriteit van onze diensten te waarborgen. U kunt alleen toegang krijgen tot onze website door uw Google VPN uit te schakelen.</p>
-                </div>
+                    <div class="privacy-item">
+                        <h2>3. VPN-detectie</h2>
+                        <p>Onze website detecteert of u gebruik maakt van een VPN (Virtual Private Network). Dit doen we om de veiligheid van onze diensten te waarborgen en mogelijke frauduleuze activiteiten te voorkomen.</p>
+                        <p>Als we detecteren dat u een VPN gebruikt, zullen we u hiervan op de hoogte stellen via een popup. U heeft de mogelijkheid om uw VPN uit te schakelen of door te gaan met het gebruik van onze website met uw VPN ingeschakeld.</p>
+                        <p><strong>Belangrijk: Google VPN wordt niet ondersteund op onze website.</strong> Als we detecteren dat u Google VPN gebruikt, wordt de toegang tot onze website geblokkeerd. Dit is een beveiligingsmaatregel om de integriteit van onze diensten te waarborgen. U kunt alleen toegang krijgen tot onze website door uw Google VPN uit te schakelen.</p>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>4. Google VPN-blokkering</h2>
-                    <p>Vanaf 15 augustus 2023 blokkeert onze website actief alle toegang via Google VPN. Deze maatregel is genomen om de volgende redenen:</p>
-                    <ul>
-                        <li>Verhoogde beveiliging tegen geautomatiseerde aanvallen</li>
-                        <li>Bescherming van onze gebruikersgegevens</li>
-                        <li>Voorkomen van misbruik van onze diensten</li>
-                        <li>Waarborgen van de integriteit van onze systemen</li>
-                    </ul>
-                    <p>Als u probeert onze website te bezoeken met Google VPN ingeschakeld, zult u een blokkadepagina zien met instructies om uw Google VPN uit te schakelen. Andere VPN-diensten kunnen nog steeds worden gebruikt, maar kunnen bepaalde functionaliteitsbeperkingen hebben.</p>
-                </div>
+                    <div class="privacy-item">
+                        <h2>4. Google VPN-blokkering</h2>
+                        <p>Vanaf 15 augustus 2023 blokkeert onze website actief alle toegang via Google VPN. Deze maatregel is genomen om de volgende redenen:</p>
+                        <ul>
+                            <li>Verhoogde beveiliging tegen geautomatiseerde aanvallen</li>
+                            <li>Bescherming van onze gebruikersgegevens</li>
+                            <li>Voorkomen van misbruik van onze diensten</li>
+                            <li>Waarborgen van de integriteit van onze systemen</li>
+                        </ul>
+                        <p>Als u probeert onze website te bezoeken met Google VPN ingeschakeld, zult u een blokkadepagina zien met instructies om uw Google VPN uit te schakelen. Andere VPN-diensten kunnen nog steeds worden gebruikt, maar kunnen bepaalde functionaliteitsbeperkingen hebben.</p>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>5. Cookies</h2>
-                    <p>Onze website maakt gebruik van functionele cookies om uw taalvoorkeur op te slaan. Deze cookies zijn noodzakelijk voor het functioneren van de website en worden niet gebruikt voor tracking of advertentiedoeleinden.</p>
-                </div>
+                    <div class="privacy-item">
+                        <h2>5. Cookies</h2>
+                        <p>Onze website maakt gebruik van functionele cookies om uw taalvoorkeur op te slaan. Deze cookies zijn noodzakelijk voor het functioneren van de website en worden niet gebruikt voor tracking of advertentiedoeleinden.</p>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>6. Gegevensopslag</h2>
-                    <p>De verzamelde gegevens worden opgeslagen op beveiligde servers en worden niet langer bewaard dan noodzakelijk voor de doeleinden waarvoor ze zijn verzameld.</p>
-                </div>
+                    <div class="privacy-item">
+                        <h2>6. Gegevensopslag</h2>
+                        <p>De verzamelde gegevens worden opgeslagen op beveiligde servers en worden niet langer bewaard dan noodzakelijk voor de doeleinden waarvoor ze zijn verzameld.</p>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>7. Delen van gegevens</h2>
-                    <p>Wij delen uw gegevens niet met derden, tenzij dit wettelijk verplicht is of noodzakelijk is voor het leveren van onze diensten.</p>
-                </div>
+                    <div class="privacy-item">
+                        <h2>7. Delen van gegevens</h2>
+                        <p>Wij delen uw gegevens niet met derden, tenzij dit wettelijk verplicht is of noodzakelijk is voor het leveren van onze diensten.</p>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>8. Uw rechten</h2>
-                    <p>U heeft de volgende rechten met betrekking tot uw persoonsgegevens:</p>
-                    <ul>
-                        <li>Recht op inzage in uw persoonsgegevens</li>
-                        <li>Recht op correctie van onjuiste persoonsgegevens</li>
-                        <li>Recht op verwijdering van uw persoonsgegevens</li>
-                        <li>Recht op beperking van de verwerking van uw persoonsgegevens</li>
-                        <li>Recht op bezwaar tegen de verwerking van uw persoonsgegevens</li>
-                        <li>Recht op dataportabiliteit</li>
-                    </ul>
-                </div>
+                    <div class="privacy-item">
+                        <h2>8. Uw rechten</h2>
+                        <p>U heeft de volgende rechten met betrekking tot uw persoonsgegevens:</p>
+                        <ul>
+                            <li>Recht op inzage in uw persoonsgegevens</li>
+                            <li>Recht op correctie van onjuiste persoonsgegevens</li>
+                            <li>Recht op verwijdering van uw persoonsgegevens</li>
+                            <li>Recht op beperking van de verwerking van uw persoonsgegevens</li>
+                            <li>Recht op bezwaar tegen de verwerking van uw persoonsgegevens</li>
+                            <li>Recht op dataportabiliteit</li>
+                        </ul>
+                    </div>
 
-                <div class="privacy-item">
-                    <h2>9. Contact</h2>
-                    <p>Als u vragen heeft over onze privacyverklaring of als u gebruik wilt maken van uw rechten, kunt u contact met ons opnemen via het onderstaande formulier:</p>
-                    
-                    <div class="contact-form">
-                        <form id="privacy-contact-form">
-                            <div class="form-group">
-                                <label for="contact-name">Naam:</label>
-                                <input type="text" id="contact-name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-email">E-mail:</label>
-                                <input type="email" id="contact-email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-subject">Onderwerp:</label>
-                                <select id="contact-subject" name="subject" required>
-                                    <option value="">Selecteer een onderwerp</option>
-                                    <option value="inzage">Recht op inzage</option>
-                                    <option value="correctie">Recht op correctie</option>
-                                    <option value="verwijdering">Recht op verwijdering</option>
-                                    <option value="beperking">Recht op beperking</option>
-                                    <option value="bezwaar">Recht op bezwaar</option>
-                                    <option value="dataportabiliteit">Recht op dataportabiliteit</option>
-                                    <option value="vraag">Algemene vraag</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-message">Bericht:</label>
-                                <textarea id="contact-message" name="message" rows="5" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="contact-submit-btn">Verzenden</button>
-                                <div id="contact-form-status" class="form-status"></div>
-                            </div>
-                        </form>
+                    <div class="privacy-item">
+                        <h2>9. Contact</h2>
+                        <p>Als u vragen heeft over onze privacyverklaring of als u gebruik wilt maken van uw rechten, kunt u contact met ons opnemen via het onderstaande formulier:</p>
+                        
+                        <div class="contact-form">
+                            <form id="privacy-contact-form">
+                                <div class="form-group">
+                                    <label for="contact-name">Naam:</label>
+                                    <input type="text" id="contact-name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">E-mail:</label>
+                                    <input type="email" id="contact-email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-subject">Onderwerp:</label>
+                                    <select id="contact-subject" name="subject" required>
+                                        <option value="">Selecteer een onderwerp</option>
+                                        <option value="inzage">Recht op inzage</option>
+                                        <option value="correctie">Recht op correctie</option>
+                                        <option value="verwijdering">Recht op verwijdering</option>
+                                        <option value="beperking">Recht op beperking</option>
+                                        <option value="bezwaar">Recht op bezwaar</option>
+                                        <option value="dataportabiliteit">Recht op dataportabiliteit</option>
+                                        <option value="vraag">Algemene vraag</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-message">Bericht:</label>
+                                    <textarea id="contact-message" name="message" rows="5" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="contact-submit-btn">Verzenden</button>
+                                    <div id="contact-form-status" class="form-status"></div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,20 +168,25 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>SemSecurity</h3>
-                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.</p>
+                <p data-i18n="footer.description">Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen. Wij bieden tools om je digitale veiligheid te verbeteren.</p>
             </div>
             <div class="footer-section">
-                <h3>Links</h3>
+                <h3>Tools</h3>
                 <ul>
                     <li><a href="index.html" data-i18n="nav.passwordGenerator">Wachtwoord Generator</a></li>
                     <li><a href="username-generator.html" data-i18n="nav.usernameGenerator">Gebruikersnaam Generator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Informatie</h3>
+                <ul>
                     <li><a href="tips.html" data-i18n="nav.tips">Tips</a></li>
                     <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p data-i18n="footer.copyright">&copy; 2025 <span style="color: #c0c0c0;">Sem</span><span style="color: white;">Security</span>. Alle rechten voorbehouden.</p>
+            <p data-i18n="footer.copyright">&copy; 2025 SemSecurity. Alle rechten voorbehouden.</p>
         </div>
     </footer>
 
