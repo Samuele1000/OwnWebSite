@@ -12,6 +12,7 @@
     <script src="visitor-tracking.js" defer></script>
 </head>
 <body>
+    <a href="#main" class="skip-link" data-i18n="accessibility.skipToContent">Skip naar inhoud</a>
     <header>
         <nav>
             <div class="logo">
@@ -34,7 +35,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <section id="home" class="hero">
             <div class="hero-content">
                 <h1 data-i18n="hero.title">Bescherm Je Online Identiteit</h1>
@@ -51,7 +52,7 @@
                 <div class="generator-container">
                     <div class="password-display">
                         <input type="text" id="password-output" readonly>
-                        <button id="copy-button" title="Kopiëren naar klembord"><i class="fas fa-copy"></i></button>
+                        <button id="copy-button" title="Kopiëren naar klembord" data-i18n-title="accessibility.copyToClipboard"><i class="fas fa-copy"></i></button>
                     </div>
                     <div class="strength-indicator">
                         <div class="strength-text">
@@ -128,22 +129,22 @@
 
         <section id="features" class="features-section">
             <div class="container">
-                <h2>Waarom SemSecurity?</h2>
+                <h2 data-i18n="features.title">Waarom SemSecurity?</h2>
                 <div class="features-grid">
                     <div class="feature-card">
                         <i class="fas fa-lock"></i>
-                        <h3>Veilig & Betrouwbaar</h3>
-                        <p>Alle wachtwoorden worden lokaal gegenereerd zonder dat ze worden opgeslagen of verzonden.</p>
+                        <h3 data-i18n="features.cards.secure.title">Veilig & Betrouwbaar</h3>
+                        <p data-i18n="features.cards.secure.text">Alle wachtwoorden worden lokaal gegenereerd zonder dat ze worden opgeslagen of verzonden.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-bolt"></i>
-                        <h3>Snel & Efficiënt</h3>
-                        <p>Genereer sterke wachtwoorden in seconden met onze geavanceerde algoritmes.</p>
+                        <h3 data-i18n="features.cards.fast.title">Snel & Efficiënt</h3>
+                        <p data-i18n="features.cards.fast.text">Genereer sterke wachtwoorden in seconden met onze geavanceerde algoritmes.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-mobile-alt"></i>
-                        <h3>Volledig Responsief</h3>
-                        <p>Gebruik onze tools op elk apparaat, van desktop tot smartphone.</p>
+                        <h3 data-i18n="features.cards.responsive.title">Volledig Responsief</h3>
+                        <p data-i18n="features.cards.responsive.text">Gebruik onze tools op elk apparaat, van desktop tot smartphone.</p>
                     </div>
                 </div>
             </div>

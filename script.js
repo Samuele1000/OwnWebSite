@@ -46,6 +46,25 @@ function updatePageText() {
         }
     });
 
+    // Verwerk data-i18n-title attributen
+    document.querySelectorAll('[data-i18n-title]').forEach(element => {
+        const keys = element.getAttribute('data-i18n-title').split('.');
+        let value = translations;
+        
+        for (const key of keys) {
+            if (value && key in value) {
+                value = value[key];
+            } else {
+                console.error(`Translation missing for title key: ${keys.join('.')}`);
+                return;
+            }
+        }
+
+        if (value) {
+            element.title = value;
+        }
+    });
+
     // Update specifieke elementen die geen data-i18n attribuut hebben
     const strengthLabel = document.getElementById('strength-label');
     if (strengthLabel) {

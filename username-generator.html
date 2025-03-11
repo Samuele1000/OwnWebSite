@@ -12,6 +12,7 @@
     <script src="visitor-tracking.js" defer></script>
 </head>
 <body>
+    <a href="#main" class="skip-link" data-i18n="accessibility.skipToContent">Skip naar inhoud</a>
     <header>
         <nav>
             <div class="logo">
@@ -34,7 +35,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <section id="home" class="hero">
             <div class="hero-content">
                 <h1 data-i18n="usernameGenerator.hero.title">Creëer Unieke Gebruikersnamen</h1>
@@ -51,7 +52,7 @@
                 <div class="generator-container">
                     <div class="username-display">
                         <input type="text" id="username-output" readonly>
-                        <button id="username-copy-button" title="Kopiëren naar klembord"><i class="fas fa-copy"></i></button>
+                        <button id="username-copy-button" title="Kopiëren naar klembord" data-i18n-title="accessibility.copyToClipboard"><i class="fas fa-copy"></i></button>
                     </div>
                     <div class="options">
                         <div class="option-group">
@@ -79,27 +80,27 @@
 
         <section id="tips" class="tips-section">
             <div class="container">
-                <h2>Kenmerken van een Sterke Gebruikersnaam</h2>
+                <h2 data-i18n="usernameGenerator.tips.title">Kenmerken van een Sterke Gebruikersnaam</h2>
                 <div class="tips-grid">
                     <div class="tip-card">
                         <i class="fas fa-random"></i>
-                        <h3>Willekeurig</h3>
-                        <p>Vermijd persoonlijke gegevens zoals je naam of geboortedatum die gemakkelijk aan jou kunnen worden gekoppeld.</p>
+                        <h3 data-i18n="usernameGenerator.tips.cards.random.title">Willekeurig</h3>
+                        <p data-i18n="usernameGenerator.tips.cards.random.text">Vermijd persoonlijke gegevens zoals je naam of geboortedatum die gemakkelijk aan jou kunnen worden gekoppeld.</p>
                     </div>
                     <div class="tip-card">
                         <i class="fas fa-brain"></i>
-                        <h3>Eenvoudig maar Complex</h3>
-                        <p>Kies een gebruikersnaam die je gemakkelijk kunt onthouden, maar die lastig te raden is voor anderen.</p>
+                        <h3 data-i18n="usernameGenerator.tips.cards.simple.title">Eenvoudig maar Complex</h3>
+                        <p data-i18n="usernameGenerator.tips.cards.simple.text">Kies een gebruikersnaam die je gemakkelijk kunt onthouden, maar die lastig te raden is voor anderen.</p>
                     </div>
                     <div class="tip-card">
                         <i class="fas fa-fingerprint"></i>
-                        <h3>Uniek per Account</h3>
-                        <p>Gebruik voor elk account een andere gebruikersnaam om te voorkomen dat hackers meerdere accounts kunnen vinden.</p>
+                        <h3 data-i18n="usernameGenerator.tips.cards.unique.title">Uniek per Account</h3>
+                        <p data-i18n="usernameGenerator.tips.cards.unique.text">Gebruik voor elk account een andere gebruikersnaam om te voorkomen dat hackers meerdere accounts kunnen vinden.</p>
                     </div>
                     <div class="tip-card">
                         <i class="fas fa-shield-alt"></i>
-                        <h3>Extra Beveiliging</h3>
-                        <p>Combineer je unieke gebruikersnaam met een sterk wachtwoord en tweefactorauthenticatie voor maximale beveiliging.</p>
+                        <h3 data-i18n="usernameGenerator.tips.cards.security.title">Extra Beveiliging</h3>
+                        <p data-i18n="usernameGenerator.tips.cards.security.text">Combineer je unieke gebruikersnaam met een sterk wachtwoord en tweefactorauthenticatie voor maximale beveiliging.</p>
                     </div>
                 </div>
             </div>
@@ -107,22 +108,22 @@
 
         <section id="features" class="features-section">
             <div class="container">
-                <h2>Voordelen van Onze Generator</h2>
+                <h2 data-i18n="usernameGenerator.features.title">Voordelen van Onze Generator</h2>
                 <div class="features-grid">
                     <div class="feature-card">
                         <i class="fas fa-user-secret"></i>
-                        <h3>Privacy Bescherming</h3>
-                        <p>Onze gebruikersnamen bevatten geen persoonlijke informatie die je identiteit kan onthullen.</p>
+                        <h3 data-i18n="usernameGenerator.features.cards.privacy.title">Privacy Bescherming</h3>
+                        <p data-i18n="usernameGenerator.features.cards.privacy.text">Onze gebruikersnamen bevatten geen persoonlijke informatie die je identiteit kan onthullen.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-globe"></i>
-                        <h3>Universeel Bruikbaar</h3>
-                        <p>Genereer gebruikersnamen die op vrijwel alle platforms en diensten kunnen worden gebruikt.</p>
+                        <h3 data-i18n="usernameGenerator.features.cards.universal.title">Universeel Bruikbaar</h3>
+                        <p data-i18n="usernameGenerator.features.cards.universal.text">Genereer gebruikersnamen die op vrijwel alle platforms en diensten kunnen worden gebruikt.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-random"></i>
-                        <h3>Volledig Willekeurig</h3>
-                        <p>Onze algoritmes zorgen voor willekeurige en unieke gebruikersnamen die niet te voorspellen zijn.</p>
+                        <h3 data-i18n="usernameGenerator.features.cards.random.title">Volledig Willekeurig</h3>
+                        <p data-i18n="usernameGenerator.features.cards.random.text">Onze algoritmes zorgen voor willekeurige en unieke gebruikersnamen die niet te voorspellen zijn.</p>
                     </div>
                 </div>
             </div>

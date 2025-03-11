@@ -1,19 +1,19 @@
 :root {
-    --primary-color: #2c3e50; /* Donker blauwgrijs */
-    --secondary-color: #3498db; /* Helder blauw */
-    --accent-color: #e74c3c; /* Accentkleur rood */
-    --background-color: #f8f9fa; /* Licht grijs */
-    --text-color: #333333; /* Donkere tekst */
-    --text-light: #6c757d; /* Lichtere tekst */
-    --card-background: #ffffff; /* Witte kaarten */
-    --border-color: #e9ecef; /* Lichte border */
-    --success-color: #2ecc71; /* Groen voor succes */
-    --warning-color: #f39c12; /* Oranje voor waarschuwingen */
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05); /* Kleine schaduw */
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1); /* Middelgrote schaduw */
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1); /* Grote schaduw */
-    --transition: all 0.3s ease; /* Standaard transitie */
-    --border-radius: 4px; /* Standaard border radius */
+    --primary-color: #4a6b8a; /* Lichter blauwgrijs voor donkere modus */
+    --secondary-color: #5dade2; /* Helderder blauw voor donkere modus */
+    --accent-color: #e74c3c; /* Accentkleur rood blijft hetzelfde */
+    --background-color: #121212; /* Donkere achtergrond */
+    --card-background: #1e1e1e; /* Donkere kaarten */
+    --text-color: #e0e0e0; /* Lichte tekst voor donkere modus */
+    --text-light: #a0a0a0; /* Lichtere tekst voor donkere modus */
+    --border-color: #333333; /* Donkere border */
+    --success-color: #2ecc71; /* Groen voor succes blijft hetzelfde */
+    --warning-color: #f39c12; /* Oranje voor waarschuwingen blijft hetzelfde */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.2); /* Donkerdere kleine schaduw */
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.3); /* Donkerdere middelgrote schaduw */
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.4); /* Donkerdere grote schaduw */
+    --transition: all 0.3s ease; /* Standaard transitie blijft hetzelfde */
+    --border-radius: 4px; /* Standaard border radius blijft hetzelfde */
 }
 
 * {
@@ -25,8 +25,8 @@
 body {
     font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: #e0e0e0;
+    background-color: #121212;
 }
 
 /* Typografie */
@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     line-height: 1.3;
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: var(--text-color);
 }
 
 p {
@@ -43,13 +43,13 @@ p {
 }
 
 a {
-    color: var(--secondary-color);
+    color: #5dade2;
     text-decoration: none;
     transition: var(--transition);
 }
 
-a:hover {
-    color: var(--primary-color);
+a:hover, a:focus {
+    color: #7fc4f1;
 }
 
 /* Container */
@@ -58,11 +58,14 @@ a:hover {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* Header & Navigation */
 header {
-    background-color: #ffffff;
+    background-color: var(--card-background);
     padding: 1rem 0;
     position: fixed;
     width: 100%;
@@ -75,6 +78,9 @@ header {
 nav {
     max-width: 1200px;
     margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,7 +90,10 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--text-color);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -95,6 +104,9 @@ nav {
 }
 
 nav ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     list-style: none;
     gap: 1.5rem;
@@ -135,7 +147,7 @@ nav a.active {
     font-weight: 600;
 }
 
-/* Taal selector met vlaggen */
+/* Taal selector */
 .language-selector {
     margin-left: 1rem;
     position: relative;
@@ -146,14 +158,14 @@ nav a.active {
     -moz-appearance: none;
     -ms-appearance: none;
     appearance: none;
-    background-color: white;
+    background-color: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 0.5rem 2rem 0.5rem 2.5rem; /* Extra ruimte links voor de vlag */
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
     font-size: 0.9rem;
     color: var(--text-color);
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
     transition: var(--transition);
@@ -161,113 +173,37 @@ nav a.active {
 
 .language-selector select:hover,
 .language-selector select:focus {
-    border-color: var(--primary-color);
+    border-color: var(--secondary-color);
     outline: none;
-}
-
-/* Vlag iconen voor talen */
-.language-option {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-}
-
-.flag-icon {
-    width: 20px;
-    height: 15px;
-    margin-right: 8px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.flag-nl {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgOTAwIDYwMCI+PHBhdGggZmlsbD0iI0FFMUMyOCIgZD0iTTAgMGg5MDB2MjAwSDB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMjAwaDkwMHYyMDBIMHoiLz48cGF0aCBmaWxsPSIjMjE0NjhCIiBkPSJNMCA0MDBoOTAwdjIwMEgweiIvPjwvc3ZnPg==');
-}
-
-.flag-en {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MTAgNjAwIj48cmVjdCB3aWR0aD0iOTEwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzAwMjQ3ZCIvPjxwYXRoIGQ9Ik0wLDBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsMTIwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0wLDI0MGg5MTB2NjBoLTkxMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCwzNjBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsNDgwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIzNjQiIGhlaWdodD0iMzAwIiBmaWxsPSIjMDAyNDdkIi8+PGcgZmlsbD0iI2ZmZiI+PGcgaWQ9InMiPjxnIGlkPSJjIj48cGF0aCBpZD0idCIgZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMzApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoOTApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMTUwKSIvPjwvZz48dXNlIHhsaW5rOmhyZWY9IiNjIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIi8+PC9nPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHk9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIgeT0iMTIwIi8+PHVzZSB4bGluazpocmVmPSIjcyIgeD0iMjQwIiB5PSIxMjAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB5PSIyNDAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB4PSIxMjAiIHk9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIgeT0iMjQwIi8+PC9nPjwvc3ZnPg==');
-}
-
-.flag-it {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDA5MjQ2IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjY2UyYjM3IiBkPSJNNjAwIDBoMzAwdjYwMEg2MDB6Ii8+PC9zdmc+');
-}
-
-@media (prefers-color-scheme: dark) {
-    .language-selector select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        appearance: none;
-        background-color: #1e1e1e;
-        color: #e0e0e0;
-        border-color: #333333;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    }
-    
-    .language-selector::before {
-        content: '';
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 15px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        pointer-events: none;
-    }
-    
-    .language-selector[data-selected="nl"]::before {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgOTAwIDYwMCI+PHBhdGggZmlsbD0iI0FFMUMyOCIgZD0iTTAgMGg5MDB2MjAwSDB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMjAwaDkwMHYyMDBIMHoiLz48cGF0aCBmaWxsPSIjMjE0NjhCIiBkPSJNMCA0MDBoOTAwdjIwMEgweiIvPjwvc3ZnPg==');
-    }
-    
-    .language-selector[data-selected="en"]::before {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MTAgNjAwIj48cmVjdCB3aWR0aD0iOTEwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzAwMjQ3ZCIvPjxwYXRoIGQ9Ik0wLDBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsMTIwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0wLDI0MGg5MTB2NjBoLTkxMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCwzNjBoOTEwdjYwaC05MTB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAsNDgwaDkxMHY2MGgtOTEweiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIzNjQiIGhlaWdodD0iMzAwIiBmaWxsPSIjMDAyNDdkIi8+PGcgZmlsbD0iI2ZmZiI+PGcgaWQ9InMiPjxnIGlkPSJjIj48cGF0aCBpZD0idCIgZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMzApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoOTApIi8+PHBhdGggZD0iTTAsMGgzMHYxNWgtMzB6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDMwKSByb3RhdGUoMTUwKSIvPjwvZz48dXNlIHhsaW5rOmhyZWY9IiNjIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIi8+PC9nPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHk9IjEyMCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjEyMCIgeT0iMTIwIi8+PHVzZSB4bGluazpocmVmPSIjcyIgeD0iMjQwIiB5PSIxMjAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB5PSIyNDAiLz48dXNlIHhsaW5rOmhyZWY9IiNzIiB4PSIxMjAiIHk9IjI0MCIvPjx1c2UgeGxpbms6aHJlZj0iI3MiIHg9IjI0MCIgeT0iMjQwIi8+PC9nPjwvc3ZnPg==');
-    }
-    
-    .language-selector[data-selected="it"]::before {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDA5MjQ2IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjY2UyYjM3IiBkPSJNNjAwIDBoMzAwdjYwMEg2MDB6Ii8+PC9zdmc+');
-    }
-    
-    /* Zorg ervoor dat de footer een donkere achtergrond heeft */
-    footer {
-        background-color: #1a1a1a;
-        border-top: 1px solid #333333;
-    }
-    
-    .footer-content {
-        background-color: #1a1a1a;
-    }
-    
-    .footer-bottom {
-        background-color: #121212;
-        border-top: 1px solid #333333;
-    }
-    
-    /* Zorg ervoor dat de main sectie een donkere achtergrond heeft */
-    main {
-        background-color: #121212;
-    }
-    
-    /* Zorg ervoor dat alle secties in de main een donkere achtergrond hebben */
-    main section {
-        background-color: #121212;
-    }
 }
 
 /* Hero Section */
 .hero {
     height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
     align-items: center;
     text-align: center;
     padding: 2rem;
+    background: -webkit-linear-gradient(315deg, var(--primary-color), #34495e);
+    background: -moz-linear-gradient(315deg, var(--primary-color), #34495e);
+    background: -o-linear-gradient(315deg, var(--primary-color), #34495e);
     background: linear-gradient(135deg, var(--primary-color), #34495e);
-    color: white;
+    color: var(--text-color);
     position: relative;
     overflow: hidden;
 }
@@ -292,7 +228,7 @@ nav a.active {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
-    color: white;
+    color: var(--text-color);
     font-weight: 700;
     letter-spacing: -0.5px;
 }
@@ -300,7 +236,7 @@ nav a.active {
 .hero p {
     font-size: 1.25rem;
     margin-bottom: 2.5rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-light);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -308,26 +244,29 @@ nav a.active {
 
 .cta-button a {
     display: inline-block;
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 0.875rem 2rem;
-    border-radius: var(--border-radius);
+    padding: 1rem 2rem;
+    background-color: #5dade2;
+    color: #000000;
+    border-radius: 50px;
     font-weight: 600;
     transition: var(--transition);
-    text-decoration: none;
     box-shadow: var(--shadow-md);
+    border: none;
 }
 
 .cta-button a:hover {
-    background-color: #2980b9;
+    background-color: #7fc4f1;
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
 }
 
 /* Generator Section */
 .generator-section {
     padding: 5rem 0;
-    background-color: white;
+    background-color: var(--background-color);
 }
 
 .generator-section h2 {
@@ -349,7 +288,7 @@ nav a.active {
 .generator-container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 8px;
     padding: 2rem;
     box-shadow: var(--shadow-md);
@@ -357,19 +296,23 @@ nav a.active {
 }
 
 .password-display, .username-display {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     margin-bottom: 1.5rem;
     position: relative;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
 }
 
 #password-output, #username-output {
     flex: 1;
     padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border: none;
     font-family: 'Roboto Mono', monospace;
     font-size: 1rem;
-    background-color: #f8f9fa;
+    background-color: var(--card-background);
     color: var(--text-color);
     transition: var(--transition);
 }
@@ -381,21 +324,23 @@ nav a.active {
 }
 
 #copy-button {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
+    background-color: #5dade2;
+    color: #000000;
     border: none;
-    color: var(--text-light);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    font-size: 1.25rem;
     transition: var(--transition);
-    padding: 0.25rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #copy-button:hover {
-    color: var(--secondary-color);
+    background-color: #7fc4f1;
 }
 
 .strength-indicator {
@@ -403,24 +348,27 @@ nav a.active {
 }
 
 .strength-text {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
     font-size: 0.875rem;
+    margin-top: 0.5rem;
     color: var(--text-light);
+    background-color: var(--card-background);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
 .strength-bar {
-    height: 6px;
-    background-color: #e9ecef;
-    border-radius: 3px;
+    height: 8px;
+    background-color: var(--card-background);
+    border-radius: 4px;
     overflow: hidden;
+    margin-top: 0.5rem;
 }
 
 .strength-bar-fill {
     height: 100%;
     width: 0;
-    transition: width 0.3s ease, background-color 0.3s ease;
+    background-color: var(--warning-color);
+    transition: width 0.3s ease;
 }
 
 .strength-bar-fill.weak { 
@@ -439,25 +387,35 @@ nav a.active {
 }
 
 .options {
-    display: grid;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
 
 .option-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     padding: 0.75rem;
     border-radius: var(--border-radius);
     transition: var(--transition);
-    background-color: #f8f9fa;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
 }
 
 .option-group:hover {
-    background-color: #e9ecef;
+    background-color: #2a2a2a;
 }
 
 .option-group label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -466,16 +424,17 @@ nav a.active {
 }
 
 input[type="checkbox"] {
-    appearance: none;
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
     border: 2px solid var(--border-color);
-    border-radius: 3px;
+    border-radius: 4px;
     margin-right: 10px;
     position: relative;
     cursor: pointer;
-    transition: var(--transition);
+    background-color: var(--card-background);
 }
 
 input[type="checkbox"]:checked {
@@ -498,49 +457,52 @@ input[type="checkbox"]:checked::after {
 input[type="range"] {
     -webkit-appearance: none;
     -moz-appearance: none;
-    -ms-appearance: none;
     appearance: none;
     width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: #e9ecef;
+    height: 8px;
+    border-radius: 5px;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    margin: 10px 0;
     outline: none;
-    margin: 0 10px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: var(--secondary-color);
+    background-color: var(--secondary-color);
     cursor: pointer;
+    border: none;
+    box-shadow: var(--shadow-sm);
     transition: var(--transition);
-    box-shadow: 0 0 2px rgba(0,0,0,0.2);
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
 }
 
 .generate-btn {
+    display: block;
     width: 100%;
     padding: 1rem;
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: #5dade2;
+    color: #000000;
     border: none;
     border-radius: var(--border-radius);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+    margin-top: 1.5rem;
     box-shadow: var(--shadow-sm);
 }
 
 .generate-btn:hover {
-    background-color: #2980b9;
-    box-shadow: var(--shadow-md);
+    background-color: #7fc4f1;
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
     transform: translateY(-2px);
 }
 
@@ -551,7 +513,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* Tips Section */
 .tips-section {
     padding: 5rem 0;
-    background-color: #f8f9fa;
+    background-color: var(--background-color);
 }
 
 .tips-section h2 {
@@ -571,21 +533,47 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -1rem;
+}
+
+.tips-grid > *, .features-grid > * {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 calc(33.333% - 2rem);
+    flex: 1 0 calc(33.333% - 2rem);
+    margin: 0 1rem 2rem;
+    min-width: 280px;
+}
+
+/* Moderne browsers met grid ondersteuning */
+@supports (display: grid) {
+    .tips-grid, .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 0;
+    }
+    
+    .tips-grid > *, .features-grid > * {
+        margin: 0;
+        min-width: 0;
+    }
 }
 
 .tip-card {
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 8px;
     padding: 2rem;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
     border: 1px solid var(--border-color);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -593,6 +581,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .tip-card:hover {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
 }
@@ -615,9 +607,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Footer */
 footer {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--card-background);
+    color: var(--text-color);
     padding: 4rem 0 0;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
@@ -627,6 +620,7 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
+    background-color: var(--card-background);
 }
 
 .footer-section h3 {
@@ -671,7 +665,8 @@ footer {
     text-align: center;
     padding: 1.5rem 0;
     margin-top: 3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #0a0a0a;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-bottom p {
@@ -680,8 +675,101 @@ footer {
     margin: 0;
 }
 
-/* Responsive */
+/* Responsive Styles */
+/* Extra kleine apparaten (telefoons, 576px en lager) */
+@media (max-width: 576px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+    
+    .cta-button a {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .generator-section h2, 
+    .tips-section h2, 
+    .features-section h2 {
+        font-size: 1.75rem;
+    }
+    
+    .password-display, 
+    .username-display {
+        flex-direction: column;
+    }
+    
+    #copy-button {
+        position: static;
+        width: 100%;
+        margin-top: 0.5rem;
+        border-radius: var(--border-radius);
+        transform: none;
+        padding: 0.5rem;
+    }
+    
+    #password-output, 
+    #username-output {
+        border-radius: var(--border-radius);
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+    
+    .option-group {
+        padding: 0.75rem;
+    }
+    
+    .option-group label {
+        font-size: 0.9rem;
+    }
+    
+    .generate-btn {
+        padding: 0.75rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .visitor-info-popup {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+    }
+    
+    .visitor-info-content {
+        max-width: none;
+    }
+    
+    .hero::before {
+        opacity: 0.2;
+    }
+    
+    .cta-button a,
+    .generate-btn,
+    .tip-card,
+    .feature-card,
+    .generator-container,
+    .privacy-content {
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+}
+
+/* Kleine apparaten (tablets, 768px en lager) */
 @media (max-width: 768px) {
+    header {
+        padding: 0.5rem 0;
+    }
+    
     nav {
         flex-direction: column;
         padding: 1rem;
@@ -715,12 +803,137 @@ footer {
         font-size: 1rem;
     }
     
-    .tips-grid {
+    .tips-grid,
+    .features-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .generator-container {
         padding: 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .visitor-info-popup {
+        max-width: 90%;
+    }
+}
+
+/* Middelgrote apparaten (desktops, 992px en lager) */
+@media (max-width: 992px) {
+    .container {
+        max-width: 95%;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Grote apparaten (grote desktops, 1200px en lager) */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 95%;
+    }
+}
+
+/* Ondersteuning voor hoge resolutie schermen */
+@media (min-resolution: 192dpi), (-webkit-min-device-pixel-ratio: 2) {
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Ondersteuning voor donkere modus (we hebben al een donker thema, maar voor de volledigheid) */
+@media (prefers-color-scheme: dark) {
+    /* We hebben al een donker thema, dus hier hoeven we niets te doen */
+}
+
+/* Ondersteuning voor verminderde beweging */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Ondersteuning voor afdrukken */
+@media print {
+    header, 
+    footer, 
+    .hero, 
+    .cta-button, 
+    .generate-btn,
+    #copy-button,
+    .language-selector {
+        display: none !important;
+    }
+    
+    body {
+        background-color: white;
+        color: black;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .generator-container,
+    .privacy-content,
+    .tip-card,
+    .feature-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        background-color: white;
+        color: black;
+    }
+    
+    h1, h2, h3, h4, h5, h6, p {
+        color: black;
+    }
+}
+
+/* Ondersteuning voor touch apparaten */
+@media (hover: none) {
+    nav a::after {
+        display: none;
+    }
+    
+    .option-group:hover,
+    .tip-card:hover,
+    .feature-card:hover,
+    .generate-btn:hover,
+    .cta-button a:hover,
+    #copy-button:hover {
+        transform: none;
+        box-shadow: var(--shadow-sm);
+    }
+}
+
+/* Ondersteuning voor landscape modus op mobiele apparaten */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 6rem 2rem;
+    }
+    
+    .hero-content {
+        margin-top: 2rem;
     }
 }
 
@@ -760,10 +973,11 @@ footer {
 .features-section h2::after {
     content: '';
     display: block;
-    width: 80px;
+    width: 50px;
     height: 3px;
     background-color: var(--secondary-color);
     margin: 1rem auto 0;
+    border-radius: 3px;
 }
 
 .features-grid {
@@ -776,12 +990,12 @@ footer {
 }
 
 .feature-card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--card-background);
     border-radius: 8px;
     padding: 2.5rem 2rem;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -791,13 +1005,13 @@ footer {
 .feature-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #2a2a2a;
 }
 
 .feature-card i {
-    font-size: 3rem;
-    color: var(--secondary-color);
+    font-size: 2.5rem;
     margin-bottom: 1.5rem;
+    color: var(--secondary-color);
 }
 
 .feature-card h3 {
@@ -823,7 +1037,7 @@ footer {
 
 /* Alternatieve achtergrond voor secties */
 .alt-bg {
-    background-color: #f8f9fa;
+    background-color: #0a0a0a;
 }
 
 /* Full page tips section */
@@ -831,21 +1045,15 @@ footer {
     padding-top: 5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-    .alt-bg {
-        background-color: #121212;
-    }
-}
-
 /* Privacy pagina stijlen */
 .privacy-section {
-    padding: 5rem 0;
-    background-color: white;
+    padding: 8rem 0 4rem;
+    background-color: var(--background-color);
 }
 
 .privacy-content {
-    background-color: white;
-    border-radius: 8px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
     padding: 2rem;
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color);
@@ -863,9 +1071,9 @@ footer {
 }
 
 .privacy-item {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
+    padding: 2rem 0;
     border-bottom: 1px solid var(--border-color);
+    background-color: var(--card-background);
 }
 
 .privacy-item:last-child {
@@ -901,11 +1109,12 @@ footer {
 
 /* Contact formulier stijlen */
 .contact-form {
-    margin-top: 2rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
     padding: 2rem;
+    box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color);
+    margin-top: 2rem;
 }
 
 .form-group {
@@ -928,7 +1137,7 @@ footer {
     border-radius: var(--border-radius);
     font-family: inherit;
     font-size: 1rem;
-    background-color: white;
+    background-color: var(--card-background);
     color: var(--text-color);
     transition: var(--transition);
 }
@@ -938,23 +1147,25 @@ footer {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--secondary-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    background-color: rgba(30, 30, 30, 0.8);
 }
 
 .contact-submit-btn {
-    background-color: var(--secondary-color);
-    color: white;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #5dade2;
+    color: #000000;
     border: none;
-    padding: 0.875rem 1.5rem;
     border-radius: var(--border-radius);
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 1rem;
+    margin-top: 1rem;
 }
 
 .contact-submit-btn:hover {
-    background-color: #2980b9;
+    background-color: #7fc4f1;
     transform: translateY(-2px);
 }
 
@@ -970,100 +1181,35 @@ footer {
 }
 
 .form-status.success {
-    display: block;
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: #1e4620;
+    color: #d4edda;
+    border-color: #2a623d;
 }
 
 .form-status.error {
-    display: block;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-/* Dark Mode voor Privacy Pagina */
-@media (prefers-color-scheme: dark) {
-    .privacy-section {
-        background-color: #121212;
-    }
-    
-    .privacy-content {
-        background-color: #1e1e1e;
-        border-color: #333333;
-    }
-    
-    .privacy-intro, .privacy-item {
-        border-color: #333333;
-    }
-    
-    .contact-form {
-        background-color: #1a1a1a;
-        border-color: #333333;
-    }
-    
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        background-color: #1e1e1e;
-        border-color: #333333;
-        color: #e0e0e0;
-    }
-    
-    .form-status.success {
-        background-color: #1e4620;
-        color: #d4edda;
-        border-color: #2a623d;
-    }
-    
-    .form-status.error {
-        background-color: #4c1d1b;
-        color: #f8d7da;
-        border-color: #742c2a;
-    }
-    
-    /* Zorg ervoor dat alle secties een donkere achtergrond hebben */
-    .hero, .small-hero, .generator-section, .features-section, .tips-section, .alt-bg {
-        background-color: #121212;
-    }
-    
-    /* Zorg ervoor dat alle containers een donkere achtergrond hebben */
-    .container, .generator-container, .features-grid, .tips-grid {
-        background-color: transparent;
-    }
-    
-    /* Zorg ervoor dat alle kaarten een donkere achtergrond hebben */
-    .feature-card, .tip-card {
-        background-color: #1e1e1e;
-        border-color: #333333;
-    }
-    
-    /* Zorg ervoor dat alle formulieren een donkere achtergrond hebben */
-    form, .form-group, .contact-form {
-        background-color: #1a1a1a;
-    }
-    
-    /* Zorg ervoor dat alle knoppen een donkere achtergrond hebben */
-    button, .btn, .cta-button a, .generate-btn, .contact-submit-btn {
-        background-color: var(--primary-color);
-        color: white;
-    }
-    
-    /* Zorg ervoor dat alle invoervelden een donkere achtergrond hebben */
-    input, select, textarea {
-        background-color: #1e1e1e;
-        color: #e0e0e0;
-        border-color: #333333;
-    }
+    background-color: #4c1d1b;
+    color: #f8d7da;
+    border-color: #742c2a;
 }
 
 /* Verwijder alle visitor-info-popup stijlen */
 .visitor-info-popup {
-    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
-.visitor-info-content,
+.visitor-info-content {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    box-shadow: var(--shadow-md);
+    max-width: 300px;
+}
+
 .visitor-info-section,
 .visitor-info-section h3,
 .visitor-info-section p,
@@ -1078,4 +1224,139 @@ footer {
     }
 }
 
+/* Verbeterde toegankelijkheid */
+:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
 
+/* Verbeterde focus states voor interactieve elementen */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Zorg ervoor dat de focus state zichtbaar blijft, zelfs als er een hover state is */
+a:hover:focus,
+button:hover:focus,
+input:hover:focus,
+select:hover:focus,
+textarea:hover:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Verbeterde contrast voor tekst */
+p, li, label, input, textarea, select {
+    color: var(--text-color);
+}
+
+/* Verbeterde contrast voor links */
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover, a:focus {
+    color: #7fc4f1; /* Lichtere versie van secondary-color voor betere zichtbaarheid */
+    text-decoration: underline;
+}
+
+/* Verbeterde contrast voor knoppen */
+.cta-button a,
+.generate-btn,
+.contact-submit-btn,
+#copy-button {
+    background-color: var(--secondary-color);
+    color: #000000; /* Zwarte tekst op lichte achtergrond voor betere leesbaarheid */
+    font-weight: 600;
+}
+
+.cta-button a:hover,
+.generate-btn:hover,
+.contact-submit-btn:hover,
+#copy-button:hover {
+    background-color: #7fc4f1; /* Lichtere versie van secondary-color */
+}
+
+/* Skip link voor toetsenbordgebruikers */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background-color: var(--secondary-color);
+    color: #000000;
+    padding: 8px;
+    z-index: 9999;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Performance optimalisaties */
+/* Gebruik van will-change voor elementen die vaak animeren */
+.cta-button a,
+.generate-btn,
+.tip-card,
+.feature-card {
+    will-change: transform;
+}
+
+/* Gebruik van hardware-accelerated properties voor soepele animaties */
+.cta-button a:hover,
+.generate-btn:hover,
+.tip-card:hover,
+.feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Verminder repaints door transform te gebruiken in plaats van top/left/bottom/right */
+.skip-link {
+    transform: translateY(-100%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* Optimaliseer voor mobiele apparaten */
+@media (max-width: 576px) {
+    /* Verminder de complexiteit van achtergronden op mobiel */
+    .hero::before {
+        opacity: 0.2;
+    }
+    
+    /* Verminder de complexiteit van schaduwen op mobiel */
+    .cta-button a,
+    .generate-btn,
+    .tip-card,
+    .feature-card,
+    .generator-container,
+    .privacy-content {
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+}
+
+/* Moderne browsers met CSS Variables ondersteuning */
+@supports (--custom: property) {
+    body {
+        color: var(--text-color);
+        background-color: var(--background-color);
+    }
+    
+    a {
+        color: var(--secondary-color);
+    }
+    
+    .cta-button a, .generate-btn, .contact-submit-btn, #copy-button {
+        background-color: var(--secondary-color);
+    }
+}

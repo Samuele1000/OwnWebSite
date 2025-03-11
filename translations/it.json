@@ -7,6 +7,10 @@
         "statistics": "Statistiche",
         "privacy": "Privacy"
     },
+    "accessibility": {
+        "skipToContent": "Vai al contenuto",
+        "copyToClipboard": "Copia negli appunti"
+    },
     "hero": {
         "title": "Proteggi la Tua Identità Online",
         "subtitle": "In un mondo pieno di minacce informatiche, una password forte è la tua prima linea di difesa",
@@ -42,10 +46,67 @@
             "numbers": "Aggiungi Numeri",
             "special": "Aggiungi Caratteri Speciali"
         },
-        "generateButton": "Genera Username"
+        "generateButton": "Genera Username",
+        "tips": {
+            "title": "Caratteristiche di un Username Forte",
+            "cards": {
+                "random": {
+                    "title": "Casuale",
+                    "text": "Evita informazioni personali come il tuo nome o data di nascita che possono essere facilmente collegate a te."
+                },
+                "simple": {
+                    "title": "Semplice ma Complesso",
+                    "text": "Scegli un nome utente che puoi ricordare facilmente, ma che è difficile da indovinare per gli altri."
+                },
+                "unique": {
+                    "title": "Unico per Account",
+                    "text": "Usa un nome utente diverso per ogni account per impedire agli hacker di trovare più account."
+                },
+                "security": {
+                    "title": "Sicurezza Extra",
+                    "text": "Combina il tuo nome utente unico con una password forte e l'autenticazione a due fattori per la massima sicurezza."
+                }
+            }
+        },
+        "features": {
+            "title": "Vantaggi del Nostro Generatore",
+            "cards": {
+                "privacy": {
+                    "title": "Protezione della Privacy",
+                    "text": "I nostri nomi utente non contengono informazioni personali che potrebbero rivelare la tua identità."
+                },
+                "universal": {
+                    "title": "Utilizzabile Universalmente",
+                    "text": "Genera nomi utente che possono essere utilizzati praticamente su tutte le piattaforme e servizi."
+                },
+                "random": {
+                    "title": "Completamente Casuale",
+                    "text": "I nostri algoritmi garantiscono nomi utente casuali e unici che non sono prevedibili."
+                }
+            }
+        }
+    },
+    "features": {
+        "title": "Perché SemSecurity?",
+        "cards": {
+            "secure": {
+                "title": "Sicuro e Affidabile",
+                "text": "Tutte le password vengono generate localmente senza essere memorizzate o trasmesse."
+            },
+            "fast": {
+                "title": "Veloce ed Efficiente",
+                "text": "Genera password forti in pochi secondi con i nostri algoritmi avanzati."
+            },
+            "responsive": {
+                "title": "Completamente Responsive",
+                "text": "Usa i nostri strumenti su qualsiasi dispositivo, dal desktop allo smartphone."
+            }
+        }
     },
     "tips": {
         "title": "Consigli per la Password",
+        "pageTitle": "Consigli di Sicurezza",
+        "subtitle": "Scopri come proteggere la tua identità online con questi consigli di sicurezza essenziali",
         "cards": {
             "length": {
                 "title": "Usa Password Lunghe",
@@ -62,6 +123,104 @@
             "2fa": {
                 "title": "Attiva 2FA",
                 "text": "Attiva l'autenticazione a due fattori dove possibile per maggiore sicurezza."
+            }
+        },
+        "general": {
+            "title": "Consigli Generali di Sicurezza",
+            "cards": {
+                "software": {
+                    "title": "Mantieni il Software Aggiornato",
+                    "text": "Assicurati che il tuo sistema operativo, browser e app siano sempre aggiornati con le ultime patch di sicurezza."
+                },
+                "wifi": {
+                    "title": "Attenzione al WiFi Pubblico",
+                    "text": "Usa una VPN quando ti connetti a reti WiFi pubbliche per proteggere i tuoi dati."
+                },
+                "phishing": {
+                    "title": "Riconosci il Phishing",
+                    "text": "Fai attenzione a email e messaggi sospetti che cercano di estrarre le tue informazioni personali."
+                },
+                "manager": {
+                    "title": "Usa Gestori di Password",
+                    "text": "Considera l'utilizzo di un gestore di password per memorizzare in modo sicuro tutte le tue password uniche."
+                }
+            }
+        }
+    },
+    "privacy": {
+        "title": "Informativa sulla Privacy | SemSecurity",
+        "pageTitle": "Informativa sulla Privacy",
+        "subtitle": "Teniamo alla protezione della tua privacy e dei tuoi dati personali",
+        "intro": {
+            "text1": "In SemSecurity, diamo grande valore alla protezione della tua privacy. In questa informativa sulla privacy, spieghiamo quali dati raccogliamo, perché li raccogliamo e come li utilizziamo.",
+            "lastUpdate": "Ultimo aggiornamento:",
+            "date": "10-03-2025"
+        },
+        "sections": {
+            "collected": {
+                "title": "1. Dati Raccolti",
+                "text": "Quando visiti il nostro sito web, raccogliamo le seguenti informazioni:",
+                "items": [
+                    "Indirizzo IP",
+                    "Tipo e versione del browser",
+                    "Sistema operativo",
+                    "Data e ora della tua visita",
+                    "Pagine che visiti"
+                ]
+            },
+            "purpose": {
+                "title": "2. Scopo della Raccolta Dati",
+                "text": "Raccogliamo questi dati per i seguenti scopi:",
+                "items": [
+                    "Migliorare il nostro sito web e i nostri servizi",
+                    "Analizzare il comportamento degli utenti per ottimizzare il nostro sito web",
+                    "Proteggere il nostro sito web da abusi e frodi"
+                ]
+            },
+            "cookies": {
+                "title": "3. Cookie",
+                "text": "Il nostro sito web utilizza cookie funzionali per memorizzare la tua preferenza linguistica. Questi cookie sono necessari per il funzionamento del sito web e non vengono utilizzati per il tracciamento o per scopi pubblicitari."
+            },
+            "storage": {
+                "title": "4. Conservazione dei Dati",
+                "text": "I dati raccolti vengono conservati su server sicuri e non vengono conservati più a lungo del necessario per gli scopi per cui sono stati raccolti."
+            },
+            "sharing": {
+                "title": "5. Condivisione dei Dati",
+                "text": "Non condividiamo i tuoi dati con terze parti a meno che non sia richiesto dalla legge o necessario per fornire i nostri servizi."
+            },
+            "rights": {
+                "title": "6. I Tuoi Diritti",
+                "text": "Hai i seguenti diritti riguardo ai tuoi dati personali:",
+                "items": [
+                    "Diritto di accesso ai tuoi dati personali",
+                    "Diritto di correzione dei dati personali inesatti",
+                    "Diritto alla cancellazione dei tuoi dati personali",
+                    "Diritto alla limitazione del trattamento dei tuoi dati personali",
+                    "Diritto di opposizione al trattamento dei tuoi dati personali",
+                    "Diritto alla portabilità dei dati"
+                ]
+            },
+            "contact": {
+                "title": "7. Contatto",
+                "text": "Se hai domande sulla nostra informativa sulla privacy o se desideri esercitare i tuoi diritti, puoi contattarci tramite il modulo sottostante:",
+                "form": {
+                    "name": "Nome:",
+                    "email": "Email:",
+                    "subject": "Oggetto:",
+                    "subjectOptions": {
+                        "select": "Seleziona un oggetto",
+                        "access": "Diritto di accesso",
+                        "correction": "Diritto di correzione",
+                        "deletion": "Diritto di cancellazione",
+                        "restriction": "Diritto di limitazione",
+                        "objection": "Diritto di opposizione",
+                        "portability": "Diritto alla portabilità dei dati",
+                        "question": "Domanda generale"
+                    },
+                    "message": "Messaggio:",
+                    "submit": "Invia"
+                }
             }
         }
     },
@@ -84,9 +243,6 @@
                 "text": "per una password debole"
             }
         }
-    },
-    "privacy": {
-        "title": "Informativa sulla Privacy | SemSecurity"
     },
     "footer": {
         "description": "Proteggi la tua identità online con password forti e nomi utente unici.",

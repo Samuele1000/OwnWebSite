@@ -7,6 +7,10 @@
         "statistics": "Statistics",
         "privacy": "Privacy"
     },
+    "accessibility": {
+        "skipToContent": "Skip to content",
+        "copyToClipboard": "Copy to clipboard"
+    },
     "hero": {
         "title": "Protect Your Online Identity",
         "subtitle": "In a world full of cyber threats, a strong password is your first line of defense",
@@ -42,10 +46,67 @@
             "numbers": "Add Numbers",
             "special": "Add Special Characters"
         },
-        "generateButton": "Generate Username"
+        "generateButton": "Generate Username",
+        "tips": {
+            "title": "Characteristics of a Strong Username",
+            "cards": {
+                "random": {
+                    "title": "Random",
+                    "text": "Avoid personal information like your name or birth date that can be easily linked to you."
+                },
+                "simple": {
+                    "title": "Simple yet Complex",
+                    "text": "Choose a username that you can easily remember, but is difficult for others to guess."
+                },
+                "unique": {
+                    "title": "Unique per Account",
+                    "text": "Use a different username for each account to prevent hackers from finding multiple accounts."
+                },
+                "security": {
+                    "title": "Extra Security",
+                    "text": "Combine your unique username with a strong password and two-factor authentication for maximum security."
+                }
+            }
+        },
+        "features": {
+            "title": "Benefits of Our Generator",
+            "cards": {
+                "privacy": {
+                    "title": "Privacy Protection",
+                    "text": "Our usernames contain no personal information that could reveal your identity."
+                },
+                "universal": {
+                    "title": "Universally Usable",
+                    "text": "Generate usernames that can be used on virtually all platforms and services."
+                },
+                "random": {
+                    "title": "Completely Random",
+                    "text": "Our algorithms ensure random and unique usernames that are not predictable."
+                }
+            }
+        }
+    },
+    "features": {
+        "title": "Why SemSecurity?",
+        "cards": {
+            "secure": {
+                "title": "Safe & Reliable",
+                "text": "All passwords are generated locally without being stored or transmitted."
+            },
+            "fast": {
+                "title": "Fast & Efficient",
+                "text": "Generate strong passwords in seconds with our advanced algorithms."
+            },
+            "responsive": {
+                "title": "Fully Responsive",
+                "text": "Use our tools on any device, from desktop to smartphone."
+            }
+        }
     },
     "tips": {
         "title": "Password Tips",
+        "pageTitle": "Security Tips",
+        "subtitle": "Discover how to protect your online identity with these essential security tips",
         "cards": {
             "length": {
                 "title": "Use Long Passwords",
@@ -62,6 +123,104 @@
             "2fa": {
                 "title": "Enable 2FA",
                 "text": "Enable two-factor authentication wherever possible for extra security."
+            }
+        },
+        "general": {
+            "title": "General Security Tips",
+            "cards": {
+                "software": {
+                    "title": "Keep Software Up-to-Date",
+                    "text": "Ensure your operating system, browsers, and apps are always updated with the latest security patches."
+                },
+                "wifi": {
+                    "title": "Be Careful with Public WiFi",
+                    "text": "Use a VPN when connecting to public WiFi networks to protect your data."
+                },
+                "phishing": {
+                    "title": "Recognize Phishing",
+                    "text": "Be alert to suspicious emails and messages trying to extract your personal information."
+                },
+                "manager": {
+                    "title": "Use Password Managers",
+                    "text": "Consider using a password manager to securely store all your unique passwords."
+                }
+            }
+        }
+    },
+    "privacy": {
+        "title": "Privacy Policy | SemSecurity",
+        "pageTitle": "Privacy Policy",
+        "subtitle": "We value the protection of your privacy and personal data",
+        "intro": {
+            "text1": "At SemSecurity, we highly value the protection of your privacy. In this privacy policy, we explain what data we collect, why we collect it, and how we use it.",
+            "lastUpdate": "Last update:",
+            "date": "03-10-2025"
+        },
+        "sections": {
+            "collected": {
+                "title": "1. Collected Data",
+                "text": "When you visit our website, we collect the following information:",
+                "items": [
+                    "IP address",
+                    "Browser type and version",
+                    "Operating system",
+                    "Date and time of your visit",
+                    "Pages you visit"
+                ]
+            },
+            "purpose": {
+                "title": "2. Purpose of Data Collection",
+                "text": "We collect this data for the following purposes:",
+                "items": [
+                    "Improving our website and services",
+                    "Analyzing user behavior to optimize our website",
+                    "Securing our website against abuse and fraud"
+                ]
+            },
+            "cookies": {
+                "title": "3. Cookies",
+                "text": "Our website uses functional cookies to store your language preference. These cookies are necessary for the functioning of the website and are not used for tracking or advertising purposes."
+            },
+            "storage": {
+                "title": "4. Data Storage",
+                "text": "The collected data is stored on secure servers and is not kept longer than necessary for the purposes for which it was collected."
+            },
+            "sharing": {
+                "title": "5. Sharing of Data",
+                "text": "We do not share your data with third parties unless legally required or necessary for providing our services."
+            },
+            "rights": {
+                "title": "6. Your Rights",
+                "text": "You have the following rights regarding your personal data:",
+                "items": [
+                    "Right to access your personal data",
+                    "Right to correct inaccurate personal data",
+                    "Right to delete your personal data",
+                    "Right to restrict the processing of your personal data",
+                    "Right to object to the processing of your personal data",
+                    "Right to data portability"
+                ]
+            },
+            "contact": {
+                "title": "7. Contact",
+                "text": "If you have questions about our privacy policy or if you want to exercise your rights, you can contact us through the form below:",
+                "form": {
+                    "name": "Name:",
+                    "email": "Email:",
+                    "subject": "Subject:",
+                    "subjectOptions": {
+                        "select": "Select a subject",
+                        "access": "Right to access",
+                        "correction": "Right to correction",
+                        "deletion": "Right to deletion",
+                        "restriction": "Right to restriction",
+                        "objection": "Right to objection",
+                        "portability": "Right to data portability",
+                        "question": "General question"
+                    },
+                    "message": "Message:",
+                    "submit": "Submit"
+                }
             }
         }
     },
@@ -84,9 +243,6 @@
                 "text": "for a weak password"
             }
         }
-    },
-    "privacy": {
-        "title": "Privacy Policy | SemSecurity"
     },
     "footer": {
         "description": "Protect your online identity with strong passwords and unique usernames.",

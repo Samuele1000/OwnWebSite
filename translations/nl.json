@@ -7,6 +7,10 @@
         "statistics": "Statistieken",
         "privacy": "Privacy"
     },
+    "accessibility": {
+        "skipToContent": "Skip naar inhoud",
+        "copyToClipboard": "Kopiëren naar klembord"
+    },
     "hero": {
         "title": "Bescherm Je Online Identiteit",
         "subtitle": "In een wereld vol cyberdreigingen is een sterk wachtwoord je eerste verdedigingslinie",
@@ -42,10 +46,67 @@
             "numbers": "Voeg Cijfers Toe",
             "special": "Voeg Speciale Tekens Toe"
         },
-        "generateButton": "Genereer Gebruikersnaam"
+        "generateButton": "Genereer Gebruikersnaam",
+        "tips": {
+            "title": "Kenmerken van een Sterke Gebruikersnaam",
+            "cards": {
+                "random": {
+                    "title": "Willekeurig",
+                    "text": "Vermijd persoonlijke gegevens zoals je naam of geboortedatum die gemakkelijk aan jou kunnen worden gekoppeld."
+                },
+                "simple": {
+                    "title": "Eenvoudig maar Complex",
+                    "text": "Kies een gebruikersnaam die je gemakkelijk kunt onthouden, maar die lastig te raden is voor anderen."
+                },
+                "unique": {
+                    "title": "Uniek per Account",
+                    "text": "Gebruik voor elk account een andere gebruikersnaam om te voorkomen dat hackers meerdere accounts kunnen vinden."
+                },
+                "security": {
+                    "title": "Extra Beveiliging",
+                    "text": "Combineer je unieke gebruikersnaam met een sterk wachtwoord en tweefactorauthenticatie voor maximale beveiliging."
+                }
+            }
+        },
+        "features": {
+            "title": "Voordelen van Onze Generator",
+            "cards": {
+                "privacy": {
+                    "title": "Privacy Bescherming",
+                    "text": "Onze gebruikersnamen bevatten geen persoonlijke informatie die je identiteit kan onthullen."
+                },
+                "universal": {
+                    "title": "Universeel Bruikbaar",
+                    "text": "Genereer gebruikersnamen die op vrijwel alle platforms en diensten kunnen worden gebruikt."
+                },
+                "random": {
+                    "title": "Volledig Willekeurig",
+                    "text": "Onze algoritmes zorgen voor willekeurige en unieke gebruikersnamen die niet te voorspellen zijn."
+                }
+            }
+        }
+    },
+    "features": {
+        "title": "Waarom SemSecurity?",
+        "cards": {
+            "secure": {
+                "title": "Veilig & Betrouwbaar",
+                "text": "Alle wachtwoorden worden lokaal gegenereerd zonder dat ze worden opgeslagen of verzonden."
+            },
+            "fast": {
+                "title": "Snel & Efficiënt",
+                "text": "Genereer sterke wachtwoorden in seconden met onze geavanceerde algoritmes."
+            },
+            "responsive": {
+                "title": "Volledig Responsief",
+                "text": "Gebruik onze tools op elk apparaat, van desktop tot smartphone."
+            }
+        }
     },
     "tips": {
         "title": "Wachtwoord Tips",
+        "pageTitle": "Beveiligingstips",
+        "subtitle": "Ontdek hoe je je online identiteit kunt beschermen met deze essentiële beveiligingstips",
         "cards": {
             "length": {
                 "title": "Gebruik Lange Wachtwoorden",
@@ -62,6 +123,104 @@
             "2fa": {
                 "title": "2FA Activeren",
                 "text": "Activeer waar mogelijk tweefactorauthenticatie voor extra beveiliging."
+            }
+        },
+        "general": {
+            "title": "Algemene Beveiligingstips",
+            "cards": {
+                "software": {
+                    "title": "Houd Software Up-to-Date",
+                    "text": "Zorg dat je besturingssysteem, browsers en apps altijd zijn bijgewerkt met de nieuwste beveiligingsupdates."
+                },
+                "wifi": {
+                    "title": "Wees Voorzichtig met Openbare WiFi",
+                    "text": "Gebruik een VPN wanneer je verbinding maakt met openbare WiFi-netwerken om je gegevens te beschermen."
+                },
+                "phishing": {
+                    "title": "Herken Phishing",
+                    "text": "Wees alert op verdachte e-mails en berichten die proberen je persoonlijke gegevens te ontfutselen."
+                },
+                "manager": {
+                    "title": "Gebruik Wachtwoordmanagers",
+                    "text": "Overweeg het gebruik van een wachtwoordmanager om al je unieke wachtwoorden veilig op te slaan."
+                }
+            }
+        }
+    },
+    "privacy": {
+        "title": "Privacyverklaring | SemSecurity",
+        "pageTitle": "Privacyverklaring",
+        "subtitle": "Wij hechten waarde aan de bescherming van uw privacy en persoonlijke gegevens",
+        "intro": {
+            "text1": "Bij SemSecurity hechten we veel waarde aan de bescherming van uw privacy. In deze privacyverklaring leggen we uit welke gegevens we verzamelen, waarom we deze verzamelen en hoe we deze gebruiken.",
+            "lastUpdate": "Laatste update:",
+            "date": "10-03-2025"
+        },
+        "sections": {
+            "collected": {
+                "title": "1. Verzamelde gegevens",
+                "text": "Wanneer u onze website bezoekt, verzamelen we de volgende informatie:",
+                "items": [
+                    "IP-adres",
+                    "Browsertype en -versie",
+                    "Besturingssysteem",
+                    "Datum en tijd van uw bezoek",
+                    "Pagina's die u bezoekt"
+                ]
+            },
+            "purpose": {
+                "title": "2. Doel van gegevensverzameling",
+                "text": "We verzamelen deze gegevens voor de volgende doeleinden:",
+                "items": [
+                    "Het verbeteren van onze website en diensten",
+                    "Het analyseren van gebruikersgedrag om onze website te optimaliseren",
+                    "Het beveiligen van onze website tegen misbruik en fraude"
+                ]
+            },
+            "cookies": {
+                "title": "3. Cookies",
+                "text": "Onze website maakt gebruik van functionele cookies om uw taalvoorkeur op te slaan. Deze cookies zijn noodzakelijk voor het functioneren van de website en worden niet gebruikt voor tracking of advertentiedoeleinden."
+            },
+            "storage": {
+                "title": "4. Gegevensopslag",
+                "text": "De verzamelde gegevens worden opgeslagen op beveiligde servers en worden niet langer bewaard dan noodzakelijk voor de doeleinden waarvoor ze zijn verzameld."
+            },
+            "sharing": {
+                "title": "5. Delen van gegevens",
+                "text": "Wij delen uw gegevens niet met derden, tenzij dit wettelijk verplicht is of noodzakelijk is voor het leveren van onze diensten."
+            },
+            "rights": {
+                "title": "6. Uw rechten",
+                "text": "U heeft de volgende rechten met betrekking tot uw persoonsgegevens:",
+                "items": [
+                    "Recht op inzage in uw persoonsgegevens",
+                    "Recht op correctie van onjuiste persoonsgegevens",
+                    "Recht op verwijdering van uw persoonsgegevens",
+                    "Recht op beperking van de verwerking van uw persoonsgegevens",
+                    "Recht op bezwaar tegen de verwerking van uw persoonsgegevens",
+                    "Recht op dataportabiliteit"
+                ]
+            },
+            "contact": {
+                "title": "7. Contact",
+                "text": "Als u vragen heeft over onze privacyverklaring of als u gebruik wilt maken van uw rechten, kunt u contact met ons opnemen via het onderstaande formulier:",
+                "form": {
+                    "name": "Naam:",
+                    "email": "E-mail:",
+                    "subject": "Onderwerp:",
+                    "subjectOptions": {
+                        "select": "Selecteer een onderwerp",
+                        "access": "Recht op inzage",
+                        "correction": "Recht op correctie",
+                        "deletion": "Recht op verwijdering",
+                        "restriction": "Recht op beperking",
+                        "objection": "Recht op bezwaar",
+                        "portability": "Recht op dataportabiliteit",
+                        "question": "Algemene vraag"
+                    },
+                    "message": "Bericht:",
+                    "submit": "Verzenden"
+                }
             }
         }
     },
@@ -84,9 +243,6 @@
                 "text": "voor een zwak wachtwoord"
             }
         }
-    },
-    "privacy": {
-        "title": "Privacyverklaring | SemSecurity"
     },
     "footer": {
         "description": "Bescherm je online identiteit met sterke wachtwoorden en unieke gebruikersnamen.",
